@@ -14,14 +14,23 @@ class MainActivity : AppCompatActivity() {
                 textMessage.setText(R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                textMessage.setText(R.string.title_dashboard)
+            R.id.navigation_calendar -> {
+                textMessage.setText(R.string.title_calendar)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
-                textMessage.setText(R.string.title_notifications)
+            R.id.navigation_shelf_read_room_status -> {
+                textMessage.setText(R.string.title_shelf_read_room_status)
                 return@OnNavigationItemSelectedListener true
             }
+            R.id.navigation_replacement_lesson_list -> {
+                textMessage.setText(R.string.title_replacement_lesson_list)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_profile -> {
+                textMessage.setText(R.string.title_profile)
+                return@OnNavigationItemSelectedListener true
+            }
+
         }
         false
     }
