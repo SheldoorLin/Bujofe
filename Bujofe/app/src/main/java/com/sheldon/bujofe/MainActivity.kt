@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                textMessage.setText(R.string.title_home)
+                textMessage.setText(R.string.app_name)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_calendar -> {
