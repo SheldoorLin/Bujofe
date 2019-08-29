@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    
+    
+<!--    Calendar Use-->
+    <color name="Color_gray_aeaeae">#aeaeae</color>
+    <color name="Color_gray_ffffff">#ffffff</color>
 </resources>
