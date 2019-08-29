@@ -6,4 +6,9 @@
     <string name="title_replacement_lesson_list">補課紀錄</string>
     <string name="title_profile">個人</string>
     <string name="roll_name">點名</string>
+    <string name="home_notice_text">獎學金公告~~~以下的同學有福拉:\n
+        XXX\n
+        OOO\n
+        CCC\n
+        EEE\n </string>
 </resources>
