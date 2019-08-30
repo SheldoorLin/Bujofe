@@ -1,4 +1,4 @@
-package com.sheldon.bujofe.study_room
+package com.sheldon.bujofe.studyroom
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -6,13 +6,13 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.sheldon.bujofe.study_room.StudyRoomViewModel" />
+                type="com.sheldon.bujofe.studyroom.StudyRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".study_room.StudyRoomFragment">
+            tools:context=".studyroom.StudyRoomFragment">
 
 
         <Spinner

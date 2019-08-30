@@ -1,10 +1,7 @@
-package com.sheldon.bujofe.study_room
+package com.sheldon.bujofe.studyroom
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.sheldon.bujofe.`object`.Weekday
 
 class StudyRoomViewModel : ViewModel() {
 

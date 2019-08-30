@@ -1,21 +1,17 @@
-package com.sheldon.bujofe.study_room
+package com.sheldon.bujofe.studyroom
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
 import com.sheldon.bujofe.BujofeApplication
 
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.Seat
-import com.sheldon.bujofe.`object`.Weekday
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 class StudyRoomFragment : Fragment() {
 
