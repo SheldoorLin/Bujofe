@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.roundtableapps.timelinedayviewlibrary.Event
-import com.roundtableapps.timelinedayviewlibrary.EventView
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentCalendarBinding
 import android.util.Log
+import com.roundtableapps.timelinedayviewlibrary.Event
+import com.roundtableapps.timelinedayviewlibrary.EventView
 
 class CalendarFragment : Fragment() {
 
@@ -30,7 +30,7 @@ class CalendarFragment : Fragment() {
         }
 
 
-        val fromValue = System.currentTimeMillis()
+        val fromValue = 1567126986832
         val toValue = System.currentTimeMillis()
 
         val myEvent = Event()
