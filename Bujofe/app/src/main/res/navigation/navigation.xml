@@ -23,4 +23,8 @@
     <action
             android:id="@+id/action_global_calendarFragment"
             app:destination="@id/calendarFragment" />
+    <fragment
+            android:id="@+id/studyRoomFragment"
+            android:name="com.sheldon.bujofe.study_room.StudyRoomFragment"
+            android:label="StudyRoomFragment" /><action android:id="@+id/action_global_studyRoomFragment" app:destination="@id/studyRoomFragment"/>
 </navigation>

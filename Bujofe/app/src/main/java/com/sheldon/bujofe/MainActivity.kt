@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_shelf_read_room_status -> {
                     textMessage.setText(R.string.title_shelf_read_room_status)
+                    navController.navigate(R.id.action_global_studyRoomFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_replacement_lesson_list -> {
