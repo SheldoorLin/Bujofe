@@ -16,6 +16,20 @@
             android:label="fragment_calendar"
             tools:layout="@layout/fragment_calendar" />
 
+    <fragment
+            android:id="@+id/studyRoomFragment"
+            android:name="com.sheldon.bujofe.studyroom.StudyRoomFragment"
+            android:label="StudyRoomFragment" />
+
+    <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.sheldon.bujofe.profile.ProfileFragment"
+            android:label="ProfileFragment" />
+
+    <fragment
+            android:id="@+id/reclassFragment"
+            android:name="com.sheldon.bujofe.reclass.ReclassFragment"
+            android:label="ReclassFragment" />
 
     <action
             android:id="@+id/action_global_homeFragment"
@@ -23,8 +37,16 @@
     <action
             android:id="@+id/action_global_calendarFragment"
             app:destination="@id/calendarFragment" />
-    <fragment
-            android:id="@+id/studyRoomFragment"
-            android:name="com.sheldon.bujofe.studyroom.StudyRoomFragment"
-            android:label="StudyRoomFragment" /><action android:id="@+id/action_global_studyRoomFragment" app:destination="@id/studyRoomFragment"/>
+
+    <action
+            android:id="@+id/action_global_studyRoomFragment"
+            app:destination="@id/studyRoomFragment" />
+
+    <action
+            android:id="@+id/action_global_profileFragment"
+            app:destination="@id/profileFragment" />
+
+    <action
+            android:id="@+id/action_global_reclassFragment"
+            app:destination="@id/reclassFragment" />
 </navigation>

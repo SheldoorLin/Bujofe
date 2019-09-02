@@ -17,6 +17,7 @@
 
     <!--seat-->
     <string name="seat_name">姓名</string>
+    <string name="name_text">Sheldon Lin</string>
     <string-array name="week">
         <item >星期一</item>
         <item >星期二</item>

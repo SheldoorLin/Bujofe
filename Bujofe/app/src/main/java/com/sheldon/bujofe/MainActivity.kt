@@ -30,10 +30,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_replacement_lesson_list -> {
                     textMessage.setText(R.string.title_replacement_lesson_list)
+                    navController.navigate(R.id.action_global_reclassFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
                     textMessage.setText(R.string.title_profile)
+                    navController.navigate(R.id.action_global_profileFragment)
                     return@OnNavigationItemSelectedListener true
                 }
 

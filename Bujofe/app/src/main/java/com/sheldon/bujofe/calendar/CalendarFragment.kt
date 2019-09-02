@@ -24,9 +24,6 @@ class CalendarFragment : Fragment() {
         val binding = FragmentCalendarBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-
-
-
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val msg = "Selected date is $year/${month + 1}/$dayOfMonth"
             binding.textView2.text = msg
