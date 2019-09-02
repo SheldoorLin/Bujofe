@@ -89,6 +89,4 @@ dependencies {
     implementation "androidx.fragment:fragment:$version_fragment"
     implementation "androidx.fragment:fragment-testing:$version_fragment"
 
-    //calendar
-    implementation 'com.github.r3za13:android-timeline-schedule-view:0.9'
 }

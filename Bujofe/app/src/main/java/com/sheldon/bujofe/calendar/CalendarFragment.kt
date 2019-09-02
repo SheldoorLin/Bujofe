@@ -57,7 +57,7 @@ class CalendarFragment : Fragment() {
             Event().apply {
                 startTime = 1F
                 endTime = 6F
-                title="2"
+                title = "2"
 
             },//加入開始結束時間
             itemsMargin = 1, //與旁邊方塊的間隔
@@ -79,7 +79,7 @@ class CalendarFragment : Fragment() {
             Event().apply {
                 startTime = 2F
                 endTime = 4F
-                title="2"
+                title = "2"
 
             },
             itemsMargin = 1, //optional
