@@ -8,4 +8,9 @@
 <!--    Calendar Use-->
     <color name="Color_gray_aeaeae">#aeaeae</color>
     <color name="Color_gray_ffffff">#ffffff</color>
+
+
+
+    <color name="divider_color">#4e4e4e</color>
+    <color name="title_color">#FFFFFF</color>
 </resources>
