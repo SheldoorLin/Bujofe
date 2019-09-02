@@ -27,7 +27,7 @@ class CalendarViewModel : ViewModel() {
             myView.findViewById<TextView>(R.id.tvTitle).text = "品翔要健身囉"
             Log.d("Sheldon", "setupView1,I'am here")
         },
-        onItemClick = { event ->
+        onItemClick = { _ ->
             //CLICK EVENT
             Log.d("Sheldon", "I'am here,onItemClick")
         }
@@ -48,7 +48,7 @@ class CalendarViewModel : ViewModel() {
             myView.findViewById<TextView>(R.id.tvTitle).text = "我要健身囉"
             Log.d("Sheldon", "setupView2,I'am here")
         },
-        onItemClick = { event ->
+        onItemClick = { _ ->
             //CLICK EVENT
             Log.d("Sheldon", "I'am here,onItemClick")
         }
@@ -69,7 +69,7 @@ class CalendarViewModel : ViewModel() {
             myView.findViewById<TextView>(R.id.tvTitle).text = "吃飯時間"
             Log.d("Sheldon", "setupView2,I'am here")
         },
-        onItemClick = { event ->
+        onItemClick = { _ ->
             //CLICK EVENT
             Log.d("Sheldon", "I'am here,onItemClick")
         }
