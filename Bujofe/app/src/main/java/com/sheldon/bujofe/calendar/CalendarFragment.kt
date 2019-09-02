@@ -25,21 +25,21 @@ class CalendarFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
+
+
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val msg = "Selected date is $year/${month + 1}/$dayOfMonth"
             binding.textView2.text = msg
+
+            /**
+             *加入日歷事件
+             */
+            binding.timeLine.run {
+                addEvent(viewModel.myEventView)
+                addEvent(viewModel.myEventView2)
+                addEvent(viewModel.myEventView3)
+            }
         }
-
-        
-
-
-        //加入事件
-        binding.timeLine.run {
-            addEvent(viewModel.myEventView)
-            addEvent(viewModel.myEventView2)
-            addEvent(viewModel.myEventView3)
-        }
-
 
         return binding.root
     }
