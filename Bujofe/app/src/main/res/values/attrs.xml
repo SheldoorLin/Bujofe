@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Calendar.Timeline Settings-->
 <resources>
     <declare-styleable name="TimeLineLayout">
         <attr name="numberOfRows" format="integer"/>
