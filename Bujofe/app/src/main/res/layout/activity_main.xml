@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <import type="android.view.View"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
@@ -12,6 +12,8 @@
 
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                android:background="@color/Color_gray_ffffff"
+                android:elevation="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

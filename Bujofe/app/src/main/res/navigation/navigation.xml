@@ -49,4 +49,8 @@
     <action
             android:id="@+id/action_global_reclassFragment"
             app:destination="@id/reclassFragment" />
+    <fragment
+            android:id="@+id/scanFragment"
+            android:name="com.sheldon.bujofe.scan.ScanFragment"
+            android:label="ScanFragment" /><action android:id="@+id/action_global_scanFragment" app:destination="@id/scanFragment"/>
 </navigation>

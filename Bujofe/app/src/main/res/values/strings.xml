@@ -18,6 +18,14 @@
     <!--seat-->
     <string name="seat_name">姓名</string>
     <string name="name_text">Sheldon Lin</string>
+    <string name="tx_class_remaining">剩餘進度堂數</string>
+    <string name="tx_class_name">課程名稱</string>
+    <string name="tx_class_replacement">需補課堂數</string>
+    <string name="class_name_demo">吳用化學</string>
+    <string name="class_remaining_demo">39</string>
+    <string name="class_replacement_demo">5</string>
+    <string name="profile_replacemet_apply">補課申請</string>
+    <string name="profile_log_out">登出</string>
     <string-array name="week">
         <item >星期一</item>
         <item >星期二</item>

@@ -8,6 +8,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     dataBinding {
@@ -44,7 +46,6 @@ dependencies {
 
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:$version_room"
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
@@ -89,4 +90,8 @@ dependencies {
     implementation "androidx.fragment:fragment:$version_fragment"
     implementation "androidx.fragment:fragment-testing:$version_fragment"
 
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
 }
