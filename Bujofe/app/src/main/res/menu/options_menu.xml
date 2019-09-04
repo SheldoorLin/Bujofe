@@ -7,4 +7,10 @@
             android:icon="@drawable/ic_crop_free_black_24dp"
             android:title="@string/roll_name"
             app:showAsAction="always" />
+    <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/common_google_signin_btn_text_dark"
+            android:title="@string/profile_log_out"
+            app:showAsAction="never"
+            />
 </menu>

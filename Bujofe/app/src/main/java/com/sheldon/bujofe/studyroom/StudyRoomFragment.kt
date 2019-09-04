@@ -1,14 +1,14 @@
 package com.sheldon.bujofe.studyroom
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import com.sheldon.bujofe.BujofeApplication
-
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.Seat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
@@ -37,17 +37,6 @@ class StudyRoomFragment : Fragment() {
         /**
          *mock data
          *  */
-//        val test_data: ArrayList<Weekday> = ArrayList()
-//        test_data.add(Weekday("Sunday", Seat("A01", "王小翔")))
-//        test_data.add(Weekday("Sunday", Seat("A02", "王大翔")))
-//        test_data.add(Weekday("Sunday", Seat("A03", "王中翔")))
-//        test_data.add(Weekday("Sunday", Seat("A04", "Eric")))
-//        test_data.add(Weekday("Sunday", Seat("A05", "Sandra")))
-//        test_data.add(Weekday("Sunday", Seat("A06", "Sophie")))
-//        test_data.add(Weekday("Sunday", Seat("A07", "Sheldon")))
-//        test_data.add(Weekday("Sunday", Seat("A08", "Terry")))
-//        test_data.add(Weekday("Sunday", Seat("A09", "Eltin")))
-//        test_data.add(Weekday("Sunday", Seat("A10", "Wayne")))
         val test_data_2: ArrayList<Seat> = ArrayList()
         test_data_2.add(Seat("A01", "王小翔","ef5350"))
         test_data_2.add(Seat("A02", "王大翔","ef5350"))
@@ -82,6 +71,7 @@ class StudyRoomFragment : Fragment() {
         )
 
         binding.seatRecycler.adapter = SeatAdapter()
+        binding.seatRecycler.layoutManager = GridLayoutManager(this.context,5,GridLayoutManager.HORIZONTAL,false)
 
         binding.spinnerWeekofday.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {

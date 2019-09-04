@@ -11,16 +11,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.sheldon.bujofe.databinding.ActivityLoginBinding
-import javax.security.auth.AuthPermission
 
 
 class LoginActivity : AppCompatActivity() {
@@ -48,9 +43,15 @@ class LoginActivity : AppCompatActivity() {
 
         setupUI()
         configureGoogleSignIn()
-        binding.root
-    }
 
+        binding.root
+
+    }
+    companion object {
+        fun getLaunchIntent(from: Context) = Intent(from, LoginActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+    }
 
     private  fun setupUI() {
         binding.btnSignIn.setOnClickListener {

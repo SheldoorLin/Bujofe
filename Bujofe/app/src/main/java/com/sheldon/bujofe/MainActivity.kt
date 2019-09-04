@@ -3,28 +3,15 @@ package com.sheldon.bujofe
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
-import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.sheldon.bujofe.databinding.ActivityMainBinding
-import androidx.annotation.NonNull
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.firebase.firestore.DocumentReference
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.OnCompleteListener
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 class MainActivity : AppCompatActivity() {
@@ -78,8 +65,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = ""
+
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         textMessage = binding.message
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -97,7 +88,15 @@ class MainActivity : AppCompatActivity() {
                     .navigate(R.id.action_global_scanFragment)
                 textMessage.setText(R.string.roll_name)
             }
+            R.id.log_out ->{
+                signOut()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
+    private fun signOut() {
+        startActivity(LoginActivity.getLaunchIntent(this))
+        FirebaseAuth.getInstance().signOut()
+    }
+
 }
