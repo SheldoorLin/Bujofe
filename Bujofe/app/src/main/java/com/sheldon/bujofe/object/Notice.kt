@@ -1,5 +1,5 @@
 package com.sheldon.bujofe.`object`
 
-data class NoticeItem(
+data class Notice(
     val text : String
 )

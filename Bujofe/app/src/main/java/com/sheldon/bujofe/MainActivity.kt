@@ -1,6 +1,9 @@
 package com.sheldon.bujofe
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -9,13 +12,28 @@ import android.widget.TextView
 import android.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.google.firebase.firestore.FirebaseFirestore
 import com.sheldon.bujofe.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.annotation.NonNull
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.firestore.DocumentReference
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.OnCompleteListener
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var textMessage: TextView
+    private val TAG: String = "Sheldon"
+
+
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             val navController = this.findNavController(R.id.navHostFragment)
@@ -50,16 +68,20 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
+    companion object {
+        fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = ""
-        textMessage = findViewById(R.id.message)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        textMessage = binding.message
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }
 
@@ -67,11 +89,13 @@ class MainActivity : AppCompatActivity() {
         this.menuInflater.inflate(R.menu.options_menu, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.roll_name -> {
                 this.findNavController(R.id.navHostFragment)
                     .navigate(R.id.action_global_scanFragment)
+                textMessage.setText(R.string.roll_name)
             }
         }
         return super.onOptionsItemSelected(item)

@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sheldon.bujofe.`object`.NoticeItem
+import com.sheldon.bujofe.`object`.Notice
 import com.sheldon.bujofe.databinding.ItemHomeAnnounceBinding
 
-class NoticeItemAdapter : ListAdapter<NoticeItem, NoticeItemAdapter.ItemViewHolder>(DiffCallback) {
+class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<NoticeItem>() {
-        override fun areItemsTheSame(oldItem: NoticeItem, newItem: NoticeItem): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<Notice>() {
+        override fun areItemsTheSame(oldItem: Notice, newItem: Notice): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: NoticeItem, newItem: NoticeItem): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Notice, newItem: Notice): Boolean {
+            return oldItem.text == newItem.text
         }
     }
 
 
     class ItemViewHolder(private var binding: ItemHomeAnnounceBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(noticeItem: NoticeItem) {
-            binding.noticeItem = noticeItem
+        fun bind(notice: Notice) {
+            binding.notice = notice
             binding.executePendingBindings()
         }
     }

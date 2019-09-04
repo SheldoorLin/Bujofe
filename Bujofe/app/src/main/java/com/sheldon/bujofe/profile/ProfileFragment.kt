@@ -24,6 +24,7 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this
+
         binding.profileDetailRecycler.adapter = ProfileDetailAdapter()
 
 
@@ -38,12 +39,13 @@ class ProfileFragment : Fragment() {
         testList.add(ClassInformation("笨拙家政", 30, 2))
 
 
+        binding.btnReplacementApply.setOnClickListener {
+            this.viewModel.firebase()
+        }
+
 
 
         (binding.profileDetailRecycler.adapter as ProfileDetailAdapter).submitList(testList)
-
-
-
 
 
 
