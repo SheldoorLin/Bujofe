@@ -70,17 +70,22 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = ""
 
-
+/**
+ *     BottomNavigation Bar setting
+ * */
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         textMessage = binding.message
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }
 
+
+    /**
+     *  Support Action bar
+     * */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menuInflater.inflate(R.menu.options_menu, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.roll_name -> {

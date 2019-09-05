@@ -16,7 +16,7 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
         }
 
         override fun areContentsTheSame(oldItem: Notice, newItem: Notice): Boolean {
-            return oldItem.text == newItem.text
+            return oldItem.title == newItem.title
         }
     }
 

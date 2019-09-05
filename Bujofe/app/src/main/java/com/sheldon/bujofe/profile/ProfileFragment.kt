@@ -26,7 +26,7 @@ class ProfileFragment : Fragment() {
         binding.profileDetailRecycler.adapter = ProfileDetailAdapter()
 
 
-//        mock data
+        //mock data
         val testList: ArrayList<ClassInformation> = ArrayList()
         testList.add(ClassInformation("吳用化學", 30, 2))
         testList.add(ClassInformation("芙丸英文", 30, 2))
