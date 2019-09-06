@@ -3,6 +3,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="1dp"
+        android:background="@color/color_orange_FFF4CAA9"
         android:paddingBottom="1dp">
 
     <include

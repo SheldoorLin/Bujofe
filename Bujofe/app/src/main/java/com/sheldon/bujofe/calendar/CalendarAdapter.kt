@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.Flight
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.example_5_event_item_view.*
+import kotlinx.android.synthetic.main.item_calendar_event_view.*
 import org.threeten.bp.format.DateTimeFormatter
 
 
-class Example5FlightsAdapter : RecyclerView.Adapter<Example5FlightsAdapter.Example5FlightsViewHolder>() {
+class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder>() {
 
     val flights = mutableListOf<Flight>()
 
@@ -19,18 +19,18 @@ class Example5FlightsAdapter : RecyclerView.Adapter<Example5FlightsAdapter.Examp
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Example5FlightsViewHolder {
-        return Example5FlightsViewHolder(parent.inflate(R.layout.example_5_event_item_view))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventItemViewHolder {
+        return EventItemViewHolder(parent.inflate(R.layout.item_calendar_event_view))
     }
 
 
-    override fun onBindViewHolder(viewHolder: Example5FlightsViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: EventItemViewHolder, position: Int) {
         viewHolder.bind(flights[position])
     }
 
     override fun getItemCount(): Int = flights.size
 
-    inner class Example5FlightsViewHolder(override val containerView: View) :
+    inner class EventItemViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(flight: Flight) {
