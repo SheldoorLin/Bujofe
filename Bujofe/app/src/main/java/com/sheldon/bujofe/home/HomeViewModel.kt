@@ -27,17 +27,18 @@ class HomeViewModel : ViewModel() {
 
     fun getNoticefirebase() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("announcement")
+        db.collection("notice")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val data = document.toObject(Notice::class.java)
                     val dateTime = java.sql.Date(data.time!!.time)
                     val format = SimpleDateFormat("yyy/MM/dd")
-                    list.add(Notice(data.title,data.context,format.format(dateTime)))
 
+                    list.add(Notice(data.title, data.context, format.format(dateTime)))
+                    Log.d("originTime", "${data.time}")
                     Log.d("Time", format.format(dateTime))
-                    Log.d("dateTime","$dateTime")
+                    Log.d("dateTime", "$dateTime")
                     _Notices.value = list
                     Log.d(TAG, "User ====" + data.title)
                 }

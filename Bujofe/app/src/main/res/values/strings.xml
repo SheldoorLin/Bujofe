@@ -6,12 +6,13 @@
     <string name="title_replacement_lesson_list">補課紀錄</string>
     <string name="title_profile">個人</string>
     <string name="roll_name">點名</string>
-    <string name="home_notice_text">獎學金公告~~~以下的同學有福拉:\n
+    <string name="home_notice_title">獎學金公告 </string>
+    <string name="home_notice_context">以下的同學有福拉:\n
         XXX\n
         OOO\n
         CCC\n
-        EEE\n </string>
-
+        EEE\n</string>
+    <string name="home_notice_time">2019/08/09</string>
 
     <!--seat-->
     <string name="seat_name">姓名</string>

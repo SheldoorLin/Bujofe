@@ -17,12 +17,15 @@ class ProfileViewModel : ViewModel() {
    fun firebase() {
         val db = FirebaseFirestore.getInstance()
         val user = HashMap<Any, Any>()
-        user.put("title", "颱風公告")
-        user.put("context", "因本月有10個颱風:\n" +
-                "停課一周\n")
+        user.put("title", "補習班公告")
+        user.put("context", "有問題沒老師問的同學有福拉~\n" +
+                "主任決定在下午自習時間安排多個解題老師\n" +
+                "保證每個學生的問題都能得到解決\n" +
+                "讓各位同學在碰到難題時不再慌張\n" +
+                "解題老師時段為每天的下午6:30~9:30，請多加利用")
        user.put("time",Timestamp.now())
 
-        db.collection("announcement")
+        db.collection("notice")
             .add(user)
             .addOnSuccessListener(OnSuccessListener<DocumentReference> { documentReference ->
                 Log.d(

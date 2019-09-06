@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="notice"
+                type="com.sheldon.bujofe.object.Notice" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/color_orange_FFF4CAA9"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.15"
+                android:paddingStart="8sp"
+                android:paddingEnd="0sp"
+                android:text="@{notice.title}"
+                android:textColor="@color/color_brown_FF8A6548"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_dot"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/home_notice_title" />
+
+        <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.15"
+                android:paddingStart="8sp"
+                android:paddingEnd="0sp"
+                android:textSize="16sp"
+                android:text="@{notice.context}"
+                app:layout_constraintEnd_toEndOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:text="@string/home_notice_context" />
+
+        <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@{String.valueOf(notice.date)}"
+                android:letterSpacing="0.15"
+                android:paddingStart="8sp"
+                android:textSize="14sp"
+                android:paddingEnd="0sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                tools:text="@string/home_notice_time" />
+
+        <ImageView
+                android:id="@+id/img_dot"
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.5"
+                app:srcCompat="@drawable/paper_plane" />
+
+        <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/img_dot"
+                app:layout_constraintStart_toStartOf="@+id/img_dot"
+                app:layout_constraintTop_toBottomOf="@+id/img_dot"
+                app:srcCompat="@color/tab_checked_000000" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

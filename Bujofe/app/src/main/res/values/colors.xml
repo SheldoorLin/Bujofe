@@ -11,7 +11,12 @@
     <!--Calendar Use-->
     <color name="Color_gray_aeaeae">#aeaeae</color>
     <color name="Color_gray_ffffff">#ffffff</color>
-
-
+    <!--bottom navigation bar tab-->
+    <color name="tab_checked_000000">#000000</color>
+    <color name="tab_unchecked_757575">#757575</color>
+    <color name="text_orange_FFF7BB8D">#F7BB8D</color>
+    <color name="color_orange_FFF4CAA9">#F4CAA9</color>
+    <color name="color_brown_C0997A">#C0997A</color>
+    <color name="color_brown_FF8A6548">#8A6548</color>
 
 </resources>

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.`object`.Notice
-import com.sheldon.bujofe.databinding.ItemHomeAnnounceBinding
+import com.sheldon.bujofe.databinding.ItemHomeNoticeBinding
 
 class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(DiffCallback) {
 
@@ -21,7 +21,7 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
     }
 
 
-    class ItemViewHolder(private var binding: ItemHomeAnnounceBinding) :
+    class ItemViewHolder(private var binding: ItemHomeNoticeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(notice: Notice) {
             binding.notice = notice
@@ -31,7 +31,7 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(ItemHomeAnnounceBinding.inflate(LayoutInflater.from(parent.context)))
+        return ItemViewHolder(ItemHomeNoticeBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
