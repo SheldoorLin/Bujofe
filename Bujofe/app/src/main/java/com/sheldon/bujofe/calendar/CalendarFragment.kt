@@ -42,10 +42,11 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = FragmentCalendarBinding.inflate(inflater, container, false)
-
         binding.lifecycleOwner = this
+
+
+
 
         return binding.root
     }
@@ -64,12 +65,7 @@ class CalendarFragment : Fragment() {
         eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         eventRecycler.adapter = calendarAdapter
-        eventRecycler.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                RecyclerView.VERTICAL
-            )
-        )
+        eventRecycler.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         calendarAdapter.notifyDataSetChanged()
 
         val daysOfWeek = daysOfWeekFromLocale()
@@ -196,18 +192,6 @@ class CalendarFragment : Fragment() {
                 eventCalendar.smoothScrollToMonth(it.yearMonth.previous)
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        requireActivity().window.statusBarColor =
-            requireContext().getColorCompat(R.color.example_5_toolbar_color)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        requireActivity().window.statusBarColor =
-            requireContext().getColorCompat(R.color.colorPrimaryDark)
     }
 
     private fun updateAdapterForDate(date: LocalDate?) {

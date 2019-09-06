@@ -13,8 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/example_5_item_view_bg_color">
+            android:layout_height="wrap_content">
 
         <TextView
                 android:id="@+id/itemFlightDateText"
@@ -24,7 +23,7 @@
                 android:gravity="center"
                 android:lineSpacingExtra="2.5dp"
                 android:textAllCaps="true"
-                android:textColor="@color/example_5_text_grey"
+                android:textColor="@color/title_color_white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -38,7 +37,7 @@
         <View
                 android:layout_width="1.3dp"
                 android:layout_height="0dp"
-                android:background="@color/black"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/itemFlightDateText"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +45,7 @@
         <View
                 android:layout_width="0.7dp"
                 android:layout_height="0dp"
-                android:background="@color/black"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/itemFlightDateText"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +63,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical|end"
-                    android:tint="@color/example_5_text_grey"
+                    android:tint="@color/black"
                     app:srcCompat="@drawable/ic_person_pin_black_24dp" />
         </FrameLayout>
 
@@ -85,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
                     android:gravity="center"
-                    android:textColor="@color/example_5_text_grey"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="LOS" />
 
@@ -95,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
-                    android:textColor="@color/example_5_text_grey"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="Lagos" />
         </LinearLayout>
@@ -113,7 +112,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical|end"
-                    android:tint="@color/example_5_text_grey"
+                    android:tint="@color/black"
                     app:srcCompat="@drawable/ic_person_pin_black_24dp" />
         </FrameLayout>
 
@@ -134,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
                     android:gravity="center"
-                    android:textColor="@color/example_5_text_grey"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="ABV" />
 
@@ -144,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
-                    android:textColor="@color/example_5_text_grey"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="Abuja" />
         </LinearLayout>
@@ -153,7 +152,7 @@
         <View
                 android:layout_width="1.3dp"
                 android:layout_height="0dp"
-                android:background="@color/example_5_page_bg_color"
+                android:background="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/itemFlightDepartureLayout"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -161,7 +160,7 @@
         <View
                 android:layout_width="0.7dp"
                 android:layout_height="0dp"
-                android:background="@color/example_5_page_bg_color"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/itemFlightDestinationImage"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -170,7 +169,7 @@
         <View
                 android:layout_width="1dp"
                 android:layout_height="0dp"
-                android:background="@color/example_5_page_bg_color"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -178,7 +177,7 @@
         <View
                 android:layout_width="1dp"
                 android:layout_height="0dp"
-                android:background="@color/example_5_page_bg_color"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
