@@ -6,11 +6,11 @@
 
     <!--Calendar.Timeline Setting-->
     <color name="divider_color">#4e4e4e</color>
-    <color name="title_color">#FFFFFF</color>
+    <color name="title_color_white">#FFFFFF</color>
 
     <!--Calendar Use-->
     <color name="Color_gray_aeaeae">#aeaeae</color>
-    <color name="Color_gray_ffffff">#ffffff</color>
+    <color name="Color_White_ffffff">#ffffff</color>
     <!--bottom navigation bar tab-->
     <color name="tab_checked_000000">#000000</color>
     <color name="tab_unchecked_757575">#757575</color>

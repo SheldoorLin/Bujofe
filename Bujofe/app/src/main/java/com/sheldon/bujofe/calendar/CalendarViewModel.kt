@@ -7,16 +7,19 @@ import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.timelayout.Event
 import com.sheldon.bujofe.timelayout.EventView
+import com.sheldon.bujofe.timelayout.TimeLineLayout
 
 class CalendarViewModel : ViewModel() {
+
+
 
 
 
     val myEventView = EventView(
         BujofeApplication.instance.applicationContext,
         Event().apply {
-            startTime = 7F
-            endTime = 9F
+            startTime = 9F
+            endTime = 10F
             title = "1"
 //              Log.d("AAmyEvent1","${myEvent1.toString()}")
         },//加入開始結束時間
@@ -36,7 +39,7 @@ class CalendarViewModel : ViewModel() {
     val myEventView2 = EventView(
         BujofeApplication.instance.applicationContext,
         Event().apply {
-            startTime = 9F
+            startTime = 10F
             endTime = 12F
             title = "2"
 

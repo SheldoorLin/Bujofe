@@ -24,5 +24,4 @@ class TimeLineLayout : ScrollView {
         (horizontalScrollView.getChildAt(0) as ViewGroup).addView(child)
     }
 
-
 }
