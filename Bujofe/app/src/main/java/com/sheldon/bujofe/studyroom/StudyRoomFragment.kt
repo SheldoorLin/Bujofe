@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.`object`.Seat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
 
 class StudyRoomFragment : Fragment() {
@@ -18,6 +16,7 @@ class StudyRoomFragment : Fragment() {
     private val viewModel: StudyRoomViewModel by lazy {
         ViewModelProviders.of(this).get(StudyRoomViewModel::class.java)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,48 +29,17 @@ class StudyRoomFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-
-
-
-
-        /**
-         *mock data
-         *  */
-        val test_data_2: ArrayList<Seat> = ArrayList()
-        test_data_2.add(Seat("A01", "王小翔","ef5350"))
-        test_data_2.add(Seat("A02", "王大翔","ef5350"))
-        test_data_2.add(Seat("A03", "王中翔","ef5350"))
-        test_data_2.add(Seat("A04", "Eric","ef5350"))
-        test_data_2.add(Seat("A05", "Sandra","ef5350"))
-        test_data_2.add(Seat("A06", "Sophie","ef5350"))
-        test_data_2.add(Seat("A07", "Sheldon","ef5350"))
-        test_data_2.add(Seat("A08", "Terry","ef5350"))
-        test_data_2.add(Seat("A09", "Eltin","ef5350"))
-        test_data_2.add(Seat("A10", "Wayne","ef5350"))
-        val test_data_3: ArrayList<Seat> = ArrayList()
-        test_data_3.add(Seat("A01", "王小翔","ef5350"))
-        test_data_3.add(Seat("A02", "王大翔","ef5350"))
-        test_data_3.add(Seat("A03", "待預約","00c853"))
-        test_data_3.add(Seat("A04", "Eric","ef5350"))
-        test_data_3.add(Seat("A05", "Sandra","ef5350"))
-        test_data_3.add(Seat("A06", "Sophie","ef5350"))
-        test_data_3.add(Seat("A07", "待預約","00c853"))
-        test_data_3.add(Seat("A08", "Terry","ef5350"))
-        test_data_3.add(Seat("A09", "Eltin","ef5350"))
-        test_data_3.add(Seat("A10", "Wayne","ef5350"))
-
-
-
-
-
-
-
         binding.spinnerWeekofday.adapter = WeekSpinnerAdapter(
             BujofeApplication.instance.resources.getStringArray(R.array.week)
         )
 
-        binding.seatRecycler.adapter = SeatAdapter()
-        binding.seatRecycler.layoutManager = GridLayoutManager(this.context,5,GridLayoutManager.HORIZONTAL,false)
+
+        val seatTable = binding.seatView
+        seatTable.setData(5, 9)
+        seatTable.setScreenName("黑板")
+        seatTable.setMaxSelected(1)
+
+
 
         binding.spinnerWeekofday.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -81,17 +49,255 @@ class StudyRoomFragment : Fragment() {
 
                 override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
                     when (position) {
-                        0 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_3)
-                        1 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        2 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        3 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        4 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        5 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        6 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
+                        0 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                    while (column ==1) {
+//                        return false
+//                    }
+                                return true
+                            }
+
+                            override fun isSold(row: Int, column: Int): Boolean {
+
+                                return row == 2 && column == 1
+                            }
+
+                            override fun checked(row: Int, column: Int) {
+
+                            }
+
+                            override fun unCheck(row: Int, column: Int) {
+
+                            }
+
+                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                                return null
+                            }
+
+                        })
+                        1 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                    while (column ==1) {
+//                        return false
+//                    }
+                                return true
+                            }
+
+                            override fun isSold(row: Int, column: Int): Boolean {
+
+                                return row == 3 && column == 3
+                            }
+
+                            override fun checked(row: Int, column: Int) {
+
+                            }
+
+                            override fun unCheck(row: Int, column: Int) {
+
+                            }
+
+                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                                return null
+                            }
+
+                        })
+                        2 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                    while (column ==1) {
+//                        return false
+//                    }
+                                return true
+                            }
+
+                            override fun isSold(row: Int, column: Int): Boolean {
+
+                                return row == 4 && column == 2
+                            }
+
+                            override fun checked(row: Int, column: Int) {
+
+                            }
+
+                            override fun unCheck(row: Int, column: Int) {
+
+                            }
+
+                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                                return null
+                            }
+
+                        })
+                        3 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                    while (column ==1) {
+//                        return false
+//                    }
+                                return true
+                            }
+
+                            override fun isSold(row: Int, column: Int): Boolean {
+
+                                return row == 5 && column == 5
+                            }
+
+                            override fun checked(row: Int, column: Int) {
+
+                            }
+
+                            override fun unCheck(row: Int, column: Int) {
+
+                            }
+
+                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                                return null
+                            }
+
+                        })
+                        4 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                    while (column ==1) {
+//                        return false
+//                    }
+                                return true
+                            }
+
+                            override fun isSold(row: Int, column: Int): Boolean {
+
+                                return row == 0 && column == 5
+                            }
+
+                            override fun checked(row: Int, column: Int) {
+
+                            }
+
+                            override fun unCheck(row: Int, column: Int) {
+
+                            }
+
+                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                                return null
+                            }
+
+                        })
+                        5 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                    while (column ==1) {
+//                        return false
+//                    }
+                                return true
+                            }
+
+                            override fun isSold(row: Int, column: Int): Boolean {
+
+                                return row == 4 && column == 6
+                            }
+
+                            override fun checked(row: Int, column: Int) {
+
+                            }
+
+                            override fun unCheck(row: Int, column: Int) {
+
+                            }
+
+                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                                return null
+                            }
+
+                        })
+                        6 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                    while (column ==1) {
+//                        return false
+//                    }
+                                return true
+                            }
+
+                            override fun isSold(row: Int, column: Int): Boolean {
+
+                                return row == 1 && column == 6
+                            }
+
+                            override fun checked(row: Int, column: Int) {
+
+                            }
+
+                            override fun unCheck(row: Int, column: Int) {
+
+                            }
+
+                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                                return null
+                            }
+
+                        })
                     }
                 }
             }
 
+
+//        /**
+//         *mock data
+//         *  */
+//        val test_data_2: ArrayList<Seat> = ArrayList()
+//        test_data_2.add(Seat("A01", "王小翔","ef5350"))
+//        test_data_2.add(Seat("A02", "王大翔","ef5350"))
+//        test_data_2.add(Seat("A03", "王中翔","ef5350"))
+//        test_data_2.add(Seat("A04", "Eric","ef5350"))
+//        test_data_2.add(Seat("A05", "Sandra","ef5350"))
+//        test_data_2.add(Seat("A06", "Sophie","ef5350"))
+//        test_data_2.add(Seat("A07", "Sheldon","ef5350"))
+//        test_data_2.add(Seat("A08", "Terry","ef5350"))
+//        test_data_2.add(Seat("A09", "Eltin","ef5350"))
+//        test_data_2.add(Seat("A10", "Wayne","ef5350"))
+//        val test_data_3: ArrayList<Seat> = ArrayList()
+//        test_data_3.add(Seat("A01", "王小翔","ef5350"))
+//        test_data_3.add(Seat("A02", "王大翔","ef5350"))
+//        test_data_3.add(Seat("A03", "待預約","00c853"))
+//        test_data_3.add(Seat("A04", "Eric","ef5350"))
+//        test_data_3.add(Seat("A05", "Sandra","ef5350"))
+//        test_data_3.add(Seat("A06", "Sophie","ef5350"))
+//        test_data_3.add(Seat("A07", "待預約","00c853"))
+//        test_data_3.add(Seat("A08", "Terry","ef5350"))
+//        test_data_3.add(Seat("A09", "Eltin","ef5350"))
+//        test_data_3.add(Seat("A10", "Wayne","ef5350"))
+//
+//
+//
+//
+//
+//
+//
+//
+//        binding.seatRecycler.adapter = SeatAdapter()
+//        binding.seatRecycler.layoutManager = GridLayoutManager(this.context,5,GridLayoutManager.HORIZONTAL,false)
+//
+//        binding.spinnerWeekofday.onItemSelectedListener =
+//            object : AdapterView.OnItemSelectedListener {
+//                override fun onNothingSelected(p0: AdapterView<*>?) {
+//                    //To change body of created functions use File | Settings | File Templates.
+//                }
+//
+//                override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
+//                    when (position) {
+//                        0 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_3)
+//                        1 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
+//                        2 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
+//                        3 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
+//                        4 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
+//                        5 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
+//                        6 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
+//                    }
+//                }
+//            }
+//
 
         return binding.root
     }

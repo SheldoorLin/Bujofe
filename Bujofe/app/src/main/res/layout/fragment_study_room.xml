@@ -20,27 +20,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/seat_recycler"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner_weekofday"
                 app:spanCount="4"
                 tools:listitem="@layout/item_studyroom_seat" />
+
+        <com.sheldon.bujofe.studyroom.SeatTable
+                android:id="@+id/seatView"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_marginTop="8dp"
+                android:background="#ffffff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_weekofday" />
+
+        <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner_weekofday"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_weekofday"
+                app:layout_constraintTop_toTopOf="@+id/spinner_weekofday"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
