@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="flight"
-                type="com.sheldon.bujofe.object.Flight" />
+                name="classMute"
+                type="com.sheldon.bujofe.object.ClassMute" />
 
     </data>
 
@@ -34,21 +34,6 @@
                 tools:text="THU\nJUN 30\n14:00" />
 
         <!--Colored view dividers-->
-        <View
-                android:layout_width="1.3dp"
-                android:layout_height="0dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/itemFlightDateText"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-                android:layout_width="0.7dp"
-                android:layout_height="0dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/itemFlightDateText"
-                app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
                 android:id="@+id/itemFlightDepartureImage"
@@ -65,6 +50,7 @@
                     android:layout_gravity="center_vertical|end"
                     android:tint="@color/black"
                     app:srcCompat="@drawable/ic_person_pin_black_24dp" />
+
         </FrameLayout>
 
         <LinearLayout
@@ -74,7 +60,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@id/itemFlightDepartureImage"
-                app:layout_constraintDimensionRatio="W,2:1"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/itemFlightDepartureImage"
                 app:layout_constraintTop_toTopOf="@id/itemFlightDepartureImage">
 
@@ -99,87 +85,9 @@
                     tools:text="Lagos" />
         </LinearLayout>
 
-        <FrameLayout
-                android:id="@+id/itemFlightDestinationImage"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/itemFlightDepartureLayout"
-                app:layout_constraintDimensionRatio="W,1:1"
-                app:layout_constraintStart_toEndOf="@id/itemFlightDepartureLayout"
-                app:layout_constraintTop_toTopOf="@id/itemFlightDepartureLayout">
-
-            <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:tint="@color/black"
-                    app:srcCompat="@drawable/ic_person_pin_black_24dp" />
-        </FrameLayout>
-
-        <LinearLayout
-                android:id="@+id/itemFlightDestinationLayout"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@id/itemFlightDestinationImage"
-                app:layout_constraintDimensionRatio="W,2:1"
-                app:layout_constraintStart_toEndOf="@id/itemFlightDestinationImage"
-                app:layout_constraintTop_toTopOf="@id/itemFlightDestinationImage">
-
-            <TextView
-                    android:id="@+id/itemDestinationAirportCodeText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:text="ABV" />
-
-            <TextView
-                    android:id="@+id/itemDestinationAirportCityText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:text="Abuja" />
-        </LinearLayout>
-
         <!--Departure/Destination dividers-->
-        <View
-                android:layout_width="1.3dp"
-                android:layout_height="0dp"
-                android:background="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/itemFlightDepartureLayout"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-                android:layout_width="0.7dp"
-                android:layout_height="0dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/itemFlightDestinationImage"
-                app:layout_constraintTop_toTopOf="parent" />
 
         <!--Edge dividers-->
-        <View
-                android:layout_width="1dp"
-                android:layout_height="0dp"
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

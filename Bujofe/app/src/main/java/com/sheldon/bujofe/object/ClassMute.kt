@@ -4,14 +4,13 @@ import androidx.annotation.ColorRes
 import org.threeten.bp.LocalDateTime
 
 
-data class Flight(
+data class ClassMute(
     val time: LocalDateTime,
-    val departure: Airport,
-    val destination: Airport,
+    val departure: className,
     @ColorRes val color: Int
 ) {
-    data class Airport(
-        val city: String,
-        val code: String
+    data class className(
+        val teacherName: String,
+        val type: String
     )
 }
