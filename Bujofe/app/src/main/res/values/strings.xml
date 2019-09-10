@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Bujofe</string>
+    <string name="title">補就飛</string>
     <string name="title_home">首頁</string>
     <string name="title_calendar">行事曆</string>
-    <string name="title_shelf_read_room_status">自習室座位</string>
+    <string name="title_shelf_read_room_status">自習室</string>
     <string name="title_replacement_lesson_list">補課紀錄</string>
     <string name="title_profile">個人</string>
     <string name="roll_name">點名</string>
@@ -17,7 +18,7 @@
     <!--seat-->
     <string name="seat_name">姓名</string>
     <string name="name_text">Sheldon Lin</string>
-    <string name="tx_class_remaining">剩餘進度堂數</string>
+    <string name="tx_class_remaining">剩餘堂數</string>
     <string name="tx_class_name">課程名稱</string>
     <string name="tx_class_replacement">需補課堂數</string>
     <string name="class_name_demo">吳用化學</string>
@@ -25,6 +26,11 @@
     <string name="class_replacement_demo">5</string>
     <string name="profile_replacemet_apply">補課申請</string>
     <string name="profile_log_out">登出</string>
+    <string name="date">日期 :</string>
+    <string name="class_name">課程名稱 :</string>
+    <string name="start_time">開始時間 :</string>
+    <string name="end_time">結束時間 :</string>
+    <string name="submit_status">申請狀態:</string>
     <string-array name="week">
         <item>星期一</item>
         <item>星期二</item>

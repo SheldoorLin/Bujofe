@@ -47,7 +47,7 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:fontFamily="@font/noto_sans"
                     android:letterSpacing="0.15"
-                    android:text="@string/title_home"
+                    android:text="@string/title"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"

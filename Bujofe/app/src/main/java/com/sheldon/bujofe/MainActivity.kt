@@ -26,27 +26,27 @@ class MainActivity : AppCompatActivity() {
             val navController = this.findNavController(R.id.navHostFragment)
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    textMessage.setText(R.string.title_home)
+                    textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_calendar -> {
-                    textMessage.setText(R.string.title_calendar)
+                    textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_calendarFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_shelf_read_room_status -> {
-                    textMessage.setText(R.string.title_shelf_read_room_status)
+                    textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_studyRoomFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_replacement_lesson_list -> {
-                    textMessage.setText(R.string.title_replacement_lesson_list)
+                    textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_reclassFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
-                    textMessage.setText(R.string.title_profile)
+                    textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_profileFragment)
                     return@OnNavigationItemSelectedListener true
                 }
