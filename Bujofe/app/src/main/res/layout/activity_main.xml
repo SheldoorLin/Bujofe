@@ -76,7 +76,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/windowBackground"
-
+                android:touchscreenBlocksFocus="false"
+                app:barrierAllowsGoneWidgets="false"
                 app:itemBackground="@null"
                 app:itemHorizontalTranslationEnabled="false"
                 app:itemIconSize="@dimen/bottom_nav_icon_size"

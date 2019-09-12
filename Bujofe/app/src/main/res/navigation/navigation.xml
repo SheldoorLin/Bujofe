@@ -52,5 +52,26 @@
     <fragment
             android:id="@+id/scanFragment"
             android:name="com.sheldon.bujofe.scan.ScanFragment"
-            android:label="ScanFragment" /><action android:id="@+id/action_global_scanFragment" app:destination="@id/scanFragment"/>
+            android:label="ScanFragment" >
+        <action
+                android:id="@+id/action_scanFragment_to_scanResultFragment"
+                app:destination="@id/scanResultFragment" />
+    </fragment><action android:id="@+id/action_global_scanFragment" app:destination="@id/scanFragment"/>
+
+
+    <dialog
+            android:id="@+id/scanResultFragment"
+            android:name="com.sheldon.bujofe.scan.ScanResultFragment"
+            android:label="ScanResultFragment">
+
+
+        <argument
+                android:name="roll_name"
+                app:argType="com.sheldon.bujofe.object.QRcode"/>
+    </dialog>
+
+
+
+
+
 </navigation>

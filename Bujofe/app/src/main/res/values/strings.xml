@@ -40,4 +40,8 @@
         <item>星期六</item>
         <item>星期天</item>
     </string-array>
+
+
+    <!--Scan-->
+    <string name="log_in_ok">登入成功</string>
 </resources>

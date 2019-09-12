@@ -110,4 +110,10 @@ dependencies {
     implementation 'com.github.kizitonwose:CalendarView:0.2.8'
 
 
+    //ZXing QRcode library
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
+    //user-permission of Camera
+    implementation 'com.karumi:dexter:5.0.0'
+
 }
