@@ -27,13 +27,9 @@ class ScanResultViewModel(qrCode: QRcode, app: Application) : AndroidViewModel(a
         rollName.value?.let {
             val date = Date(it.timestep)
             val format = SimpleDateFormat("yyyy.MM.dd")
-
             scanTimestamp.value = format.format(date)
-
             Log.d("scanTimestamp", scanTimestamp.value.toString())
         }
     }
-
-
 
 }
