@@ -35,7 +35,7 @@ class HomeViewModel : ViewModel() {
                     val dateTime = java.sql.Date(data.time!!.time)
                     val format = SimpleDateFormat("yyy/MM/dd")
 
-                    list.add(Notice(data.title, data.context, format.format(dateTime)))
+                    list.add(Notice(data.title, data.context, format.format(dateTime),data.type))
                     Log.d("originTime", "${data.time}")
                     Log.d("Time", format.format(dateTime))
                     Log.d("dateTime", "$dateTime")

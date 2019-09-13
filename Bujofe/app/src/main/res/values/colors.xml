@@ -10,7 +10,7 @@
 
     <!--Calendar Use-->
     <color name="Color_gray_aeaeae">#aeaeae</color>
-    <color name="Color_White_ffffff">#ffffff</color>
+    <color name="Color_White_ffffff">#FFFFFF</color>
     <color name="white">#fff</color>
     <color name="black">#000000</color>
     <color name="example_5_page_bg_color">#0E0E0E</color>
@@ -35,5 +35,13 @@
     <color name="color_orange_FFF4CAA9">#F4CAA9</color>
     <color name="color_brown_C0997A">#C0997A</color>
     <color name="color_brown_FF8A6548">#8A6548</color>
+
+
+    <!--Warm Color-->
+    <color name="color_warm_yellow_F2DEA2">#F2DEA2</color>
+    <color name="color_warm_skin_F2B680">#F2B680</color>
+    <color name="color_warm_orange_F2B680">#F28963</color>
+    <color name="color_warm_pink_F2AB91">#F2AB91</color>
+    <color name="color_warm_brown_A63B32">#A63B32</color>
 
 </resources>

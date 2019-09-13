@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <gradient
+                    android:angle="270"
+                    android:centerColor="@color/text_orange_FFF7BB8D"
+                    android:endColor="@color/text_orange_FFF7BB8D"
+                    android:startColor="@color/text_orange_FFF7BB8D" />
+
+
+            <!--圓角-->
+            <corners android:topRightRadius="10dp" />
+        </shape>
+    </item>
+</selector>

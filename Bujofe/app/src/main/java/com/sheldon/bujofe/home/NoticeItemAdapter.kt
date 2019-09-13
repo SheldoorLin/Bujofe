@@ -1,12 +1,15 @@
 package com.sheldon.bujofe.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.Notice
 import com.sheldon.bujofe.databinding.ItemHomeNoticeBinding
+import com.sheldon.bujofe.databinding.ItemHomeNoticeCardBinding
 
 class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(DiffCallback) {
 
@@ -21,21 +24,35 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
     }
 
 
-    class ItemViewHolder(private var binding: ItemHomeNoticeBinding) :
+    class ItemViewHolder(private var binding: ItemHomeNoticeCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        val img = binding.imgNoticeIcon
+
         fun bind(notice: Notice) {
             binding.notice = notice
+            binding.imgNoticeIcon
+
+            when (notice.type) {
+                1 -> img.setImageResource(R.drawable.tornado)
+                2 -> img.setImageResource(R.drawable.smallmanread)
+                3 -> img.setImageResource(R.drawable.crown_icon)
+
+            }
+            Log.d("noticetype",notice.type.toString())
             binding.executePendingBindings()
         }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(ItemHomeNoticeBinding.inflate(LayoutInflater.from(parent.context)))
+        return ItemViewHolder(ItemHomeNoticeCardBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val notice = getItem(position)
+
+
         holder.bind(notice)
     }
 }

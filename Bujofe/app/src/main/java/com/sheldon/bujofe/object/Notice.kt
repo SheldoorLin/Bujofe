@@ -13,6 +13,11 @@ data class Notice(
     @get:Exclude
     val date: String? = null,
 
+    val type: Int? = null,
+
     @ServerTimestamp
     val time: Date? = null
+
+
+
 )

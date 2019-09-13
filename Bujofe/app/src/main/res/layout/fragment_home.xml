@@ -22,7 +22,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/item_home_notice" />
+                tools:listitem="@layout/item_home_notice_card" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
