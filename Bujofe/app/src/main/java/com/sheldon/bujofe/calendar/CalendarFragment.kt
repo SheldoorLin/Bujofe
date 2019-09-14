@@ -65,7 +65,12 @@ class CalendarFragment : Fragment() {
         eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         eventRecycler.adapter = calendarAdapter
-        eventRecycler.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+        eventRecycler.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                RecyclerView.VERTICAL
+            )
+        )
         calendarAdapter.notifyDataSetChanged()
 
         val daysOfWeek = daysOfWeekFromLocale()
@@ -127,7 +132,10 @@ class CalendarFragment : Fragment() {
 
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.setTextColorRes(R.color.black)
-                    layout.setBackgroundResource(if (selectedDate == day.date) R.drawable.calendar_selected_bg else 0)
+                    layout.setBackgroundResource(
+                        if (selectedDate == day.date) R.drawable.calendar_selected_bg
+                        else 0
+                    )
 
                     val flights = flights[day.date]
 

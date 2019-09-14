@@ -7,6 +7,7 @@ import org.threeten.bp.YearMonth
 private typealias classMute = ClassMute.className
 
 fun generateFlights(): List<ClassMute> {
+
     val list = mutableListOf<ClassMute>()
     val currentMonth = YearMonth.now()
 
