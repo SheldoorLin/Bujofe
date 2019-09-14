@@ -21,17 +21,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-                android:id="@+id/img_program"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
-                app:layout_constraintEnd_toEndOf="@+id/tx_program_name"
-                app:layout_constraintStart_toStartOf="@+id/tx_program_name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/smallmanread" />
+        </com.google.android.gms.common.SignInButton>
 
         <TextView
                 android:id="@+id/tx_program_name"
@@ -40,9 +32,24 @@
                 android:fontFamily="@font/noto_sans"
                 android:text="@string/title"
                 android:textSize="36sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+                app:layout_constraintEnd_toEndOf="@+id/imageView11"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/imageView11" />
+
+        <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="288dp"
+                android:layout_height="279dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
+                app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_program" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                app:srcCompat="@drawable/logo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
