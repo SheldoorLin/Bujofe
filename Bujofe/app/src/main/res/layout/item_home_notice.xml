@@ -55,7 +55,7 @@
                 tools:text="@string/home_notice_context" />
 
         <TextView
-                android:id="@+id/tx_date"
+                android:id="@+id/date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

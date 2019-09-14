@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="#ffffe4" />
+            <solid android:color="#ffe0b2" />
 
             <!-- 邊框顏色、粗細-->
             <!--            <stroke-->
@@ -10,7 +10,8 @@
             <!--                    android:color="@color/text_orange_FFF7BB8D" />-->
 
             <!--圓角-->
-            <corners android:bottomRightRadius="10dp" />
+            <corners android:radius="10dp" />
         </shape>
     </item>
+
 </selector>

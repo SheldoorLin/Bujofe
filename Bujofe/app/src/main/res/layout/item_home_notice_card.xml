@@ -39,11 +39,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_home_item_context"
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
                 android:paddingStart="8sp"
                 android:paddingEnd="0sp"
-                android:background="@drawable/rounded_home_item_context"
                 android:text="@{notice.context}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -55,8 +55,8 @@
                 tools:text="@string/home_notice_context" />
 
         <TextView
-                android:id="@+id/tx_date"
-                android:layout_width="0dp"
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
 
