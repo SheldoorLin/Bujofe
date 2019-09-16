@@ -11,6 +11,13 @@
 
             <!--圓角-->
             <corners android:topRightRadius="10dp" />
+
+            <padding
+                    android:left="2dp"
+                    android:top="4dp"
+                    android:right="2dp"
+                    android:bottom="2dp" />
+
         </shape>
     </item>
 </selector>

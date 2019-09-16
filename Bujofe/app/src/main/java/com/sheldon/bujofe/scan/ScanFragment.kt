@@ -18,6 +18,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.`object`.QRcode
 import com.sheldon.bujofe.databinding.FragmentScanBinding
 
@@ -36,6 +37,7 @@ class ScanFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
         binding = FragmentScanBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 

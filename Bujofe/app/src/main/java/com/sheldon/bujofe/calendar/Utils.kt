@@ -12,6 +12,8 @@ fun generateFlights(): List<ClassMute> {
     val currentMonth = YearMonth.now()
 
     val currentMonth17 = currentMonth.atDay(17)
+
+
     list.add(
         ClassMute(
             currentMonth17.atTime(14, 0),
@@ -19,6 +21,9 @@ fun generateFlights(): List<ClassMute> {
             R.color.brown_700
         )
     )
+
+
+
     list.add(
         ClassMute(
             currentMonth17.atTime(21, 30),

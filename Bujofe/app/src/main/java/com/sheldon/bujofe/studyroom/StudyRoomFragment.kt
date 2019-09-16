@@ -18,6 +18,7 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import com.sheldon.bujofe.BujofeApplication
+import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.calendar.*
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
@@ -41,7 +42,7 @@ class StudyRoomFragment : Fragment() {
     ): View? {
         val binding =
             FragmentStudyRoomBinding.inflate(inflater, container, false)
-
+        (activity as MainActivity).binding.toolbar.visibility = View.GONE
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -356,7 +357,7 @@ class StudyRoomFragment : Fragment() {
 
     private val calendarAdapter = CalendarAdapter()
 
-    private val flights = generateFlights().groupBy { it.time.toLocalDate() }
+    private val classMutes = generateFlights().groupBy { it.time.toLocalDate() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -423,7 +424,7 @@ class StudyRoomFragment : Fragment() {
                     textView.setTextColorRes(R.color.black)
                     layout.setBackgroundResource(if (selectedDate == day.date) R.drawable.calendar_selected_bg else 0)
 
-                    val flights = flights[day.date]
+                    val flights = classMutes[day.date]
 
                     if (flights != null) {
 
@@ -489,8 +490,8 @@ class StudyRoomFragment : Fragment() {
     }
 
     private fun updateAdapterForDate(date: LocalDate?) {
-        calendarAdapter.flights.clear()
-        calendarAdapter.flights.addAll(flights[date].orEmpty())
+        calendarAdapter.classMute.clear()
+        calendarAdapter.classMute.addAll(classMutes[date].orEmpty())
         calendarAdapter.notifyDataSetChanged()
     }
 }

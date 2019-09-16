@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.`object`.ClassInformation
 import com.sheldon.bujofe.databinding.FragmentProfileBinding
 
@@ -20,7 +21,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
-
+        (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
         binding.lifecycleOwner = this
 
         binding.profileDetailRecycler.adapter = ProfileDetailAdapter()

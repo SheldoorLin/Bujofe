@@ -4,90 +4,100 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
                 name="classMute"
                 type="com.sheldon.bujofe.object.ClassMute" />
-
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <TextView
-                android:id="@+id/itemFlightDateText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="#5D4037"
-                android:gravity="center"
-                android:lineSpacingExtra="2.5dp"
-                android:textAllCaps="true"
-                android:textColor="@color/title_color_white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.143"
-                tools:text="THU\nJUN 30\n14:00" />
 
         <!--Colored view dividers-->
 
-        <FrameLayout
-                android:id="@+id/itemFlightDepartureImage"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/itemFlightDateText"
-                app:layout_constraintDimensionRatio="W,1:1"
-                app:layout_constraintStart_toEndOf="@id/itemFlightDateText"
-                app:layout_constraintTop_toTopOf="@id/itemFlightDateText">
-
-            <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:tint="@color/black"
-                    app:srcCompat="@drawable/ic_person_pin_black_24dp" />
-
-        </FrameLayout>
-
-        <LinearLayout
-                android:id="@+id/itemFlightDepartureLayout"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@id/itemFlightDepartureImage"
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/itemFlightDepartureImage"
-                app:layout_constraintTop_toTopOf="@id/itemFlightDepartureImage">
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
-            <TextView
-                    android:id="@+id/itemDepartureAirportCodeText"
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:text="LOS" />
+                    android:background="@drawable/rounded_reclass_item">
 
-            <TextView
-                    android:id="@+id/itemDepartureAirportCityText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:text="Lagos" />
-        </LinearLayout>
+                <FrameLayout
+                        android:id="@+id/itemFlightDepartureImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/itemFlightDateText"
+                        app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
+                        app:layout_constraintTop_toTopOf="@+id/itemFlightDateText">
 
-        <!--Departure/Destination dividers-->
+                    <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical|end"
+                            android:tint="@color/black"
+                            app:srcCompat="@drawable/ic_person_pin_black_24dp" />
 
-        <!--Edge dividers-->
+                </FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                        android:id="@+id/itemFlightDepartureLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/itemFlightDepartureImage"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/itemFlightDepartureImage"
+                        app:layout_constraintTop_toTopOf="@+id/itemFlightDepartureImage">
+
+                    <TextView
+                            android:id="@+id/itemDepartureAirportCodeText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-black"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            tools:text="LOS" />
+
+                    <TextView
+                            android:id="@+id/itemDepartureAirportCityText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            tools:text="Lagos" />
+                </LinearLayout>
+
+                <TextView
+                        android:id="@+id/itemFlightDateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#5D4037"
+                        android:gravity="center"
+                        android:lineSpacingExtra="2.5dp"
+                        android:padding="5dp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/title_color_white"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.143"
+                        tools:text="THU\nJUN 30\n14:00" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
 </layout>

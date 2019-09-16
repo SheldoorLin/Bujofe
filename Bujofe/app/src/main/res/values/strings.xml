@@ -44,4 +44,11 @@
 
     <!--Scan-->
     <string name="log_in_ok">登入成功</string>
+    <string name="sunday">星期日</string>
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wensday">星期三</string>
+    <string name="thusday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="satuday">星期六</string>
 </resources>

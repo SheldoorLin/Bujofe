@@ -15,7 +15,7 @@
             tools:context=".MainActivity">
 
         <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/img_log_in_result"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="matrix"
@@ -33,6 +33,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@color/Color_White_ffffff"
                 android:elevation="4dp"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

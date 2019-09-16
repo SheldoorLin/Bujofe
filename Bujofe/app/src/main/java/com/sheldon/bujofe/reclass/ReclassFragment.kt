@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sheldon.bujofe.MainActivity
 
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ReClass
@@ -23,7 +24,7 @@ class ReclassFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentReclassBinding.inflate(inflater)
-
+        (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
         binding.lifecycleOwner = this
 
         binding.reclassRecorderRecycler.adapter = ReclassAdapter()

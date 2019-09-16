@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.Notice
 import com.sheldon.bujofe.databinding.FragmentHomeBinding
@@ -26,7 +27,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
         binding.lifecycleOwner = this
 
         binding.homeRecyclerViewNotice.adapter = NoticeItemAdapter()

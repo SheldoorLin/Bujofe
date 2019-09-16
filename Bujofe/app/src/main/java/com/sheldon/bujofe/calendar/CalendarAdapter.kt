@@ -12,10 +12,10 @@ import org.threeten.bp.format.DateTimeFormatter
 
 class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder>() {
 
-    val flights = mutableListOf<ClassMute>()
+    val classMute = mutableListOf<ClassMute>()
 
 
-    private val formatter = DateTimeFormatter.ofPattern("EEE'\n'dd MMM'\n'HH:mm")
+    private val formatter = DateTimeFormatter.ofPattern("EEE'\n'MMM dd'\n'HH:mm")
 
 
 
@@ -25,10 +25,10 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder
 
 
     override fun onBindViewHolder(viewHolder: EventItemViewHolder, position: Int) {
-        viewHolder.bind(flights[position])
+        viewHolder.bind(classMute[position])
     }
 
-    override fun getItemCount(): Int = flights.size
+    override fun getItemCount(): Int = classMute.size
 
     inner class EventItemViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {

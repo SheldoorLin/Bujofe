@@ -3,14 +3,14 @@
     <item>
         <shape>
 
-            <solid android:color="#ffe0b2"/>
+            <solid android:color="#ffe0b2" />
 
             <!--元件的漸層-->
-<!--            <gradient-->
-<!--                    android:angle="270"-->
-<!--                    android:centerColor="@color/text_orange_FFF7BB8D"-->
-<!--                    android:endColor="@color/text_orange_FFF7BB8D"-->
-<!--                    android:startColor="@color/text_orange_FFF7BB8D" />-->
+            <!--            <gradient-->
+            <!--                    android:angle="270"-->
+            <!--                    android:centerColor="@color/text_orange_FFF7BB8D"-->
+            <!--                    android:endColor="@color/text_orange_FFF7BB8D"-->
+            <!--                    android:startColor="@color/text_orange_FFF7BB8D" />-->
 
             <!--邊框顏色、粗細-->
             <!--    <stroke-->
@@ -18,15 +18,14 @@
             <!--            android:color="@color/text_orange_FFF7BB8D" />-->
 
             <!--圓角-->
-            <corners
-                    android:bottomLeftRadius="10dp"
+            <corners android:bottomLeftRadius="10dp"
                     android:topLeftRadius="10dp" />
 
-            <!--            <padding-->
-            <!--                    android:left="10dp"-->
-            <!--                    android:top="10dp"-->
-            <!--                    android:right="10dp"-->
-            <!--                    android:bottom="10dp" />-->
+            <padding
+                    android:bottom="2dp"
+                    android:left="4dp"
+                    android:right="4dp"
+                    android:top="2dp" />
         </shape>
     </item>
 </selector>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +22,10 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
+import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentCalendarBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
@@ -38,34 +41,29 @@ class CalendarFragment : Fragment() {
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentCalendarBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-
-
-
-
-        return binding.root
-    }
-
     private var selectedDate: LocalDate? = null
 
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
     private val calendarAdapter = CalendarAdapter()
 
-    private val flights = generateFlights().groupBy { it.time.toLocalDate() }
+    private val classMutes = generateFlights().groupBy { it.time.toLocalDate() }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        eventRecycler.layoutManager =
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        val binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        (activity as MainActivity).binding.toolbar.visibility = View.GONE
+        binding.lifecycleOwner = this
+        binding.eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        eventRecycler.adapter = calendarAdapter
-        eventRecycler.addItemDecoration(
+
+        binding.eventRecycler.adapter = calendarAdapter
+
+        binding.eventRecycler.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
                 RecyclerView.VERTICAL
@@ -73,10 +71,12 @@ class CalendarFragment : Fragment() {
         )
         calendarAdapter.notifyDataSetChanged()
 
+
         val daysOfWeek = daysOfWeekFromLocale()
 
         val currentMonth = YearMonth.now()
 
+        val eventCalendar = binding.eventCalendar
         eventCalendar.setup(
             currentMonth.minusMonths(10),
             currentMonth.plusMonths(10),
@@ -86,11 +86,17 @@ class CalendarFragment : Fragment() {
         eventCalendar.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
+
             lateinit var day: CalendarDay // Will be set when this container is bound.
+
             val textView = view.exFiveDayText
+
             val layout = view.exFiveDayLayout
-            val flightTopView = view.exFiveDayFlightTop
-            val flightBottomView = view.exFiveDayFlightBottom
+
+            val dayTopView = view.exFiveDayFlightTop
+
+            val dayBottomView = view.exFiveDayFlightBottom
+
 
             init {
                 view.setOnClickListener {
@@ -99,7 +105,9 @@ class CalendarFragment : Fragment() {
                             val oldDate = selectedDate
                             selectedDate = day.date
                             eventCalendar.notifyDateChanged(day.date)
-                            oldDate?.let { eventCalendar.notifyDateChanged(it) }
+                            oldDate?.let {
+                                eventCalendar.notifyDateChanged(it)
+                            }
                             updateAdapterForDate(day.date)
                         }
                     }
@@ -122,30 +130,40 @@ class CalendarFragment : Fragment() {
                 textView.text = day.date.dayOfMonth.toString()
 
 
-                val flightTopView = container.flightTopView
+                val dayTopView = container.dayTopView
 
-                val flightBottomView = container.flightBottomView
+                val dayBottomView = container.dayBottomView
 
-                flightTopView.background = null
+                dayTopView.background = null
 
-                flightBottomView.background = null
+                dayBottomView.background = null
 
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.setTextColorRes(R.color.black)
                     layout.setBackgroundResource(
-                        if (selectedDate == day.date) R.drawable.calendar_selected_bg
-                        else 0
+                        if (selectedDate == day.date)
+                            R.drawable.calendar_selected_bg
+                        else
+                            R.drawable.calendar_unselected_bg
                     )
 
-                    val flights = flights[day.date]
+                    val classMutes = classMutes[day.date]
 
-                    if (flights != null) {
+                    if (classMutes != null) {
 
-                        if (flights.count() == 1) {
-                            flightBottomView.setBackgroundColor(view.context.getColorCompat(flights[0].color))
+                        if (classMutes.count() == 1) {
+                            dayBottomView.setBackgroundColor(
+                                view!!.context.getColorCompat(
+                                    classMutes[0].color
+                                )
+                            )
                         } else {
-                            flightTopView.setBackgroundColor(view.context.getColorCompat(flights[0].color))
-                            flightBottomView.setBackgroundColor(view.context.getColorCompat(flights[1].color))
+                            dayTopView.setBackgroundColor(view!!.context.getColorCompat(classMutes[0].color))
+                            dayBottomView.setBackgroundColor(
+                                view!!.context.getColorCompat(
+                                    classMutes[1].color
+                                )
+                            )
                         }
                     }
                 } else {
@@ -160,25 +178,28 @@ class CalendarFragment : Fragment() {
             val legendLayout = view.legendLayout
         }
 
+
+        //一周星期標題
         eventCalendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                 // Setup each header day text if we have not done that already.
                 if (container.legendLayout.tag == null) {
                     container.legendLayout.tag = month.yearMonth
-                    container.legendLayout.children.map { it as TextView }
-                        .forEachIndexed { index, tv ->
-                            tv.text = daysOfWeek[index].name.take(3)
-                            tv.setTextColorRes(R.color.color_brown_FF8A6548)
-                            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-                        }
+                    container.legendLayout.children.map {
+                        it as TextView
+                    }.forEachIndexed { index, tv ->
+                        tv.text = daysOfWeek[index].name.take(3)
+                        tv.setTextColorRes(R.color.color_brown_FF8A6548)
+                        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                    }
                     month.yearMonth
                 }
             }
         }
 
         eventCalendar.monthScrollListener = { month ->
-            val title = "${monthTitleFormatter.format(month.yearMonth)} ${month.yearMonth.year}"
+            val title = "${month.yearMonth.year}年 ${monthTitleFormatter.format(month.yearMonth)} "
             exFiveMonthYearText.text = title
 
             selectedDate?.let {
@@ -189,22 +210,26 @@ class CalendarFragment : Fragment() {
             }
         }
 
-        exFiveNextMonthImage.setOnClickListener {
+        binding.exFiveNextMonthImage.setOnClickListener {
             eventCalendar.findFirstVisibleMonth()?.let {
                 eventCalendar.smoothScrollToMonth(it.yearMonth.next)
             }
         }
 
-        exFivePreviousMonthImage.setOnClickListener {
+        binding.exFivePreviousMonthImage.setOnClickListener {
             eventCalendar.findFirstVisibleMonth()?.let {
                 eventCalendar.smoothScrollToMonth(it.yearMonth.previous)
             }
         }
+
+
+        return binding.root
     }
 
+
     private fun updateAdapterForDate(date: LocalDate?) {
-        calendarAdapter.flights.clear()
-        calendarAdapter.flights.addAll(flights[date].orEmpty())
+        calendarAdapter.classMute.clear()
+        calendarAdapter.classMute.addAll(classMutes[date].orEmpty())
         calendarAdapter.notifyDataSetChanged()
     }
 

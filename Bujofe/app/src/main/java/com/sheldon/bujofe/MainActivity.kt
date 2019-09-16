@@ -16,7 +16,7 @@ import com.sheldon.bujofe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private lateinit var textMessage: TextView
     private val TAG: String = "Sheldon"
 

@@ -30,8 +30,8 @@
 
                 <ImageView
                         android:id="@+id/exFivePreviousMonthImage"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="22dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:tint="@color/color_brown_FF8A6548"
@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/color_brown_FF8A6548"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/exFiveNextMonthImage"
                         app:layout_constraintStart_toEndOf="@id/exFivePreviousMonthImage"
@@ -55,8 +55,8 @@
 
                 <ImageView
                         android:id="@+id/exFiveNextMonthImage"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:tint="@color/color_brown_FF8A6548"
                         app:layout_constraintBottom_toBottomOf="parent"
