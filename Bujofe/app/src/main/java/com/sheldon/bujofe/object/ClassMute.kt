@@ -6,10 +6,10 @@ import org.threeten.bp.LocalDateTime
 
 data class ClassMute(
     val time: LocalDateTime,
-    val departure: className,
+    val departure: ClassName,
     @ColorRes val color: Int
 ) {
-    data class className(
+    data class ClassName(
         val teacherName: String,
         val type: String
     )

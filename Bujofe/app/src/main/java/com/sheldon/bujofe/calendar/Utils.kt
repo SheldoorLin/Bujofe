@@ -4,16 +4,18 @@ import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ClassMute
 import org.threeten.bp.YearMonth
 
-private typealias classMute = ClassMute.className
+private typealias classMute = ClassMute.ClassName
 
 fun generateFlights(): List<ClassMute> {
 
     val list = mutableListOf<ClassMute>()
     val currentMonth = YearMonth.now()
 
+
+
+
+
     val currentMonth17 = currentMonth.atDay(17)
-
-
     list.add(
         ClassMute(
             currentMonth17.atTime(14, 0),
@@ -49,6 +51,11 @@ fun generateFlights(): List<ClassMute> {
         )
     )
 
+
+
+
+
+
     list.add(
         ClassMute(
             currentMonth.atDay(3).atTime(20, 0),
@@ -80,6 +87,8 @@ fun generateFlights(): List<ClassMute> {
             R.color.green_700
         )
     )
+
+
 
     list.add(
         ClassMute(

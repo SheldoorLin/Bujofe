@@ -6,8 +6,8 @@
     <data>
         <import type="android.graphics.Color"/>
         <variable
-                name="seat"
-                type="com.sheldon.bujofe.object.Seat" />
+                name="studyroomSeat"
+                type="com.sheldon.bujofe.object.SeatList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +23,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
-                android:backgroundTint='@{Color.parseColor("#"+seat.backgroundColor)}'
                 android:drawableTop="@drawable/ic_person_pin_black_24dp"
-                android:text="@{seat.id}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

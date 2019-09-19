@@ -1,30 +1,27 @@
 package com.sheldon.bujofe.studyroom
 
+import android.content.Context
 import android.os.Bundle
-import android.util.TypedValue
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.view.children
+import android.view.WindowManager
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kizitonwose.calendarview.model.CalendarDay
-import com.kizitonwose.calendarview.model.CalendarMonth
-import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
-import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import com.kizitonwose.calendarview.utils.next
-import com.kizitonwose.calendarview.utils.previous
-import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.calendar.*
+import com.sheldon.bujofe.calendar.getColorCompat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
-import kotlinx.android.synthetic.main.calendar_day_legend.view.*
-import kotlinx.android.synthetic.main.fragment_calendar.*
-import kotlinx.android.synthetic.main.item_calendar_day.view.*
+import kotlinx.android.synthetic.main.item_studyroom_calendar_day.view.*
+import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
@@ -34,6 +31,12 @@ class StudyRoomFragment : Fragment() {
     private val viewModel: StudyRoomViewModel by lazy {
         ViewModelProviders.of(this).get(StudyRoomViewModel::class.java)
     }
+    private val TAG = "StudyRoomFragment"
+
+    private var selectedDate: LocalDate? = null
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
+    private val monthFormatter = DateTimeFormatter.ofPattern("MMM")
 
 
     override fun onCreateView(
@@ -43,455 +46,254 @@ class StudyRoomFragment : Fragment() {
         val binding =
             FragmentStudyRoomBinding.inflate(inflater, container, false)
         (activity as MainActivity).binding.toolbar.visibility = View.GONE
+
         binding.viewModel = viewModel
+
         binding.lifecycleOwner = this
 
 
-        binding.spinnerWeekofday.adapter = WeekSpinnerAdapter(
-            BujofeApplication.instance.resources.getStringArray(R.array.week)
-        )
+        val dm = DisplayMetrics()
+
+        val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+        wm.defaultDisplay.getMetrics(dm)
 
 
-        val seatTable = binding.seatView
-        seatTable.setData(5, 9)
-        seatTable.setScreenName("黑板")
-        seatTable.setMaxSelected(1)
-        seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+        val exSevenCalendar = binding.exSevenCalendar
 
-            override fun isValidSeat(row: Int, column: Int): Boolean {
-//                    while (column ==1) {
-//                        return false
+        exSevenCalendar.dayWidth = dm.widthPixels / 5
+
+        exSevenCalendar.dayHeight = (exSevenCalendar.dayWidth * 1.25).toInt()
+
+        viewModel.getStudyRoomfirebase()
+        class DayViewContainer(view: View) : ViewContainer(view) {
+            val dayText = view.exSevenDayText
+            val dateText = view.exSevenDateText
+            val monthText = view.exSevenMonthText
+            val selectedView = view.exSevenSelectedView
+            lateinit var day: CalendarDay
+
+            init {
+
+
+                view.setOnClickListener {
+                    val firstDay = exSevenCalendar.findFirstVisibleDay()
+                    val lastDay = exSevenCalendar.findLastVisibleDay()
+                    if (firstDay == day) {
+                        /** If the first date on screen was clicked, we scroll to the date to ensure
+                         * it is fully visible if it was partially off the screen when clicked.
+                         */
+                        exSevenCalendar.smoothScrollToDate(day.date)
+                    } else if (lastDay == day) {
+                        /** If the last date was clicked, we scroll to 4 days ago, this forces the
+                         * clicked date to be fully visible if it was partially off the screen.
+                         * We scroll to 4 days ago because we show max of five days on the screen
+                         * so scrolling to 4 days ago brings the clicked date into full visibility at the end of the calendar view.
+                         */
+                        exSevenCalendar.smoothScrollToDate(day.date)
+                    }
+
+
+                    /** Example: If you want the clicked date to always be centered on the screen,
+                     * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
+                     */
+                    if (selectedDate != day.date) {
+                        val oldDate = selectedDate
+
+                        selectedDate = day.date
+
+                        Toast.makeText(
+                            requireContext(),
+                            "selected date is ${day.date}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+
+                        val serverDataFilter = viewModel.studyRoomdatas.value?.let {
+                            it.filter {
+                                it.local_date == day.date.toString()
+                            }
+                        }
+
+                        Log.d(TAG, "serverDataFilter $serverDataFilter")
+                        val filtedSeatList = serverDataFilter!![0].seatList
+
+                        Log.d(TAG, "test_3 $filtedSeatList")
+                        viewModel.studyRoomdataSeats.value = filtedSeatList
+
+                        exSevenCalendar.notifyDateChanged(day.date)
+                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
+                    }
+                }
+            }
+
+            fun bind(day: CalendarDay) {
+                this.day = day
+                dateText.text = dateFormatter.format(day.date)
+                dayText.text = dayFormatter.format(day.date)
+                monthText.text = monthFormatter.format(day.date)
+                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.example_7_yellow else R.color.example_7_white))
+                selectedView.isVisible = day.date == selectedDate
+                Log.d(TAG, "selected day is ${day.date}")
+            }
+        }
+
+        exSevenCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+            override fun create(view: View) = DayViewContainer(view)
+            override fun bind(container: DayViewContainer, day: CalendarDay) = container.bind(day)
+        }
+
+        val currentMonth = YearMonth.now()
+        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
+        exSevenCalendar.setup(currentMonth, currentMonth, DayOfWeek.values().random())
+
+
+        Toast.makeText(
+            requireContext(),
+            "dayofweek value is ${DayOfWeek.values().random()}",
+            Toast.LENGTH_SHORT
+        ).show()
+
+
+        exSevenCalendar.scrollToDate(LocalDate.now())
+
+
+
+
+        binding.orderedTimeRecycler.adapter = OrderedAdapter()
+
+        viewModel.studyRoomdataSeats.observe(this, Observer { seatListOnline ->
+            seatListOnline.let { it ->
+
+                /**
+                 * 繪製座位圖  seatTable
+                 */
+                viewModel.getBooked()
+                viewModel.getStudyRoomfirebase()
+                val seatTable = binding.seatView
+                seatTable.isDrawOverviewBitmap = true
+                seatTable.autoScale()
+                seatTable.setData(4, 4)
+                seatTable.setScreenName("黑板")
+                seatTable.setMaxSelected(1)
+                seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                    override fun isValidSeat(row: Int, column: Int): Boolean {
+                        //                    while (column ==1) {
+                        //                        return false
+                        //                    }
+                        return true
+                    }
+
+                    override fun isSold(row: Int, column: Int): Boolean {
+
+//                val test = viewModel.studyRoomSeats.value
+//                if (test != null) {
+//                    for (i in test) {
+//                        if (row == i.row && column == i.column)
+//                            return true
 //                    }
-                return true
+//                }
+                        return false
+                    }
+
+                    override fun checked(row: Int, column: Int) {
+                        val seatTableFilter = it.filter {
+                            it.column == column && it.row == row
+                        }
+                        val orderedSeatTime = listOf(seatTableFilter[0].orderedTimes)
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
+                            orderedSeatTime
+                        )
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
+                        Toast.makeText(requireContext(),"$row $column i was checked",Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun unCheck(row: Int, column: Int) {
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
+                    }
+
+                    override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                        return null
+                    }
+
+                })
             }
-
-            override fun isSold(row: Int, column: Int): Boolean {
-
-                return row == 2 && column == 1
-            }
-
-            override fun checked(row: Int, column: Int) {
-
-            }
-
-            override fun unCheck(row: Int, column: Int) {
-
-            }
-
-            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-                return null
-            }
-
         })
 
 
-//        binding.spinnerWeekofday.onItemSelectedListener =
-//            object : AdapterView.OnItemSelectedListener {
-//                override fun onNothingSelected(p0: AdapterView<*>?) {
-//                    //To change body of created functions use File | Settings | File Templates.
-//                }
-//
-//                override fun onItemSelected(
-//                    p0: AdapterView<*>?,
-//                    view: View?,
-//                    position: Int,
-//                    p3: Long
-//                ) {
-//                    when (position) {
-//                        0 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//                            override fun isValidSeat(row: Int, column: Int): Boolean {
-////                    while (column ==1) {
-////                        return false
-////                    }
-//                                return true
-//                            }
-//
-//                            override fun isSold(row: Int, column: Int): Boolean {
-//
-//                                return row == 2 && column == 1
-//                            }
-//
-//                            override fun checked(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun unCheck(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                                return null
-//                            }
-//
-//                        })
-//                        1 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//                            override fun isValidSeat(row: Int, column: Int): Boolean {
-////                    while (column ==1) {
-////                        return false
-////                    }
-//                                return true
-//                            }
-//
-//                            override fun isSold(row: Int, column: Int): Boolean {
-//
-//                                return row == 3 && column == 3
-//                            }
-//
-//                            override fun checked(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun unCheck(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                                return null
-//                            }
-//
-//                        })
-//                        2 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//                            override fun isValidSeat(row: Int, column: Int): Boolean {
-////                    while (column ==1) {
-////                        return false
-////                    }
-//                                return true
-//                            }
-//
-//                            override fun isSold(row: Int, column: Int): Boolean {
-//
-//                                return row == 4 && column == 2
-//                            }
-//
-//                            override fun checked(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun unCheck(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                                return null
-//                            }
-//
-//                        })
-//                        3 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//                            override fun isValidSeat(row: Int, column: Int): Boolean {
-////                    while (column ==1) {
-////                        return false
-////                    }
-//                                return true
-//                            }
-//
-//                            override fun isSold(row: Int, column: Int): Boolean {
-//
-//                                return row == 5 && column == 5
-//                            }
-//
-//                            override fun checked(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun unCheck(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                                return null
-//                            }
-//
-//                        })
-//                        4 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//                            override fun isValidSeat(row: Int, column: Int): Boolean {
-////                    while (column ==1) {
-////                        return false
-////                    }
-//                                return true
-//                            }
-//
-//                            override fun isSold(row: Int, column: Int): Boolean {
-//
-//                                return row == 0 && column == 5
-//                            }
-//
-//                            override fun checked(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun unCheck(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                                return null
-//                            }
-//
-//                        })
-//                        5 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//                            override fun isValidSeat(row: Int, column: Int): Boolean {
-////                    while (column ==1) {
-////                        return false
-////                    }
-//                                return true
-//                            }
-//
-//                            override fun isSold(row: Int, column: Int): Boolean {
-//
-//                                return row == 4 && column == 6
-//                            }
-//
-//                            override fun checked(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun unCheck(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                                return null
-//                            }
-//
-//                        })
-//                        6 -> seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//                            override fun isValidSeat(row: Int, column: Int): Boolean {
-////                    while (column ==1) {
-////                        return false
-////                    }
-//                                return true
-//                            }
-//
-//                            override fun isSold(row: Int, column: Int): Boolean {
-//
-//                                return row == 1 && column == 6
-//                            }
-//
-//                            override fun checked(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun unCheck(row: Int, column: Int) {
-//
-//                            }
-//
-//                            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                                return null
-//                            }
-//
-//                        })
-//                    }
-//                }
-//            }
-
-
 //        /**
-//         *mock data
-//         *  */
-//        val test_data_2: ArrayList<Seat> = ArrayList()
-//        test_data_2.add(Seat("A01", "王小翔","ef5350"))
-//        test_data_2.add(Seat("A02", "王大翔","ef5350"))
-//        test_data_2.add(Seat("A03", "王中翔","ef5350"))
-//        test_data_2.add(Seat("A04", "Eric","ef5350"))
-//        test_data_2.add(Seat("A05", "Sandra","ef5350"))
-//        test_data_2.add(Seat("A06", "Sophie","ef5350"))
-//        test_data_2.add(Seat("A07", "Sheldon","ef5350"))
-//        test_data_2.add(Seat("A08", "Terry","ef5350"))
-//        test_data_2.add(Seat("A09", "Eltin","ef5350"))
-//        test_data_2.add(Seat("A10", "Wayne","ef5350"))
-//        val test_data_3: ArrayList<Seat> = ArrayList()
-//        test_data_3.add(Seat("A01", "王小翔","ef5350"))
-//        test_data_3.add(Seat("A02", "王大翔","ef5350"))
-//        test_data_3.add(Seat("A03", "待預約","00c853"))
-//        test_data_3.add(Seat("A04", "Eric","ef5350"))
-//        test_data_3.add(Seat("A05", "Sandra","ef5350"))
-//        test_data_3.add(Seat("A06", "Sophie","ef5350"))
-//        test_data_3.add(Seat("A07", "待預約","00c853"))
-//        test_data_3.add(Seat("A08", "Terry","ef5350"))
-//        test_data_3.add(Seat("A09", "Eltin","ef5350"))
-//        test_data_3.add(Seat("A10", "Wayne","ef5350"))
+//         * Local繪製座位圖  seatTable
+//         */
+//        viewModel.getBooked()
+//        viewModel.getStudyRoomfirebase()
+//        val seatTable = binding.seatView
+//        seatTable.setData(3, 3)
+//        seatTable.setScreenName("黑板")
+//        seatTable.setMaxSelected(1)
+//        seatTable.setSeatChecker(object : SeatTable.SeatChecker {
 //
-//
-//
-//
-//
-//
-//
-//
-//        binding.seatRecycler.adapter = SeatAdapter()
-//        binding.seatRecycler.layoutManager = GridLayoutManager(this.context,5,GridLayoutManager.HORIZONTAL,false)
-//
-//        binding.spinnerWeekofday.onItemSelectedListener =
-//            object : AdapterView.OnItemSelectedListener {
-//                override fun onNothingSelected(p0: AdapterView<*>?) {
-//                    //To change body of created functions use File | Settings | File Templates.
-//                }
-//
-//                override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
-//                    when (position) {
-//                        0 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_3)
-//                        1 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-//                        2 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-//                        3 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-//                        4 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-//                        5 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-//                        6 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-//                    }
-//                }
+//            override fun isValidSeat(row: Int, column: Int): Boolean {
+//                //                    while (column ==1) {
+//                //                        return false
+//                //                    }
+//                return true
 //            }
 //
+//            override fun isSold(row: Int, column: Int): Boolean {
+//
+////                val test = viewModel.studyRoomSeats.value
+////                if (test != null) {
+////                    for (i in test) {
+////                        if (row == i.row && column == i.column)
+////                            return true
+////                    }
+////                }
+//                return false
+//            }
+//
+//            override fun checked(row: Int, column: Int) {
+//
+//
+//                viewModel.studyRoomSeats.value?.let {
+//                    val filterTest = it.filter { StudyroomSeat ->
+//                        StudyroomSeat.column == column && StudyroomSeat.row == row
+//                    }
+//
+//                    val test_2 = listOf(filterTest[0].orderedTimes)
+//
+//                    Log.d("filterTest", filterTest.toString())
+//                    Log.d("test_2", test_2.toString())
+//                    (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(test_2)
+//                    (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
+//                }
+//
+//
+//                Toast.makeText(requireContext(), "$row $column i was checked", Toast.LENGTH_SHORT)
+//                    .show()
+//
+//            }
+//
+//            override fun unCheck(row: Int, column: Int) {
+//                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
+//            }
+//
+//            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+//                return null
+//            }
+//
+//        })
+
+//        viewModel.studyRoomSeats.observe(this, Observer {
+//            it.let {
+//
+//
+//            }
+//        })
+
 
         return binding.root
     }
 
-    private var selectedDate: LocalDate? = null
 
-    private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
-
-    private val calendarAdapter = CalendarAdapter()
-
-    private val classMutes = generateFlights().groupBy { it.time.toLocalDate() }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        val daysOfWeek = daysOfWeekFromLocale()
-
-        val currentMonth = YearMonth.now()
-
-        eventCalendar.setup(
-            currentMonth.minusMonths(10),
-            currentMonth.plusMonths(10),
-            daysOfWeek.first()
-        )
-
-        eventCalendar.scrollToMonth(currentMonth)
-
-        class DayViewContainer(view: View) : ViewContainer(view) {
-            lateinit var day: CalendarDay // Will be set when this container is bound.
-            val textView = view.exFiveDayText
-            val layout = view.exFiveDayLayout
-            val flightTopView = view.exFiveDayFlightTop
-            val flightBottomView = view.exFiveDayFlightBottom
-
-            init {
-                view.setOnClickListener {
-                    if (day.owner == DayOwner.THIS_MONTH) {
-                        if (selectedDate != day.date) {
-                            val oldDate = selectedDate
-                            selectedDate = day.date
-                            eventCalendar.notifyDateChanged(day.date)
-                            oldDate?.let { eventCalendar.notifyDateChanged(it) }
-                            updateAdapterForDate(day.date)
-                        }
-                    }
-                }
-            }
-        }
-
-        eventCalendar.dayBinder = object : DayBinder<DayViewContainer> {
-
-            override fun create(view: View) = DayViewContainer(view)
-
-            override fun bind(container: DayViewContainer, day: CalendarDay) {
-
-                container.day = day
-
-                val textView = container.textView
-
-                val layout = container.layout
-
-                textView.text = day.date.dayOfMonth.toString()
-
-
-                val flightTopView = container.flightTopView
-
-                val flightBottomView = container.flightBottomView
-
-                flightTopView.background = null
-
-                flightBottomView.background = null
-
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.setTextColorRes(R.color.black)
-                    layout.setBackgroundResource(if (selectedDate == day.date) R.drawable.calendar_selected_bg else 0)
-
-                    val flights = classMutes[day.date]
-
-                    if (flights != null) {
-
-                        if (flights.count() == 1) {
-                            flightBottomView.setBackgroundColor(view.context.getColorCompat(flights[0].color))
-                        } else {
-                            flightTopView.setBackgroundColor(view.context.getColorCompat(flights[0].color))
-                            flightBottomView.setBackgroundColor(view.context.getColorCompat(flights[1].color))
-                        }
-                    }
-                } else {
-                    textView.setTextColorRes(R.color.title_color_white)
-                    layout.background = null
-                }
-            }
-
-        }
-
-        class MonthViewContainer(view: View) : ViewContainer(view) {
-            val legendLayout = view.legendLayout
-        }
-
-        eventCalendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
-            override fun create(view: View) = MonthViewContainer(view)
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                // Setup each header day text if we have not done that already.
-                if (container.legendLayout.tag == null) {
-                    container.legendLayout.tag = month.yearMonth
-                    container.legendLayout.children.map { it as TextView }
-                        .forEachIndexed { index, tv ->
-                            tv.text = daysOfWeek[index].name.take(3)
-                            tv.setTextColorRes(R.color.color_brown_FF8A6548)
-                            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-                        }
-                    month.yearMonth
-                }
-            }
-        }
-
-        eventCalendar.monthScrollListener = { month ->
-            val title = "${monthTitleFormatter.format(month.yearMonth)} ${month.yearMonth.year}"
-            exFiveMonthYearText.text = title
-
-            selectedDate?.let {
-                // Clear selection if we scroll to a new month.
-                selectedDate = null
-                eventCalendar.notifyDateChanged(it)
-                updateAdapterForDate(null)
-            }
-        }
-
-        exFiveNextMonthImage.setOnClickListener {
-            eventCalendar.findFirstVisibleMonth()?.let {
-                eventCalendar.smoothScrollToMonth(it.yearMonth.next)
-            }
-        }
-
-        exFivePreviousMonthImage.setOnClickListener {
-            eventCalendar.findFirstVisibleMonth()?.let {
-                eventCalendar.smoothScrollToMonth(it.yearMonth.previous)
-            }
-        }
-    }
-
-    private fun updateAdapterForDate(date: LocalDate?) {
-        calendarAdapter.classMute.clear()
-        calendarAdapter.classMute.addAll(classMutes[date].orEmpty())
-        calendarAdapter.notifyDataSetChanged()
-    }
 }

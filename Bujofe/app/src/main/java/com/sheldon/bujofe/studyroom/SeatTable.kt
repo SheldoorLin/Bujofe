@@ -1,6 +1,7 @@
 package com.sheldon.bujofe.studyroom
 
 import android.animation.Animator
+import android.animation.TimeInterpolator
 import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
@@ -218,7 +219,7 @@ class SeatTable : View {
     /**
      * 默認的座位圖寬度,如果使用的自己的座位圖片比這個尺寸大或者小,會缩放到這個大小
      */
-    private val defaultImgW = 60f
+    private val defaultImgW = 65f
 
     /**
      * 默認的座位圖高度
@@ -228,15 +229,15 @@ class SeatTable : View {
     /**
      * 座位圖片的寬度
      */
-    private var seatWidth: Int = 5
+    private var seatWidth: Int = 10
 
     /**
      * 座位圖片的高度
      */
-    private var seatHeight: Int = 5
+    private var seatHeight: Int = 10
 
-    private var xScale1 = 5f
-    private var yScale1 = 5f
+    private var xScale1 = 10f
+    private var yScale1 = 10f
 
     private val hideOverviewRunnable = Runnable {
         isDrawOverview = false
@@ -376,7 +377,7 @@ class SeatTable : View {
                                 if (currentScaleY < 1.7) {
                                     scaleX = x.toFloat()
                                     scaleY = y.toFloat()
-                                    zoomAnimate(currentScaleY, 1.9f)
+                                    zoomAnimate(currentScaleY, 3f)//2f
                                 }
 
                                 invalidate()
@@ -433,9 +434,9 @@ class SeatTable : View {
 
     private fun init() {
 
-        spacing = dip2Px(5f).toInt()
-        verSpacing = dip2Px(10f).toInt()
-        defaultScreenWidth = dip2Px(80f).toInt()
+        spacing = dip2Px(10f).toInt()
+        verSpacing = dip2Px(5f).toInt()
+        defaultScreenWidth = dip2Px(120f).toInt()
 
         seatBitmap = BitmapFactory.decodeResource(resources, seatAvailableResID)
 
@@ -489,7 +490,7 @@ class SeatTable : View {
 
         rectW = column * rectWidth + (column - 1) * overviewSpacing + overviewSpacing * 2
         rectH = row * rectHeight + (row - 1) * overviewVerSpacing + overviewVerSpacing * 2
-        overviewBitmap = Bitmap.createBitmap(rectW.toInt(), rectH.toInt(), Bitmap.Config.ARGB_4444)
+        overviewBitmap = Bitmap.createBitmap(rectW.toInt(), rectH.toInt(), Bitmap.Config.ARGB_8888)
 
         lineNumberPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         lineNumberPaint!!.color = bacColor
@@ -519,11 +520,24 @@ class SeatTable : View {
         if (row <= 0 || column == 0) {
             return
         }
+
+        /**
+         * 座位顯示
+         * */
         drawSeat(canvas)
+
+        /**
+         * 數字顯示
+         * */
         drawNumber(canvas)
+
+        /**
+         * 螢幕顯示
+         * */
+        drawScreen(canvas)
+
         headBitmap?.let { canvas.drawBitmap(it, 0f, 0f, null) }
 
-        drawScreen(canvas)
 
         if (isDrawOverview) {
             val s = System.currentTimeMillis()
@@ -626,7 +640,8 @@ class SeatTable : View {
         tempMatrix.setScale(xScale1, yScale1)
         tempMatrix.postTranslate(checkedSeatBitmapX, y)
         canvas.drawBitmap(checkedSeatBitmap!!, tempMatrix, headPaint)
-        canvas.drawText("已選", checkedSeatBitmapX + spacing1 + seatWidth.toFloat(), txtY,
+        canvas.drawText(
+            "已選", checkedSeatBitmapX + spacing1 + seatWidth.toFloat(), txtY,
             headPaint!!
         )
 
@@ -672,7 +687,7 @@ class SeatTable : View {
         )
     }
 
-    internal fun drawSeat(canvas: Canvas) {
+    private fun drawSeat(canvas: Canvas) {
         zoom = matrixScaleX
         val startTime = System.currentTimeMillis()
         val translateX = translateX
@@ -801,7 +816,7 @@ class SeatTable : View {
     /**
      * 繪製行號
      */
-    internal fun drawNumber(canvas: Canvas) {
+    private fun drawNumber(canvas: Canvas) {
         val startTime = System.currentTimeMillis()
         lineNumberPaint!!.color = bacColor
         val translateY = translateY.toInt()
@@ -844,7 +859,7 @@ class SeatTable : View {
     /**
      * 繪製概覽圖
      */
-    internal fun drawOverview(canvas: Canvas) {
+    private fun drawOverview(canvas: Canvas) {
 
         //繪製红色框
         var left = (-translateX).toInt()
@@ -852,12 +867,18 @@ class SeatTable : View {
             left = 0
         }
         left /= overviewScale.toInt()
-        left /= matrixScaleX.toInt()
+
+        Log.d("SeatTable","left = $left")
+        Log.d("SeatTable","overviewScale = ${overviewScale.toInt()}")
+        //left /= matrixScaleX.toInt() <- 不必要  但先留著
+        Log.d("SeatTable","matrixScaleX = ${overviewScale.toInt()}")
+
+
 
         var currentWidth =
             (translateX + (column * seatWidth + spacing * (column - 1)) * matrixScaleX).toInt()
         if (currentWidth > width) {
-            currentWidth = currentWidth - width
+            currentWidth -= width
         } else {
             currentWidth = 0
         }
@@ -883,13 +904,14 @@ class SeatTable : View {
         val bottom = (rectH - currentHeight.toFloat() / overviewScale / matrixScaleY).toInt()
 
         redBorderPaint?.let {
-            canvas.drawRect(left.toFloat(), top, right.toFloat(), bottom.toFloat(),
+            canvas.drawRect(
+                left.toFloat(), top, right.toFloat(), bottom.toFloat(),
                 it
             )
         }
     }
 
-    internal fun drawOverview(): Bitmap? {
+    private fun drawOverview(): Bitmap? {
         isDrawOverviewBitmap = false
 
         val bac = Color.parseColor("#7e000000")
@@ -1008,12 +1030,12 @@ class SeatTable : View {
 
     }
 
-    private fun autoScale() {
+    fun autoScale() {
 
-        if (matrixScaleX > 2.2) {
+        if (matrixScaleX > 3.2) {
+            zoomAnimate(matrixScaleX, 3.0f)
+        } else if (matrixScaleX < 1.98) {
             zoomAnimate(matrixScaleX, 2.0f)
-        } else if (matrixScaleX < 0.98) {
-            zoomAnimate(matrixScaleX, 1.0f)
         }
     }
 
@@ -1050,7 +1072,7 @@ class SeatTable : View {
         val zoomAnim = ZoomAnimation()
         valueAnimator.addUpdateListener(zoomAnim)
         valueAnimator.addListener(zoomAnim)
-        valueAnimator.duration = 400
+        valueAnimator.duration = 400 //400
         valueAnimator.start()
     }
 
@@ -1154,10 +1176,10 @@ class SeatTable : View {
         fun unCheck(row: Int, column: Int)
 
         /**
-         * 获取选中后座位上显示的文字
+         * 獲取選中後座位上顯示的文字
          * @param row
          * @param column
-         * @return 返回2个元素的数组,第一个元素是第一行的文字,第二个元素是第二行文字,如果只返回一个元素则会绘制到座位图的中间位置
+         * @return 返回2個元素的數組,第一個元素是第一行的文字,第二個元素是第二行文字,如果只返回一個元素則會繪製到座位圖的中間位置
          */
         fun checkedSeatTxt(row: Int, column: Int): Array<String>?
 

@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
 
         viewModel.getNoticefirebase()
 
-        viewModel.Notices.observe(this, Observer {
+        viewModel.notices.observe(this, Observer {
             it.let {
                 Log.d("Notices","$it")
                 (binding.homeRecyclerViewNotice.adapter as NoticeItemAdapter).submitList(it)

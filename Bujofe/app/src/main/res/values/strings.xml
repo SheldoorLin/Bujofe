@@ -15,7 +15,7 @@
         EEE\n</string>
     <string name="home_notice_time">2019/08/09</string>
 
-    <!--seat-->
+    <!--seatList-->
     <string name="seat_name">姓名</string>
     <string name="name_text">Sheldon Lin</string>
     <string name="tx_class_remaining">剩餘堂數</string>
@@ -31,19 +31,6 @@
     <string name="start_time">開始時間</string>
     <string name="end_time">結束時間</string>
     <string name="submit_status">申請狀態</string>
-    <string-array name="week">
-        <item>星期一</item>
-        <item>星期二</item>
-        <item>星期三</item>
-        <item>星期四</item>
-        <item>星期五</item>
-        <item>星期六</item>
-        <item>星期天</item>
-    </string-array>
-
-
-    <!--Scan-->
-    <string name="log_in_ok">登入成功</string>
     <string name="sunday">星期日</string>
     <string name="monday">星期一</string>
     <string name="tuesday">星期二</string>
@@ -51,4 +38,22 @@
     <string name="thusday">星期四</string>
     <string name="friday">星期五</string>
     <string name="satuday">星期六</string>
+
+
+    <!--Scan-->
+    <string name="log_in_ok">登入成功</string>
+    <string name="first_time_slot">
+        10:00\n
+        |\n
+        12:00</string>
+    <string name="second_time_slot">
+        14:00\n
+        |\n
+        17:00</string>
+    <string name="third_time_slot">
+        19:30\n
+        |\n
+        21:30</string>
+    <string name="study_room_booked">定位</string>
+
 </resources>

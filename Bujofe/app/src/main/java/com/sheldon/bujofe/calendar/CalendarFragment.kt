@@ -58,6 +58,8 @@ class CalendarFragment : Fragment() {
         val binding = FragmentCalendarBinding.inflate(inflater, container, false)
         (activity as MainActivity).binding.toolbar.visibility = View.GONE
         binding.lifecycleOwner = this
+
+
         binding.eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 

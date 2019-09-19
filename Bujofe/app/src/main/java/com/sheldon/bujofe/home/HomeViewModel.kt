@@ -6,11 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ServerTimestamp
 import com.sheldon.bujofe.`object`.Notice
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -18,9 +14,9 @@ class HomeViewModel : ViewModel() {
 
     private val TAG: String = "HomeViewModel"
 
-    private val _Notices = MutableLiveData<List<Notice>>()
-    val Notices: LiveData<List<Notice>>
-        get() = _Notices
+    private val _notices = MutableLiveData<List<Notice>>()
+    val notices: LiveData<List<Notice>>
+        get() = _notices
 
     private val list: ArrayList<Notice> = ArrayList()
 
@@ -35,11 +31,11 @@ class HomeViewModel : ViewModel() {
                     val dateTime = java.sql.Date(data.time!!.time)
                     val format = SimpleDateFormat("yyy/MM/dd")
 
-                    list.add(Notice(data.title, data.context, format.format(dateTime),data.type))
+                    list.add(Notice(data.title, data.context, format.format(dateTime) , data.type))
                     Log.d("originTime", "${data.time}")
                     Log.d("Time", format.format(dateTime))
                     Log.d("dateTime", "$dateTime")
-                    _Notices.value = list
+                    _notices.value = list
                     Log.d(TAG, "User ====" + data.title)
                 }
             }
