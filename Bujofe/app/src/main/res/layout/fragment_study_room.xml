@@ -4,9 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="viewModel"
                 type="com.sheldon.bujofe.studyroom.StudyRoomViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,21 +47,40 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@color/Color_White_ffffff"
-                app:layout_constraintBottom_toTopOf="@+id/ordered_time_recycler"
+                app:layout_constraintBottom_toTopOf="@+id/tx_no_select_a_day"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ordered_time_recycler"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:itemCount="3"
+                app:layout_constraintTop_toBottomOf="@+id/tx_no_select_a_day"
+                tools:itemCount="1"
                 tools:listitem="@layout/item_studyroom_seat_ordered" />
+
+        <TextView
+                android:id="@+id/tx_no_select_a_day"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:text="@string/studyroom_no_select_a_day"
+                android:textSize="18sp"
+                android:visibility="@{viewModel.pageStatus.equals(1) ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toTopOf="@+id/ordered_time_recycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seatView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

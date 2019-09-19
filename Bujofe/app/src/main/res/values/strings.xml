@@ -55,5 +55,6 @@
         |\n
         21:30</string>
     <string name="study_room_booked">定位</string>
+    <string name="studyroom_no_select_a_day">請選擇上方日期</string>
 
 </resources>

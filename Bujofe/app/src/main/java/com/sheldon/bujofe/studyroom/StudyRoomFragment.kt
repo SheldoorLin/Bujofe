@@ -61,11 +61,11 @@ class StudyRoomFragment : Fragment() {
 
         val exSevenCalendar = binding.exSevenCalendar
 
-        exSevenCalendar.dayWidth = dm.widthPixels / 5
+        exSevenCalendar.dayWidth = dm.widthPixels / 7   //origin is 5
 
-        exSevenCalendar.dayHeight = (exSevenCalendar.dayWidth * 1.25).toInt()
+        exSevenCalendar.dayHeight = (exSevenCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
 
-        viewModel.getStudyRoomfirebase()
+
         class DayViewContainer(view: View) : ViewContainer(view) {
             val dayText = view.exSevenDayText
             val dateText = view.exSevenDateText
@@ -74,11 +74,13 @@ class StudyRoomFragment : Fragment() {
             lateinit var day: CalendarDay
 
             init {
-
-
                 view.setOnClickListener {
                     val firstDay = exSevenCalendar.findFirstVisibleDay()
                     val lastDay = exSevenCalendar.findLastVisibleDay()
+
+
+
+
                     if (firstDay == day) {
                         /** If the first date on screen was clicked, we scroll to the date to ensure
                          * it is fully visible if it was partially off the screen when clicked.
@@ -94,19 +96,21 @@ class StudyRoomFragment : Fragment() {
                     }
 
 
+
+                    if (firstDay?.date == LocalDate.now()){
+
+
+                    }
+
+
+
                     /** Example: If you want the clicked date to always be centered on the screen,
                      * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
                      */
                     if (selectedDate != day.date) {
                         val oldDate = selectedDate
-
                         selectedDate = day.date
-
-                        Toast.makeText(
-                            requireContext(),
-                            "selected date is ${day.date}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        viewModel.pageStatus.value = 1
 
 
                         val serverDataFilter = viewModel.studyRoomdatas.value?.let {
@@ -114,15 +118,18 @@ class StudyRoomFragment : Fragment() {
                                 it.local_date == day.date.toString()
                             }
                         }
-
                         Log.d(TAG, "serverDataFilter $serverDataFilter")
-                        val filtedSeatList = serverDataFilter!![0].seatList
 
+                        val filtedSeatList = serverDataFilter!![0].seatList
                         Log.d(TAG, "test_3 $filtedSeatList")
+
                         viewModel.studyRoomdataSeats.value = filtedSeatList
+
 
                         exSevenCalendar.notifyDateChanged(day.date)
                         oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
+
+
                     }
                 }
             }
@@ -146,30 +153,25 @@ class StudyRoomFragment : Fragment() {
         val currentMonth = YearMonth.now()
         // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
         exSevenCalendar.setup(currentMonth, currentMonth, DayOfWeek.values().random())
-
-
-        Toast.makeText(
-            requireContext(),
-            "dayofweek value is ${DayOfWeek.values().random()}",
-            Toast.LENGTH_SHORT
-        ).show()
-
-
         exSevenCalendar.scrollToDate(LocalDate.now())
+
 
 
 
 
         binding.orderedTimeRecycler.adapter = OrderedAdapter()
 
+
+
+
+
+
+
         viewModel.studyRoomdataSeats.observe(this, Observer { seatListOnline ->
             seatListOnline.let { it ->
-
                 /**
                  * 繪製座位圖  seatTable
                  */
-                viewModel.getBooked()
-                viewModel.getStudyRoomfirebase()
                 val seatTable = binding.seatView
                 seatTable.isDrawOverviewBitmap = true
                 seatTable.autoScale()
@@ -186,6 +188,20 @@ class StudyRoomFragment : Fragment() {
                     }
 
                     override fun isSold(row: Int, column: Int): Boolean {
+
+                        val seatTableFilter = it.filter {
+                            it.orderedTimes?.firstTimeSlot != ""
+                                    && it.orderedTimes?.secTimeSlot != ""
+                                    && it.orderedTimes?.thirdTimeSlot != ""
+                        }
+
+                        val orderedList = seatTableFilter
+                        if (orderedList != null ){
+                            for (i in orderedList){
+                                if (row == i.row && column == i.column)
+                                    return true
+                            }
+                        }
 
 //                val test = viewModel.studyRoomSeats.value
 //                if (test != null) {
@@ -206,7 +222,11 @@ class StudyRoomFragment : Fragment() {
                             orderedSeatTime
                         )
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-                        Toast.makeText(requireContext(),"$row $column i was checked",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "$row $column i was checked",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     override fun unCheck(row: Int, column: Int) {

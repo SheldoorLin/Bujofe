@@ -2,6 +2,7 @@ package com.sheldon.bujofe.studyroom
 
 import android.icu.text.SimpleDateFormat
 import android.util.Log
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,13 @@ class StudyRoomViewModel : ViewModel() {
 
     private var TAG: String = "StudyroomViewModel"
 
+    val pageStatus = MutableLiveData<Int>()
+
+    init {
+        pageStatus.value = 0
+        getStudyRoomfirebase()
+    }
+
     private val _studyRoomdatas = MutableLiveData<List<StudyroomSeat>>()
     val studyRoomdatas: LiveData<List<StudyroomSeat>>
         get() = _studyRoomdatas
@@ -25,6 +33,8 @@ class StudyRoomViewModel : ViewModel() {
     private val _studyRoomSeats = MutableLiveData<List<SeatList>>()
     val studyRoomSeats: LiveData<List<SeatList>>
         get() = _studyRoomSeats
+
+
 
 
     fun getBooked() {
@@ -41,6 +51,9 @@ class StudyRoomViewModel : ViewModel() {
         _studyRoomSeats.value = testBook
         Log.d("_studyRoomSeats", _studyRoomSeats.toString())
     }
+
+
+
 
 
     fun getStudyRoomfirebase() {
@@ -67,5 +80,8 @@ class StudyRoomViewModel : ViewModel() {
                 Log.d(TAG, "Error getting documents: ", exception)
             }
     }
+
+
+
 
 }

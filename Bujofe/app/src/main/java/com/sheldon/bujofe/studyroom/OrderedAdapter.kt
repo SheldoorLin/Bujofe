@@ -24,9 +24,14 @@ class OrderedAdapter : ListAdapter<OrderedTimes, OrderedAdapter.ItemViewHolder>(
     class ItemViewHolder(private var binding: ItemStudyroomSeatOrderedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(orderedTimes: OrderedTimes) {
             binding.orderedTimes = orderedTimes
+
+            binding.btnFirstSlot.isEnabled = orderedTimes.firstTimeSlot == ""
+            binding.btnSecSlot.isEnabled = orderedTimes.secTimeSlot == ""
+            binding.btnThirdSlot.isEnabled = orderedTimes.thirdTimeSlot == ""
+
+
             binding.executePendingBindings()
         }
     }
