@@ -1,11 +1,15 @@
 package com.sheldon.bujofe.home
 
+import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.Notice
 import com.sheldon.bujofe.databinding.ItemHomeNoticeBinding
@@ -33,13 +37,18 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
             binding.notice = notice
             binding.imgNoticeIcon
 
+            img.setColorFilter(
+                ContextCompat.getColor(BujofeApplication.instance, R.color.color_orange_text_gray),
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
+
             when (notice.type) {
                 1 -> img.setImageResource(R.drawable.tornado)
                 2 -> img.setImageResource(R.drawable.smallmanread)
                 3 -> img.setImageResource(R.drawable.crown_icon)
 
             }
-            Log.d("noticetype",notice.type.toString())
+            Log.d("noticetype", notice.type.toString())
             binding.executePendingBindings()
         }
     }

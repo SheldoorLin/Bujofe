@@ -61,9 +61,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnSignIn.setOnClickListener {
+
+        binding.btnLoginDesign.setOnClickListener {
             signIn()
         }
+
+//        binding.btnSignIn.setOnClickListener {
+//            signIn()
+//        }
     }
 
     private fun signIn() {
