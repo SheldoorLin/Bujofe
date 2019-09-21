@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.Notice
-import com.sheldon.bujofe.databinding.ItemHomeNoticeBinding
 import com.sheldon.bujofe.databinding.ItemHomeNoticeCardBinding
 
 class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(DiffCallback) {
