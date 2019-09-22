@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/color_orange_lite_Login_page"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,56 +28,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <FrameLayout
-                    android:id="@+id/itemFlightDepartureImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/itemFlightDateText"
-                    app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
-                    app:layout_constraintTop_toTopOf="@+id/itemFlightDateText">
-
-                <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical|end"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/ic_person_pin_black_24dp" />
-
-            </FrameLayout>
-
-            <LinearLayout
-                    android:id="@+id/itemFlightDepartureLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/itemFlightDepartureImage"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/itemFlightDepartureImage"
-                    app:layout_constraintTop_toTopOf="@+id/itemFlightDepartureImage">
-
-                <TextView
-                        android:id="@+id/itemDepartureAirportCodeText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-black"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:text="LOS" />
-
-                <TextView
-                        android:id="@+id/itemDepartureAirportCityText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:text="Lagos" />
-            </LinearLayout>
-
             <TextView
                     android:id="@+id/itemFlightDateText"
                     android:layout_width="wrap_content"
@@ -90,11 +39,65 @@
                     android:textAllCaps="true"
                     android:textColor="@color/title_color_white"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.143"
-                    tools:text="THU\nJUN 30\n14:00" />
+                    tools:text="週二 9月 30號 14:00" />
+
+            <TextView
+                    android:id="@+id/itemDepartureAirportCityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemDepartureAirportCodeText"
+                    app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
+                    app:layout_constraintTop_toTopOf="@+id/itemDepartureAirportCodeText"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:text="課程名稱" />
+
+            <TextView
+                    android:id="@+id/itemDepartureAirportCodeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/itemFlightDateText"
+                    tools:text="教師名稱" />
+
+            <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@string/calendar_roll_name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/itemDepartureAirportCityText"
+                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCityText" />
+
+            <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@string/calendar_teach_room"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/itemDepartureAirportCodeText"
+                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCodeText" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

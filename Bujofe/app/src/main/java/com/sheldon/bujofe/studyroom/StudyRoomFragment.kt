@@ -1,5 +1,6 @@
 package com.sheldon.bujofe.studyroom
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -37,6 +38,7 @@ class StudyRoomFragment : Fragment() {
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
     private val monthFormatter = DateTimeFormatter.ofPattern("MMM")
+
 
 
     override fun onCreateView(
@@ -96,14 +98,6 @@ class StudyRoomFragment : Fragment() {
                     }
 
 
-
-                    if (firstDay?.date == LocalDate.now()){
-
-
-                    }
-
-
-
                     /** Example: If you want the clicked date to always be centered on the screen,
                      * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
                      */
@@ -139,7 +133,7 @@ class StudyRoomFragment : Fragment() {
                 dateText.text = dateFormatter.format(day.date)
                 dayText.text = dayFormatter.format(day.date)
                 monthText.text = monthFormatter.format(day.date)
-                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.example_7_yellow else R.color.example_7_white))
+                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_orange_text_gray else R.color.Color_White_ffffff))
                 selectedView.isVisible = day.date == selectedDate
                 Log.d(TAG, "selected day is ${day.date}")
             }
@@ -156,14 +150,7 @@ class StudyRoomFragment : Fragment() {
         exSevenCalendar.scrollToDate(LocalDate.now())
 
 
-
-
-
         binding.orderedTimeRecycler.adapter = OrderedAdapter()
-
-
-
-
 
 
 
@@ -173,6 +160,7 @@ class StudyRoomFragment : Fragment() {
                  * 繪製座位圖  seatTable
                  */
                 val seatTable = binding.seatView
+                seatTable.setBackgroundResource(R.color.Color_White_ffffff)
                 seatTable.isDrawOverviewBitmap = true
                 seatTable.autoScale()
                 seatTable.setData(4, 4)
@@ -196,8 +184,8 @@ class StudyRoomFragment : Fragment() {
                         }
 
                         val orderedList = seatTableFilter
-                        if (orderedList != null ){
-                            for (i in orderedList){
+                        if (orderedList != null) {
+                            for (i in orderedList) {
                                 if (row == i.row && column == i.column)
                                     return true
                             }
@@ -240,80 +228,6 @@ class StudyRoomFragment : Fragment() {
                 })
             }
         })
-
-
-//        /**
-//         * Local繪製座位圖  seatTable
-//         */
-//        viewModel.getBooked()
-//        viewModel.getStudyRoomfirebase()
-//        val seatTable = binding.seatView
-//        seatTable.setData(3, 3)
-//        seatTable.setScreenName("黑板")
-//        seatTable.setMaxSelected(1)
-//        seatTable.setSeatChecker(object : SeatTable.SeatChecker {
-//
-//            override fun isValidSeat(row: Int, column: Int): Boolean {
-//                //                    while (column ==1) {
-//                //                        return false
-//                //                    }
-//                return true
-//            }
-//
-//            override fun isSold(row: Int, column: Int): Boolean {
-//
-////                val test = viewModel.studyRoomSeats.value
-////                if (test != null) {
-////                    for (i in test) {
-////                        if (row == i.row && column == i.column)
-////                            return true
-////                    }
-////                }
-//                return false
-//            }
-//
-//            override fun checked(row: Int, column: Int) {
-//
-//
-//                viewModel.studyRoomSeats.value?.let {
-//                    val filterTest = it.filter { StudyroomSeat ->
-//                        StudyroomSeat.column == column && StudyroomSeat.row == row
-//                    }
-//
-//                    val test_2 = listOf(filterTest[0].orderedTimes)
-//
-//                    Log.d("filterTest", filterTest.toString())
-//                    Log.d("test_2", test_2.toString())
-//                    (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(test_2)
-//                    (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-//                }
-//
-//
-//                Toast.makeText(requireContext(), "$row $column i was checked", Toast.LENGTH_SHORT)
-//                    .show()
-//
-//            }
-//
-//            override fun unCheck(row: Int, column: Int) {
-//                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
-//            }
-//
-//            override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
-//                return null
-//            }
-//
-//        })
-
-//        viewModel.studyRoomSeats.observe(this, Observer {
-//            it.let {
-//
-//
-//            }
-//        })
-
-
         return binding.root
     }
-
-
 }

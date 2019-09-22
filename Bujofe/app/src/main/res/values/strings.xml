@@ -54,8 +54,10 @@
         19:30\n
         |\n
         21:30</string>
-    <string name="study_room_booked">定位</string>
+    <string name="study_room_booked">預約座位</string>
     <string name="studyroom_no_select_a_day">請選擇上方日期</string>
     <string name="log_in_button">Google 登入</string>
+    <string name="calendar_roll_name">點名人數</string>
+    <string name="calendar_teach_room">授課教室</string>
 
 </resources>

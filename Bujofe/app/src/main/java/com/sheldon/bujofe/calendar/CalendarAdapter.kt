@@ -2,6 +2,7 @@ package com.sheldon.bujofe.calendar
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ClassMute
@@ -14,9 +15,18 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder
 
     val classMute = mutableListOf<ClassMute>()
 
+    private val formatter = DateTimeFormatter.ofPattern("EEE MMM dd'號' HH:mm")
+    private val formatter_start_time = DateTimeFormatter.ofPattern("HH:mm")
 
-    private val formatter = DateTimeFormatter.ofPattern("EEE'\n'MMM dd'\n'HH:mm")
+    companion object DiffCallback : DiffUtil.ItemCallback<ClassMute>() {
+        override fun areItemsTheSame(oldItem: ClassMute, newItem: ClassMute): Boolean {
+            return oldItem === newItem
+        }
 
+        override fun areContentsTheSame(oldItem: ClassMute, newItem: ClassMute): Boolean {
+            return oldItem == newItem
+        }
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventItemViewHolder {
@@ -30,16 +40,14 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder
 
     override fun getItemCount(): Int = classMute.size
 
+
     inner class EventItemViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(classMute: ClassMute) {
             itemFlightDateText.text = formatter.format(classMute.time)
-            itemFlightDateText.setBackgroundColor(itemView.context.getColorCompat(classMute.color))
             itemDepartureAirportCodeText.text = classMute.departure.teacherName
             itemDepartureAirportCityText.text = classMute.departure.type
-//            itemDestinationAirportCodeText.text = classMute.destination.code
-//            itemDestinationAirportCityText.text = classMute.destination.city
         }
     }
 }

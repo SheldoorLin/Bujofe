@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,10 +24,9 @@ import com.kizitonwose.calendarview.utils.previous
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentCalendarBinding
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.calendar_day_legend.view.*
-import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
@@ -56,7 +54,7 @@ class CalendarFragment : Fragment() {
     ): View? {
 
         val binding = FragmentCalendarBinding.inflate(inflater, container, false)
-        (activity as MainActivity).binding.toolbar.visibility = View.GONE
+        (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
         binding.lifecycleOwner = this
 
 
@@ -153,20 +151,8 @@ class CalendarFragment : Fragment() {
 
                     if (classMutes != null) {
 
-                        if (classMutes.count() == 1) {
-                            dayBottomView.setBackgroundColor(
-                                view!!.context.getColorCompat(
-                                    classMutes[0].color
-                                )
-                            )
-                        } else {
-                            dayTopView.setBackgroundColor(view!!.context.getColorCompat(classMutes[0].color))
-                            dayBottomView.setBackgroundColor(
-                                view!!.context.getColorCompat(
-                                    classMutes[1].color
-                                )
-                            )
-                        }
+                        dayBottomView.setBackgroundResource(R.drawable.calendar_event_dot_shape)
+
                     }
                 } else {
                     textView.setTextColorRes(R.color.title_color_white)
@@ -192,7 +178,7 @@ class CalendarFragment : Fragment() {
                         it as TextView
                     }.forEachIndexed { index, tv ->
                         tv.text = daysOfWeek[index].name.take(3)
-                        tv.setTextColorRes(R.color.color_brown_FF8A6548)
+                        tv.setTextColorRes(R.color.color_orange_Dark)
                         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
                     }
                     month.yearMonth
@@ -221,6 +207,14 @@ class CalendarFragment : Fragment() {
         binding.exFivePreviousMonthImage.setOnClickListener {
             eventCalendar.findFirstVisibleMonth()?.let {
                 eventCalendar.smoothScrollToMonth(it.yearMonth.previous)
+            }
+        }
+
+        binding.exFiveMonthYearText.setOnClickListener {
+            if (eventCalendar.visibility == View.VISIBLE) {
+                binding.eventCalendar.visibility = View.GONE
+            } else {
+                binding.eventCalendar.visibility = View.VISIBLE
             }
         }
 

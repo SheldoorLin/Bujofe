@@ -19,7 +19,7 @@
                 android:id="@+id/exFiveAppBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_orange_FFF4CAA9"
+                android:background="@color/color_orange_lite_Login_page"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,9 +32,8 @@
                         android:id="@+id/exFivePreviousMonthImage"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginEnd="22dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="@color/color_brown_FF8A6548"
+                        android:tint="@color/color_orange_button"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/color_brown_FF8A6548"
+                        android:textColor="@color/color_orange_Dark"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/exFiveNextMonthImage"
@@ -58,7 +57,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="@color/color_brown_FF8A6548"
+                        android:tint="@color/color_orange_button"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

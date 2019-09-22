@@ -38,7 +38,7 @@ internal fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean 
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
-internal inline fun Boolean?.orFalse(): Boolean = this ?: false
+internal fun Boolean?.orFalse(): Boolean = this ?: false
 
 internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) =
     ContextCompat.getDrawable(this, drawable)
@@ -61,10 +61,10 @@ fun daysOfWeekFromLocale(): Array<DayOfWeek> {
 }
 
 fun GradientDrawable.setCornerRadius(
-    topLeft: Float = 0F,
-    topRight: Float = 0F,
-    bottomRight: Float = 0F,
-    bottomLeft: Float = 0F
+    topLeft: Float = 10F,
+    topRight: Float = 10F,
+    bottomRight: Float = 10F,
+    bottomLeft: Float = 10F
 ) {
     cornerRadii = arrayOf(
         topLeft, topLeft,

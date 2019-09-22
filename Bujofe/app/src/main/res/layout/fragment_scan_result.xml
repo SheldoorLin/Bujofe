@@ -16,60 +16,63 @@
 
         <ImageView
                 android:id="@+id/img_log_in_result"
-                android:layout_width="123dp"
-                android:layout_height="123dp"
+                android:layout_width="230dp"
+                android:layout_height="336dp"
+                android:background="@color/color_orange_lite_Login_page"
+                android:scaleType="fitStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@color/Color_White_ffffff" />
+                app:srcCompat="@drawable/logo_out" />
 
         <TextView
 
                 android:id="@+id/textLoginOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
                 android:text="@string/log_in_ok"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="@+id/img_log_in_status"
-                app:layout_constraintStart_toStartOf="@+id/img_log_in_status"
-                app:layout_constraintTop_toBottomOf="@+id/img_log_in_status" />
-
-        <ImageView
-                android:id="@+id/img_log_in_status"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="8dp"
-                android:tint="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/img_log_in_result"
                 app:layout_constraintStart_toStartOf="@+id/img_log_in_result"
-                app:layout_constraintTop_toTopOf="@+id/img_log_in_result"
-                app:srcCompat="@drawable/smallmanread" />
+                tools:layout_editor_absoluteY="379dp" />
 
         <TextView
                 android:id="@+id/tx_class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:fontFamily="@font/noto_sans"
                 android:text="@string/class_name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/img_log_in_result"
-                app:layout_constraintTop_toBottomOf="@+id/img_log_in_result" />
+                tools:layout_editor_absoluteY="437dp" />
 
         <TextView
                 android:id="@+id/class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
                 android:text="Hi"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tx_class_name"
                 app:layout_constraintStart_toEndOf="@+id/tx_class_name"
-                app:layout_constraintTop_toTopOf="@+id/tx_class_name" />
+                app:layout_constraintTop_toTopOf="@+id/tx_class_name"
+                app:layout_constraintVertical_bias="0.0" />
 
         <TextView
                 android:id="@+id/tx_class_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_time"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/tx_class_name"
                 app:layout_constraintTop_toBottomOf="@+id/tx_class_name" />
 

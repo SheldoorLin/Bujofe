@@ -116,4 +116,6 @@ dependencies {
     //user-permission of Camera
     implementation 'com.karumi:dexter:5.0.0'
 
+    //image rounded
+    implementation 'com.github.dipkastel:RoundedImageView:1.0.3'
 }

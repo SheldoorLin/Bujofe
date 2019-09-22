@@ -8,9 +8,11 @@ data class ClassMute(
     val time: LocalDateTime,
     val departure: ClassName,
     @ColorRes val color: Int
-) {
-    data class ClassName(
-        val teacherName: String,
-        val type: String
-    )
-}
+)
+
+
+
+data class ClassName(
+    val teacherName: String,
+    val type: String
+)
