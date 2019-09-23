@@ -3,7 +3,8 @@ package com.sheldon.bujofe.`object`
 data class ReClass(
     val date: String,
     val className: String,
-    val StartTime: String,
-    val EndTime: String,
-    val Status: String
+    val Status: String,
+    val re_class_type: String,
+    val re_class_time:String,
+    val re_class_context:String
 )

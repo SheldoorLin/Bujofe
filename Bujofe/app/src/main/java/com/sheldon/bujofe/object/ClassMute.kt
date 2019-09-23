@@ -13,6 +13,8 @@ data class ClassMute(
 
 
 data class ClassName(
-    val teacherName: String,
+    val class_context : String,
+    val teach_class: String,
+    val order_people:String,
     val type: String
 )

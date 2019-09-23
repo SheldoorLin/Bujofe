@@ -49,6 +49,7 @@
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/rounded_log_in_button"
                 android:drawableStart="@drawable/googleg_standard_color_18"
+                android:letterSpacing="0.15"
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp"
                 android:text="@string/log_in_button"

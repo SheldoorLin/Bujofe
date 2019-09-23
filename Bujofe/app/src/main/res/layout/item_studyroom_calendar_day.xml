@@ -50,6 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="6dp"
             android:layout_gravity="bottom"
-            android:background="@color/color_orange_text_gray" />
+            android:background="@color/color_orange_Light" />
 
 </FrameLayout>

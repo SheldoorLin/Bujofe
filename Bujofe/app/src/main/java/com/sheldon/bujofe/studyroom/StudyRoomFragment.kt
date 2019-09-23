@@ -1,6 +1,5 @@
 package com.sheldon.bujofe.studyroom
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -80,9 +78,6 @@ class StudyRoomFragment : Fragment() {
                     val firstDay = exSevenCalendar.findFirstVisibleDay()
                     val lastDay = exSevenCalendar.findLastVisibleDay()
 
-
-
-
                     if (firstDay == day) {
                         /** If the first date on screen was clicked, we scroll to the date to ensure
                          * it is fully visible if it was partially off the screen when clicked.
@@ -133,7 +128,7 @@ class StudyRoomFragment : Fragment() {
                 dateText.text = dateFormatter.format(day.date)
                 dayText.text = dayFormatter.format(day.date)
                 monthText.text = monthFormatter.format(day.date)
-                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_orange_text_gray else R.color.Color_White_ffffff))
+                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_orange_Light else R.color.Color_White_ffffff))
                 selectedView.isVisible = day.date == selectedDate
                 Log.d(TAG, "selected day is ${day.date}")
             }
@@ -183,21 +178,10 @@ class StudyRoomFragment : Fragment() {
                                     && it.orderedTimes?.thirdTimeSlot != ""
                         }
 
-                        val orderedList = seatTableFilter
-                        if (orderedList != null) {
-                            for (i in orderedList) {
-                                if (row == i.row && column == i.column)
-                                    return true
-                            }
+                        for (i in seatTableFilter) {
+                            if (row == i.row && column == i.column)
+                                return true
                         }
-
-//                val test = viewModel.studyRoomSeats.value
-//                if (test != null) {
-//                    for (i in test) {
-//                        if (row == i.row && column == i.column)
-//                            return true
-//                    }
-//                }
                         return false
                     }
 
@@ -210,11 +194,11 @@ class StudyRoomFragment : Fragment() {
                             orderedSeatTime
                         )
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-                        Toast.makeText(
-                            requireContext(),
-                            "$row $column i was checked",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "$row $column i was checked",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
 
                     override fun unCheck(row: Int, column: Int) {

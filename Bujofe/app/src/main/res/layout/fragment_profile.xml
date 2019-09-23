@@ -31,95 +31,112 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/noto_sans"
+                android:letterSpacing="0.15"
                 android:text="@string/name_text"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/roundedImageView"
                 app:layout_constraintStart_toStartOf="@+id/roundedImageView"
                 app:layout_constraintTop_toBottomOf="@+id/roundedImageView"
                 tools:text="@string/name_text" />
 
-        <ImageView
-                android:id="@+id/img_sep_1"
+        <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:src="@android:color/darker_gray"
+                app:cardBackgroundColor="@color/color_orange_lite_Login_page"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tx_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tx_name">
 
-        <ImageView
-                android:id="@+id/img_sep_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:src="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tx_class_remaining" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <TextView
-                android:id="@+id/class_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/tx_class_name"
-                android:textSize="18sp"
-                android:fontFamily="@font/noto_sans"
-                app:layout_constraintBottom_toBottomOf="@+id/tx_class_remaining"
-                app:layout_constraintStart_toStartOf="@+id/img_sep_1"
-                app:layout_constraintTop_toTopOf="@+id/tx_class_remaining" />
+                <ImageView
+                        android:id="@+id/img_sep_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@android:color/darker_gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tx_class_remaining" />
 
-        <TextView
-                android:id="@+id/tx_class_remaining"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/noto_sans"
-                android:text="@string/tx_class_remaining"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toStartOf="@+id/tx_class_replacement"
-                app:layout_constraintTop_toBottomOf="@+id/img_sep_1" />
+                <TextView
+                        android:id="@+id/class_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/noto_sans"
+                        android:letterSpacing="0.15"
+                        android:text="@string/tx_class_name"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tx_class_remaining"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tx_class_remaining" />
 
-        <TextView
-                android:id="@+id/tx_class_replacement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:fontFamily="@font/noto_sans"
-                android:text="@string/tx_class_replacement"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tx_class_remaining"
-                app:layout_constraintEnd_toEndOf="@+id/img_sep_1"
-                app:layout_constraintTop_toTopOf="@+id/tx_class_remaining" />
+                <TextView
+                        android:id="@+id/tx_class_remaining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="32dp"
+                        android:fontFamily="@font/noto_sans"
+                        android:letterSpacing="0.15"
+                        android:text="@string/tx_class_remaining"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/tx_class_replacement"
+                        app:layout_constraintStart_toEndOf="@+id/class_name"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/profile_detail_recycler"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_sep_2"
-                tools:listitem="@layout/item_profile_detail" />
+                <TextView
+                        android:id="@+id/tx_class_replacement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/noto_sans"
+                        android:letterSpacing="0.15"
+                        android:text="@string/tx_class_replacement"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tx_class_remaining"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tx_class_remaining" />
 
-        <Button
-                android:id="@+id/btn_replacement_apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/profile_replacemet_apply"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/profile_detail_recycler"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img_sep_2"
+                        tools:listitem="@layout/item_profile_detail" />
 
+                <Button
+                        android:id="@+id/btn_replacement_apply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/profile_replacemet_apply"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

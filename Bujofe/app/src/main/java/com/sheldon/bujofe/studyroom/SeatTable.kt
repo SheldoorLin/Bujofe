@@ -790,23 +790,23 @@ class SeatTable : View {
         val seatWidth = this.seatWidth * matrixScaleX
         txtPaint.textSize = seatHeight / 3
 
-        //获取中间线
+        //獲取中間線
         val center = seatHeight / 2
         val txtWidth = txtPaint.measureText(txt)
         val startX = left + seatWidth / 2 - txtWidth / 2
 
-        //只绘制一行文字
-        if (txt1 == null) {
-            canvas.drawText(txt, startX, getBaseLine(txtPaint, top, top + seatHeight), txtPaint)
-        } else {
-            canvas.drawText(txt, startX, getBaseLine(txtPaint, top, top + center), txtPaint)
-            canvas.drawText(
-                txt1,
-                startX,
-                getBaseLine(txtPaint, top + center, top + center + seatHeight / 2),
-                txtPaint
-            )
-        }
+        //只繪製一行文字
+//        if (txt1 == null) {
+//            canvas.drawText(txt, startX, getBaseLine(txtPaint, top, top + seatHeight), txtPaint)
+//        } else {
+//            canvas.drawText(txt, startX, getBaseLine(txtPaint, top, top + center), txtPaint)
+//            canvas.drawText(
+//                txt1,
+//                startX,
+//                getBaseLine(txtPaint, top + center, top + center + seatHeight / 2),
+//                txtPaint
+//            )
+//        }
 
         if (DBG) {
             Log.d("drawTest:", "top:$top")

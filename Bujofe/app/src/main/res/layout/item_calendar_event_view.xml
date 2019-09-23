@@ -48,55 +48,71 @@
                     android:id="@+id/itemDepartureAirportCityText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
+                    android:padding="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/itemDepartureAirportCodeText"
-                    app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
-                    app:layout_constraintTop_toTopOf="@+id/itemDepartureAirportCodeText"
-                    app:layout_constraintVertical_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintTop_toTopOf="@+id/itemFlightDateText"
                     tools:text="課程名稱" />
 
             <TextView
                     android:id="@+id/itemDepartureAirportCodeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@{classMute.departure.type}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/itemFlightDateText"
-                    tools:text="教師名稱" />
+                    tools:text="1-1 微積分導論" />
 
             <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/noto_sans"
-                    android:text="@string/calendar_roll_name"
+                    android:padding="3dp"
+                    android:text="@{classMute.departure.order_people}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/itemDepartureAirportCityText"
-                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCityText" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCityText"
+                    tools:text="30/30" />
 
             <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/noto_sans"
-                    android:text="@string/calendar_teach_room"
+                    android:padding="3dp"
+                    android:text="@{classMute.departure.teach_class}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/itemDepartureAirportCodeText"
-                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCodeText" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintTop_toTopOf="@+id/textView"
+                    tools:text="五樓三室" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintGuide_percent="0.60"
+                    app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

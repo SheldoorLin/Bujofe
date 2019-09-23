@@ -46,8 +46,10 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder
 
         fun bind(classMute: ClassMute) {
             itemFlightDateText.text = formatter.format(classMute.time)
-            itemDepartureAirportCodeText.text = classMute.departure.teacherName
             itemDepartureAirportCityText.text = classMute.departure.type
+            textView2.text = classMute.departure.teach_class
+            textView.text =  classMute.departure.order_people
+            itemDepartureAirportCodeText.text = classMute.departure.class_context
         }
     }
 }

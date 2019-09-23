@@ -17,7 +17,7 @@
 
     <!--seatList-->
     <string name="seat_name">姓名</string>
-    <string name="name_text">Sheldon Lin</string>
+    <string name="name_text">林柏宇</string>
     <string name="tx_class_remaining">剩餘堂數</string>
     <string name="tx_class_name">課程名稱</string>
     <string name="tx_class_replacement">需補課堂數</string>
@@ -28,8 +28,10 @@
     <string name="profile_log_out">登出</string>
     <string name="date">日期</string>
     <string name="class_name">課程名稱</string>
-    <string name="start_time">開始時間</string>
+    <string name="start_time">課程開始時間</string>
     <string name="end_time">結束時間</string>
+
+
     <string name="submit_status">申請狀態</string>
     <string name="sunday">星期日</string>
     <string name="monday">星期一</string>
@@ -41,7 +43,7 @@
 
 
     <!--Scan-->
-    <string name="log_in_ok">登入成功</string>
+    <string name="log_in_ok">簽到成功</string>
     <string name="first_time_slot">
         10:00\n
         |\n
@@ -59,5 +61,11 @@
     <string name="log_in_button">Google 登入</string>
     <string name="calendar_roll_name">點名人數</string>
     <string name="calendar_teach_room">授課教室</string>
+    <string name="tx_reclass_context">課程內容</string>
+    <string name="tx_reclass_time">補課時間</string>
+    <string name="tx_reclass_type">補課方式</string>
+    <string name="time_test">2019/09/23</string>
+    <string name="scan_test_class_name">芙丸英文</string>
+
 
 </resources>
