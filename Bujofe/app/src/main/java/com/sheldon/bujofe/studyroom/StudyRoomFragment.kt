@@ -1,23 +1,43 @@
 package com.sheldon.bujofe.studyroom
 
-import androidx.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import com.sheldon.bujofe.BujofeApplication
-
+import android.view.WindowManager
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.kizitonwose.calendarview.model.CalendarDay
+import com.kizitonwose.calendarview.ui.DayBinder
+import com.kizitonwose.calendarview.ui.ViewContainer
+import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.`object`.Seat
+import com.sheldon.bujofe.calendar.getColorCompat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
+import kotlinx.android.synthetic.main.item_studyroom_calendar_day.view.*
+import org.threeten.bp.DayOfWeek
+import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
+import org.threeten.bp.format.DateTimeFormatter
 
 class StudyRoomFragment : Fragment() {
 
     private val viewModel: StudyRoomViewModel by lazy {
         ViewModelProviders.of(this).get(StudyRoomViewModel::class.java)
     }
+    private val TAG = "StudyRoomFragment"
+
+    private var selectedDate: LocalDate? = null
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
+    private val monthFormatter = DateTimeFormatter.ofPattern("MMM")
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,84 +45,173 @@ class StudyRoomFragment : Fragment() {
     ): View? {
         val binding =
             FragmentStudyRoomBinding.inflate(inflater, container, false)
+        (activity as MainActivity).binding.toolbar.visibility = View.GONE
 
         binding.viewModel = viewModel
+
         binding.lifecycleOwner = this
 
 
+        val dm = DisplayMetrics()
+
+        val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+        wm.defaultDisplay.getMetrics(dm)
 
 
+        val exSevenCalendar = binding.exSevenCalendar
+
+        exSevenCalendar.dayWidth = dm.widthPixels / 7   //origin is 5
+
+        exSevenCalendar.dayHeight = (exSevenCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
 
 
-        /**
-         *mock data
-         *  */
-//        val test_data: ArrayList<Weekday> = ArrayList()
-//        test_data.add(Weekday("Sunday", Seat("A01", "王小翔")))
-//        test_data.add(Weekday("Sunday", Seat("A02", "王大翔")))
-//        test_data.add(Weekday("Sunday", Seat("A03", "王中翔")))
-//        test_data.add(Weekday("Sunday", Seat("A04", "Eric")))
-//        test_data.add(Weekday("Sunday", Seat("A05", "Sandra")))
-//        test_data.add(Weekday("Sunday", Seat("A06", "Sophie")))
-//        test_data.add(Weekday("Sunday", Seat("A07", "Sheldon")))
-//        test_data.add(Weekday("Sunday", Seat("A08", "Terry")))
-//        test_data.add(Weekday("Sunday", Seat("A09", "Eltin")))
-//        test_data.add(Weekday("Sunday", Seat("A10", "Wayne")))
-        val test_data_2: ArrayList<Seat> = ArrayList()
-        test_data_2.add(Seat("A01", "王小翔","ef5350"))
-        test_data_2.add(Seat("A02", "王大翔","ef5350"))
-        test_data_2.add(Seat("A03", "王中翔","ef5350"))
-        test_data_2.add(Seat("A04", "Eric","ef5350"))
-        test_data_2.add(Seat("A05", "Sandra","ef5350"))
-        test_data_2.add(Seat("A06", "Sophie","ef5350"))
-        test_data_2.add(Seat("A07", "Sheldon","ef5350"))
-        test_data_2.add(Seat("A08", "Terry","ef5350"))
-        test_data_2.add(Seat("A09", "Eltin","ef5350"))
-        test_data_2.add(Seat("A10", "Wayne","ef5350"))
-        val test_data_3: ArrayList<Seat> = ArrayList()
-        test_data_3.add(Seat("A01", "王小翔","ef5350"))
-        test_data_3.add(Seat("A02", "王大翔","ef5350"))
-        test_data_3.add(Seat("A03", "待預約","00c853"))
-        test_data_3.add(Seat("A04", "Eric","ef5350"))
-        test_data_3.add(Seat("A05", "Sandra","ef5350"))
-        test_data_3.add(Seat("A06", "Sophie","ef5350"))
-        test_data_3.add(Seat("A07", "待預約","00c853"))
-        test_data_3.add(Seat("A08", "Terry","ef5350"))
-        test_data_3.add(Seat("A09", "Eltin","ef5350"))
-        test_data_3.add(Seat("A10", "Wayne","ef5350"))
+        class DayViewContainer(view: View) : ViewContainer(view) {
+            val dayText = view.exSevenDayText
+            val dateText = view.exSevenDateText
+            val monthText = view.exSevenMonthText
+            val selectedView = view.exSevenSelectedView
+            lateinit var day: CalendarDay
+
+            init {
+                view.setOnClickListener {
+                    val firstDay = exSevenCalendar.findFirstVisibleDay()
+                    val lastDay = exSevenCalendar.findLastVisibleDay()
+
+                    if (firstDay == day) {
+                        /** If the first date on screen was clicked, we scroll to the date to ensure
+                         * it is fully visible if it was partially off the screen when clicked.
+                         */
+                        exSevenCalendar.smoothScrollToDate(day.date)
+                    } else if (lastDay == day) {
+                        /** If the last date was clicked, we scroll to 4 days ago, this forces the
+                         * clicked date to be fully visible if it was partially off the screen.
+                         * We scroll to 4 days ago because we show max of five days on the screen
+                         * so scrolling to 4 days ago brings the clicked date into full visibility at the end of the calendar view.
+                         */
+                        exSevenCalendar.smoothScrollToDate(day.date)
+                    }
 
 
+                    /** Example: If you want the clicked date to always be centered on the screen,
+                     * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
+                     */
+                    if (selectedDate != day.date) {
+                        val oldDate = selectedDate
+                        selectedDate = day.date
+                        viewModel.pageStatus.value = 1
 
 
+                        val serverDataFilter = viewModel.studyRoomdatas.value?.let {
+                            it.filter {
+                                it.local_date == day.date.toString()
+                            }
+                        }
+                        Log.d(TAG, "serverDataFilter $serverDataFilter")
+
+                        val filtedSeatList = serverDataFilter!![0].seatList
+                        Log.d(TAG, "test_3 $filtedSeatList")
+
+                        viewModel.studyRoomdataSeats.value = filtedSeatList
 
 
+                        exSevenCalendar.notifyDateChanged(day.date)
+                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
 
-        binding.spinnerWeekofday.adapter = WeekSpinnerAdapter(
-            BujofeApplication.instance.resources.getStringArray(R.array.week)
-        )
 
-        binding.seatRecycler.adapter = SeatAdapter()
-
-        binding.spinnerWeekofday.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    //To change body of created functions use File | Settings | File Templates.
-                }
-
-                override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
-                    when (position) {
-                        0 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_3)
-                        1 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        2 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        3 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        4 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        5 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
-                        6 -> (binding.seatRecycler.adapter as SeatAdapter).submitList(test_data_2)
                     }
                 }
             }
 
+            fun bind(day: CalendarDay) {
+                this.day = day
+                dateText.text = dateFormatter.format(day.date)
+                dayText.text = dayFormatter.format(day.date)
+                monthText.text = monthFormatter.format(day.date)
+                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_orange_Light else R.color.Color_White_ffffff))
+                selectedView.isVisible = day.date == selectedDate
+                Log.d(TAG, "selected day is ${day.date}")
+            }
+        }
 
+        exSevenCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+            override fun create(view: View) = DayViewContainer(view)
+            override fun bind(container: DayViewContainer, day: CalendarDay) = container.bind(day)
+        }
+
+        val currentMonth = YearMonth.now()
+        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
+        exSevenCalendar.setup(currentMonth, currentMonth, DayOfWeek.values().random())
+        exSevenCalendar.scrollToDate(LocalDate.now())
+
+
+        binding.orderedTimeRecycler.adapter = OrderedAdapter(viewModel)
+
+
+
+        viewModel.studyRoomdataSeats.observe(this, Observer { seatListOnline ->
+            seatListOnline.let { it ->
+                /**
+                 * 繪製座位圖  seatTable
+                 */
+                val seatTable = binding.seatView
+                seatTable.setBackgroundResource(R.color.Color_White_ffffff)
+                seatTable.isDrawOverviewBitmap = true
+                seatTable.autoScale()
+                seatTable.setData(4, 4)
+                seatTable.setScreenName("黑板")
+                seatTable.setMaxSelected(1)
+                seatTable.setSeatChecker(object : SeatTable.SeatChecker {
+
+                    override fun isValidSeat(row: Int, column: Int): Boolean {
+                        //                    while (column ==1) {
+                        //                        return false
+                        //                    }
+                        return true
+                    }
+
+                    override fun isSold(row: Int, column: Int): Boolean {
+
+                        val seatTableFilter = it.filter {
+                            it.orderedTimes?.firstTimeSlot != ""
+                                    && it.orderedTimes?.secTimeSlot != ""
+                                    && it.orderedTimes?.thirdTimeSlot != ""
+                        }
+
+                        for (i in seatTableFilter) {
+                            if (row == i.row && column == i.column)
+                                return true
+                        }
+                        return false
+                    }
+
+                    override fun checked(row: Int, column: Int) {
+                        val seatTableFilter = it.filter {
+                            it.column == column && it.row == row
+                        }
+                        val orderedSeatTime = listOf(seatTableFilter[0].orderedTimes)
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
+                            orderedSeatTime
+                        )
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "$row $column i was checked",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+                    }
+
+                    override fun unCheck(row: Int, column: Int) {
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
+                    }
+
+                    override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
+                        return null
+                    }
+
+                })
+            }
+        })
         return binding.root
     }
 }

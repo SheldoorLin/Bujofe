@@ -16,13 +16,16 @@
                 android:id="@+id/home_recyclerView_notice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="4dp"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="2"
-                tools:listitem="@layout/item_home_announce"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:spanCount="1"
+                tools:listitem="@layout/item_home_notice_card" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

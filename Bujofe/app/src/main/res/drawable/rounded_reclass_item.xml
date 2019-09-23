@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/Color_White_ffffff" />
+
+            <!--邊框顏色、粗細-->
+            <stroke android:width="3dp" android:color="@color/color_orange_button" />
+
+            <!--圓角-->
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+</selector>

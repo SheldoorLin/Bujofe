@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="orderedTimes"
+                type="com.sheldon.bujofe.object.OrderedTimes" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@color/color_orange_Light" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="65dp" />
+
+            <TextView
+                    android:id="@+id/tx_third_slot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/third_time_slot"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tx_sec_slot"
+                    app:layout_constraintTop_toBottomOf="@+id/tx_sec_slot" />
+
+            <TextView
+                    android:id="@+id/tx_first_slot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/first_time_slot"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/first_slot"
+                    android:layout_width="240dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:gravity="center"
+                    android:text="@{orderedTimes.firstTimeSlot}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tx_first_slot"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_first_slot"
+                    app:layout_constraintStart_toEndOf="@+id/tx_first_slot"
+                    app:layout_constraintTop_toTopOf="@+id/tx_first_slot"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="林柏宇" />
+
+            <Button
+                    android:id="@+id/btn_first_slot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/rounded_reclass_item"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@string/study_room_booked"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/first_slot"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/first_slot" />
+
+
+            <TextView
+                    android:id="@+id/tx_sec_slot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/second_time_slot"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@+id/tx_first_slot"
+                    app:layout_constraintTop_toBottomOf="@+id/tx_first_slot" />
+
+            <TextView
+                    android:id="@+id/sec_slot"
+                    android:layout_width="240dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:gravity="center"
+                    android:text="@{orderedTimes.secTimeSlot}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tx_sec_slot"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_sec_slot"
+                    app:layout_constraintStart_toEndOf="@+id/tx_sec_slot"
+                    app:layout_constraintTop_toTopOf="@+id/tx_sec_slot" />
+
+            <Button
+                    android:id="@+id/btn_sec_slot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/rounded_reclass_item"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@string/study_room_booked"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sec_slot"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_first_slot"
+                    app:layout_constraintTop_toTopOf="@+id/sec_slot" />
+
+            <TextView
+                    android:id="@+id/third_slot"
+                    android:layout_width="240dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:gravity="center"
+                    android:text="@{orderedTimes.thirdTimeSlot}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tx_third_slot"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_third_slot"
+                    app:layout_constraintStart_toEndOf="@+id/tx_third_slot"
+                    app:layout_constraintTop_toTopOf="@+id/tx_third_slot" />
+
+            <Button
+                    android:id="@+id/btn_third_slot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/rounded_reclass_item"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@string/study_room_booked"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/third_slot"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_sec_slot"
+                    app:layout_constraintTop_toTopOf="@+id/third_slot"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/sec_slot"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/first_slot"
+                    app:srcCompat="@color/black" />
+
+            <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/third_slot"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sec_slot"
+                    app:srcCompat="@color/black" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

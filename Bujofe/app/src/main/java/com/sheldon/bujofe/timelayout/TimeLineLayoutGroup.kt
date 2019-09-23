@@ -24,7 +24,7 @@ class TimeLineLayoutGroup : ViewGroup {
     private lateinit var dividerPaint: Paint
     private lateinit var textPaint: Paint
     private var dividerColorId: Int = R.color.divider_color
-    private var dividerTextColorId: Int = R.color.title_color
+    private var dividerTextColorId: Int = R.color.title_color_white
     private lateinit var dividerTitles: MutableList<String>
 
 
@@ -53,8 +53,8 @@ class TimeLineLayoutGroup : ViewGroup {
                     12 -> {
                         "12 pm"
                     }
-                    in 12 .. 24->{
-                        "${i-12} pm"
+                    in 12..24 -> {
+                        "${i - 12} pm"
                     }
                     else -> {
                         ""
@@ -85,7 +85,8 @@ class TimeLineLayoutGroup : ViewGroup {
 
         val ta = context.obtainStyledAttributes(set, R.styleable.TimeLineLayout)
         eachHourHeightInDp = ta.getDimension(R.styleable.TimeLineLayout_eachRowHeight, 118f)
-        minimumHeightEachSellPercentage = ta.getFloat(R.styleable.TimeLineLayout_minimumPercentage, .25f)
+        minimumHeightEachSellPercentage =
+            ta.getFloat(R.styleable.TimeLineLayout_minimumPercentage, .25f)
         numberOfRows = ta.getInteger(R.styleable.TimeLineLayout_numberOfRows, 24)
         @SuppressLint("ResourceAsColor")
         dividerColorId = ta.getColor(R.styleable.TimeLineLayout_dividerColor, Color.BLACK)
@@ -128,7 +129,10 @@ class TimeLineLayoutGroup : ViewGroup {
         }
         measureChildren(widthMeasureSpec, heightMeasureSpec)
         setMeasuredDimension(
-            Math.max(resources.displayMetrics.widthPixels, (maxChildrenEnd + dividerStartOffset.toPx())),
+            Math.max(
+                resources.displayMetrics.widthPixels,
+                (maxChildrenEnd + dividerStartOffset.toPx())
+            ),
             eachHourHeightInDp.toPx() * numberOfRows
         )
     }
@@ -209,11 +213,15 @@ class TimeLineLayoutGroup : ViewGroup {
     }
 
 
-    private fun hasCommonTime(firstRange: Pair<Float, Float>, secondRange: Pair<Float, Float>): Boolean =
+    private fun hasCommonTime(
+        firstRange: Pair<Float, Float>,
+        secondRange: Pair<Float, Float>
+    ): Boolean =
         !(firstRange.first >= secondRange.second || firstRange.second <= secondRange.first)
 
 
-    private fun convertMinuteToPx(startTime: Float) = (startTime * eachHourHeightInDp.toPx()).roundToInt()
+    private fun convertMinuteToPx(startTime: Float) =
+        (startTime * eachHourHeightInDp.toPx()).roundToInt()
 
 
     override fun generateLayoutParams(attrs: AttributeSet): LayoutParams {
@@ -221,7 +229,10 @@ class TimeLineLayoutGroup : ViewGroup {
     }
 
     override fun generateDefaultLayoutParams(): LayoutParams {
-        return LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        return LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 
     override fun generateLayoutParams(p: ViewGroup.LayoutParams): ViewGroup.LayoutParams {
@@ -251,8 +262,8 @@ class TimeLineLayoutGroup : ViewGroup {
 
     private fun Float.toPx(): Int {
         val r = resources
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, r.displayMetrics).toInt()
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, r.displayMetrics)
+            .toInt()
     }
-
 
 }

@@ -70,8 +70,6 @@ class EventView<T : Event> : FrameLayout {
             widthMeasureSpec,
             MeasureSpec.makeMeasureSpec(calculatedHeight.roundToInt(), MeasureSpec.EXACTLY)
         )
-
-
     }
 
     fun getEventTime() = startTime to endTime

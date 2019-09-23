@@ -6,42 +6,29 @@
     <data>
         <import type="android.graphics.Color"/>
         <variable
-                name="seat"
-                type="com.sheldon.bujofe.object.Seat" />
+                name="studyroomSeat"
+                type="com.sheldon.bujofe.object.SeatList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
         <Button
                 android:id="@+id/btn_seat"
-                android:text="@{seat.id}"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
                 android:drawableTop="@drawable/ic_person_pin_black_24dp"
-                android:backgroundTint='@{Color.parseColor("#"+seat.backgroundColor)}'
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="A01" />
 
-        <TextView
-                android:id="@+id/tv_seat_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/noto_sans"
-                android:letterSpacing="0.15"
-                android:text="@{seat.name}"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_seat"
-                app:layout_constraintStart_toEndOf="@+id/btn_seat"
-                app:layout_constraintTop_toTopOf="@+id/btn_seat"
-                tools:text="@string/seat_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

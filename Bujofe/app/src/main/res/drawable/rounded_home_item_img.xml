@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+
+            <solid android:color="#ffe0b2" />
+
+            <!--元件的漸層-->
+            <!--            <gradient-->
+            <!--                    android:angle="270"-->
+            <!--                    android:centerColor="@color/text_orange_FFF7BB8D"-->
+            <!--                    android:endColor="@color/text_orange_FFF7BB8D"-->
+            <!--                    android:startColor="@color/text_orange_FFF7BB8D" />-->
+
+            <!--邊框顏色、粗細-->
+            <!--    <stroke-->
+            <!--            android:width="1dp"-->
+            <!--            android:color="@color/text_orange_FFF7BB8D" />-->
+
+            <!--圓角-->
+            <corners android:bottomLeftRadius="10dp"
+                    android:topLeftRadius="10dp" />
+
+            <padding
+                    android:bottom="2dp"
+                    android:left="4dp"
+                    android:right="4dp"
+                    android:top="2dp" />
+        </shape>
+    </item>
+</selector>

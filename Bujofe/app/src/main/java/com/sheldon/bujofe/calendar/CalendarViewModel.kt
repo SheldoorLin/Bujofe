@@ -1,7 +1,9 @@
 package com.sheldon.bujofe.calendar
 
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
 class CalendarViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+
+    val test = MutableLiveData<String>()
 }

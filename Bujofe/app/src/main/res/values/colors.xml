@@ -6,12 +6,52 @@
 
     <!--Calendar.Timeline Setting-->
     <color name="divider_color">#4e4e4e</color>
-    <color name="title_color">#FFFFFF</color>
+    <color name="title_color_white">#FFFFFF</color>
 
     <!--Calendar Use-->
-    <color name="Color_gray_aeaeae">#aeaeae</color>
-    <color name="Color_gray_ffffff">#ffffff</color>
+    <color name="Color_gray_aeaeae">#AEAEAE</color>
+    <color name="Color_White_ffffff">#FFFFFF</color>
+    <color name="white">#fff</color>
+    <color name="black">#000000</color>
+    <color name="example_5_page_bg_color">#0E0E0E</color>
+    <color name="example_5_item_view_bg_color">#1B1B1B</color>
+    <color name="example_5_toolbar_color">#282828</color>
+    <color name="example_5_text_grey">#bdbdbd</color>
+    <color name="example_5_text_grey_light">#616161</color>
+    <color name="brown_700">#5D4037</color>
+    <color name="blue_grey_700">#455A64</color>
+    <color name="orange_800">#EF6C00</color>
+    <color name="green_700">#388E3C</color>
+    <color name="teal_700">#00796B</color>
+    <color name="pink_700">#C2185B</color>
+    <color name="red_800">#c62828</color>
+    <color name="blue_800">#1565C0</color>
+    <color name="cyan_700">#0097A7</color>
+    <color name="example_7_white">#D9FFFFFF</color>
+    <color name="example_7_yellow">#FFEB3B</color>
+
+    <!--bottom navigation bar tab-->
+    <color name="tab_checked_000000">#000000</color>
+    <color name="tab_unchecked_757575">#757575</color>
+    <color name="text_orange_FFF7BB8D">#F7BB8D</color>
+    <color name="color_orange_FFF4CAA9">#F4CAA9</color>
+    <color name="color_brown_C0997A">#C0997A</color>
+    <color name="color_brown_FF8A6548">#8A6548</color>
 
 
+    <!--Warm Color-->
+    <color name="color_warm_yellow_F2DEA2">#F2DEA2</color>
+    <color name="color_warm_skin_F2B680">#F2B680</color>
+    <color name="color_warm_orange_F2B680">#F28963</color>
+    <color name="color_warm_pink_F2AB91">#F2AB91</color>
+    <color name="color_warm_brown_A63B32">#A63B32</color>
+
+    <!--final color-->
+    <color name="color_orange_primary">#F78F1D</color>
+    <color name="color_orange_Dark">#BE6100</color>
+    <color name="color_orange_Light">#FFC052</color>
+    <color name="color_orange_lite_Login_page">#FFDDAD</color>
+    <color name="color_orange_button">#F67C01</color>
+    <color name="color_orange_text_gray">#E1E2E1</color>
 
 </resources>
