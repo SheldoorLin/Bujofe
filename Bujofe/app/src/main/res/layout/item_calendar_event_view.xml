@@ -4,13 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="classMute"
                 type="com.sheldon.bujofe.object.ClassMute" />
+
     </data>
-
-
-        <!--Colored view dividers-->
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -33,6 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#5D4037"
+                    android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:lineSpacingExtra="2.5dp"
                     android:padding="5dp"
@@ -42,20 +42,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.143"
-                    tools:text="週二 9月 30號 14:00" />
+                    tools:text="9月 30號 14:00" />
 
             <TextView
                     android:id="@+id/itemDepartureAirportCityText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:padding="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintBottom_toBottomOf="@+id/itemFlightDateText"
+                    app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
                     app:layout_constraintTop_toTopOf="@+id/itemFlightDateText"
+                    app:layout_constraintVertical_bias="0.0"
                     tools:text="課程名稱" />
 
             <TextView
@@ -65,7 +66,6 @@
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:padding="3dp"
-                    android:text="@{classMute.departure.type}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -80,10 +80,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
-                    android:text="@{classMute.departure.order_people}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +96,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
-                    android:text="@{classMute.departure.teach_class}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView"
@@ -113,6 +111,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintGuide_percent="0.60"
                     app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                    android:id="@+id/ordered_people"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:srcCompat="@drawable/calendar_order_people" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

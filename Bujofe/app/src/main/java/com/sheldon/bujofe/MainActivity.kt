@@ -12,13 +12,14 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.sheldon.bujofe.databinding.ActivityMainBinding
+import com.sheldon.bujofe.login.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var textMessage: TextView
-    private val TAG: String = "Sheldon"
+    private val TAG: String = "MainActivity"
 
 
     private val onNavigationItemSelectedListener =

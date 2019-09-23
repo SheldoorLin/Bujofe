@@ -11,7 +11,7 @@ import com.sheldon.bujofe.`object`.OrderedTimes
 import com.sheldon.bujofe.calendar.setTextColorRes
 import com.sheldon.bujofe.databinding.ItemStudyroomSeatOrderedBinding
 
-class OrderedAdapter : ListAdapter<OrderedTimes, OrderedAdapter.ItemViewHolder>(DiffCallback) {
+class OrderedAdapter(viewModel: StudyRoomViewModel) : ListAdapter<OrderedTimes, OrderedAdapter.ItemViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<OrderedTimes>() {
         override fun areItemsTheSame(oldItem: OrderedTimes, newItem: OrderedTimes): Boolean {
@@ -36,14 +36,21 @@ class OrderedAdapter : ListAdapter<OrderedTimes, OrderedAdapter.ItemViewHolder>(
                 binding.btnFirstSlot.text = "已預定"
                 binding.btnFirstSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
+            }else{
+                binding.btnFirstSlot.text = "可預訂"
+                binding.btnFirstSlot.setTextColorRes(R.color.black)
+                binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
-
 
             binding.btnSecSlot.isEnabled = orderedTimes.secTimeSlot == ""
             if (orderedTimes.secTimeSlot!=""){
                 binding.btnSecSlot.text = "已預定"
                 binding.btnSecSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
+            }else{
+                binding.btnSecSlot.text = "可預訂"
+                binding.btnSecSlot.setTextColorRes(R.color.black)
+                binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
 
             binding.btnThirdSlot.isEnabled = orderedTimes.thirdTimeSlot == ""
@@ -51,8 +58,11 @@ class OrderedAdapter : ListAdapter<OrderedTimes, OrderedAdapter.ItemViewHolder>(
                 binding.btnThirdSlot.text = "已預定"
                 binding.btnThirdSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
+            }else{
+                binding.btnThirdSlot.text = "可預訂"
+                binding.btnThirdSlot.setTextColorRes(R.color.black)
+                binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
-
 
             binding.executePendingBindings()
         }

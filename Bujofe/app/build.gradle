@@ -10,6 +10,8 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply plugin: 'com.google.gms.google-services'
 
+apply plugin: 'io.fabric'
+
 android {
     compileSdkVersion 29
     dataBinding {
@@ -99,6 +101,9 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
+// Add dependency
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
 
     //play service auth
     implementation 'com.google.android.gms:play-services-auth:17.0.0'

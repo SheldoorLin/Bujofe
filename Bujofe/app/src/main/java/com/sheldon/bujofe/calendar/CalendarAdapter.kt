@@ -13,10 +13,13 @@ import org.threeten.bp.format.DateTimeFormatter
 
 class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder>() {
 
+
     val classMute = mutableListOf<ClassMute>()
 
-    private val formatter = DateTimeFormatter.ofPattern("EEE MMM dd'號' HH:mm")
+
+    private val formatter = DateTimeFormatter.ofPattern("MM'月' dd'號' HH:mm")
     private val formatter_start_time = DateTimeFormatter.ofPattern("HH:mm")
+
 
     companion object DiffCallback : DiffUtil.ItemCallback<ClassMute>() {
         override fun areItemsTheSame(oldItem: ClassMute, newItem: ClassMute): Boolean {

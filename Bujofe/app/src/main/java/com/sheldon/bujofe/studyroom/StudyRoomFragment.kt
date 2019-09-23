@@ -145,7 +145,7 @@ class StudyRoomFragment : Fragment() {
         exSevenCalendar.scrollToDate(LocalDate.now())
 
 
-        binding.orderedTimeRecycler.adapter = OrderedAdapter()
+        binding.orderedTimeRecycler.adapter = OrderedAdapter(viewModel)
 
 
 

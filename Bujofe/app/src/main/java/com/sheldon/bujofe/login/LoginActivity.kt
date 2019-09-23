@@ -1,4 +1,4 @@
-package com.sheldon.bujofe
+package com.sheldon.bujofe.login
 
 
 import android.content.Context
@@ -8,15 +8,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import com.sheldon.bujofe.MainActivity
+import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.ActivityLoginBinding
 
 
@@ -25,10 +28,15 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-    val RC_SIGN_IN: Int = 1
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var mGoogleSignInOptions: GoogleSignInOptions
+    private val RC_SIGN_IN: Int = 1
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInOptions: GoogleSignInOptions
     private lateinit var firebaseAuth: FirebaseAuth
+    private val TAG: String = "LoginActivity"
+
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProviders.of(this).get(LoginViewModel::class.java)
+    }
 
     override fun onStart() {
         super.onStart()
@@ -45,12 +53,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         firebaseAuth = FirebaseAuth.getInstance()
-
-
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         setupUI()
         configureGoogleSignIn()
-
-        binding.root
 
     }
 
@@ -90,7 +96,10 @@ class LoginActivity : AppCompatActivity() {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                account?.let { firebaseAuthWithGoogle(it) }
+                account?.let {
+                    firebaseAuthWithGoogle(it)
+                }
+
             } catch (e: ApiException) {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
@@ -102,10 +111,14 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
 
-                Log.d("firebaseAuth",firebaseAuth.uid.toString())
+                /**
+                 *  Firebase Login uid
+                 */
+                Log.d("firebaseAuth", firebaseAuth.uid.toString())
+                val uid = firebaseAuth.uid.toString()
+                viewModel.uidChecker(uid)
 
                 startActivity(MainActivity.getLaunchIntent(this))
-
             } else {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
