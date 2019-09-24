@@ -80,6 +80,7 @@
                 android:layout_marginBottom="32dp"
                 android:gravity="center"
                 android:text="@string/studyroom_no_select_a_day"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:visibility="@{viewModel.pageStatus.equals(1) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toTopOf="@+id/ordered_time_recycler"

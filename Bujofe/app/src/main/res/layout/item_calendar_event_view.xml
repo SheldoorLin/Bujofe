@@ -27,18 +27,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+            <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                    app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
+                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCityText"
+                    app:srcCompat="@color/color_orange_reverse_blue" />
+
             <TextView
                     android:id="@+id/itemFlightDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#5D4037"
+                    android:background="@color/color_orange_Dark"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:lineSpacingExtra="2.5dp"
-                    android:padding="5dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp"
                     android:textAllCaps="true"
                     android:textColor="@color/title_color_white"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.143"
@@ -50,26 +64,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
-                    android:padding="3dp"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/itemFlightDateText"
-                    app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7"
                     app:layout_constraintTop_toTopOf="@+id/itemFlightDateText"
-                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintVertical_bias="0.5"
                     tools:text="課程名稱" />
 
             <TextView
                     android:id="@+id/itemDepartureAirportCodeText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+
+                    android:layout_marginEnd="24dp"
                     android:fontFamily="@font/noto_sans"
-                    android:gravity="center"
                     android:padding="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/itemFlightDateText"
                     tools:text="1-1 微積分導論" />
@@ -109,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintGuide_percent="0.60"
+                    app:layout_constraintGuide_percent="0.65"
                     app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
@@ -120,6 +138,27 @@
                     app:layout_constraintEnd_toEndOf="@+id/textView"
                     app:layout_constraintStart_toStartOf="@+id/textView"
                     app:srcCompat="@drawable/calendar_order_people" />
+
+            <ImageView
+                    android:id="@+id/img_teaching_room"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:srcCompat="@drawable/calendar_teaching_room" />
+
+            <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@color/color_orange_reverse_blue" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

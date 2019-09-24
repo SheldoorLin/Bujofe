@@ -1,5 +1,6 @@
 package com.sheldon.bujofe
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivity"
 
 
+
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             val navController = this.findNavController(R.id.navHostFragment)
@@ -39,16 +41,19 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_shelf_read_room_status -> {
                     textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_studyRoomFragment)
+
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_replacement_lesson_list -> {
                     textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_reclassFragment)
+
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
                     textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_profileFragment)
+
                     return@OnNavigationItemSelectedListener true
                 }
 
@@ -92,11 +97,13 @@ class MainActivity : AppCompatActivity() {
             R.id.roll_name -> {
                 this.findNavController(R.id.navHostFragment)
                     .navigate(R.id.action_global_scanFragment)
+
                 textMessage.setText(R.string.roll_name)
+
             }
-            R.id.log_out ->{
-                signOut()
-            }
+//            R.id.log_out ->{
+//                signOut()
+//            }
         }
         return super.onOptionsItemSelected(item)
     }

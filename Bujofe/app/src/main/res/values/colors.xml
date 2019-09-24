@@ -53,5 +53,6 @@
     <color name="color_orange_lite_Login_page">#FFDDAD</color>
     <color name="color_orange_button">#F67C01</color>
     <color name="color_orange_text_gray">#E1E2E1</color>
+    <color name="color_orange_reverse_blue">#3AABD2</color>
 
 </resources>
