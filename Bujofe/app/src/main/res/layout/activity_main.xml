@@ -48,6 +48,7 @@
                     android:fontFamily="@font/noto_sans"
                     android:letterSpacing="0.15"
                     android:text="@string/title"
+                    android:textColor="@color/Color_White_ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.sheldon.bujofe.MainActivity
+import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ReClass
 import com.sheldon.bujofe.databinding.FragmentReclassBinding
 
@@ -22,6 +23,7 @@ class ReclassFragment : Fragment() {
     ): View? {
         val binding = FragmentReclassBinding.inflate(inflater)
         (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
+        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
         binding.lifecycleOwner = this
 
         binding.reclassRecorderRecycler.adapter = ReclassAdapter()

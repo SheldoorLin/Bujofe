@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.sheldon.bujofe.MainActivity
+import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentHomeBinding
 
 
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
+        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
         binding.lifecycleOwner = this
 
         binding.homeRecyclerViewNotice.adapter = NoticeItemAdapter()

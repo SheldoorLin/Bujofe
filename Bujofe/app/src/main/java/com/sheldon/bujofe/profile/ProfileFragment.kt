@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.sheldon.bujofe.MainActivity
+import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ClassInformation
 import com.sheldon.bujofe.databinding.FragmentProfileBinding
 
@@ -22,6 +23,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
         (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
+        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
         binding.lifecycleOwner = this
 
         binding.profileDetailRecycler.adapter = ProfileDetailAdapter()
@@ -36,8 +38,13 @@ class ProfileFragment : Fragment() {
         testList.add(ClassInformation("飛翔地理", 30, 2))
         testList.add(ClassInformation("天兵物理", 30, 2))
         testList.add(ClassInformation("笨拙家政", 30, 2))
-
-
+        testList.add(ClassInformation("天兵物理", 30, 2))
+        testList.add(ClassInformation("笨拙家政", 30, 2))
+        testList.add(ClassInformation("笨拙家政", 30, 2))
+        testList.add(ClassInformation("笨拙家政", 30, 2))
+        testList.add(ClassInformation("超凡數學", 30, 2))
+        testList.add(ClassInformation("超凡數學", 30, 2))
+        testList.add(ClassInformation("超凡數學", 30, 2))
         binding.btnReplacementApply.setOnClickListener {
             this.viewModel.firebase()
         }

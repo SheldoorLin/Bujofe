@@ -38,7 +38,6 @@ class StudyRoomFragment : Fragment() {
     private val monthFormatter = DateTimeFormatter.ofPattern("MMM")
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +45,7 @@ class StudyRoomFragment : Fragment() {
         val binding =
             FragmentStudyRoomBinding.inflate(inflater, container, false)
         (activity as MainActivity).binding.toolbar.visibility = View.GONE
+        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
 
         binding.viewModel = viewModel
 
@@ -102,6 +102,10 @@ class StudyRoomFragment : Fragment() {
                         viewModel.pageStatus.value = 1
 
 
+                        exSevenCalendar.notifyDateChanged(day.date)
+                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
+
+
                         val serverDataFilter = viewModel.studyRoomdatas.value?.let {
                             it.filter {
                                 it.local_date == day.date.toString()
@@ -109,17 +113,25 @@ class StudyRoomFragment : Fragment() {
                         }
                         Log.d(TAG, "serverDataFilter $serverDataFilter")
 
-                        val filtedSeatList = serverDataFilter!![0].seatList
-                        Log.d(TAG, "test_3 $filtedSeatList")
+                        if (serverDataFilter != null) {
+                            if (serverDataFilter.isNotEmpty()) {
+                                (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
+                                viewModel.pageStatus.value = 1
+                                binding.seatView.visibility = View.VISIBLE
+                                val filtedSeatList = serverDataFilter[0].seatList
+                                Log.d(TAG, "test_3 $filtedSeatList")
+                                viewModel.studyRoomdataSeats.value = filtedSeatList
+                            }else{
+                                (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
+                                viewModel.pageStatus.value = 0
+                                binding.seatView.visibility = View.INVISIBLE
+                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
 
-                        viewModel.studyRoomdataSeats.value = filtedSeatList
-
-
-                        exSevenCalendar.notifyDateChanged(day.date)
-                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
-
+                            }
+                        }
 
                     }
+
                 }
             }
 
@@ -128,7 +140,7 @@ class StudyRoomFragment : Fragment() {
                 dateText.text = dateFormatter.format(day.date)
                 dayText.text = dayFormatter.format(day.date)
                 monthText.text = monthFormatter.format(day.date)
-                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_orange_Light else R.color.Color_White_ffffff))
+                dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_orange_reverse_blue else R.color.Color_White_ffffff))
                 selectedView.isVisible = day.date == selectedDate
                 Log.d(TAG, "selected day is ${day.date}")
             }

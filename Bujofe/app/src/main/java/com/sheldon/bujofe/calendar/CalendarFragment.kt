@@ -55,20 +55,13 @@ class CalendarFragment : Fragment() {
 
         val binding = FragmentCalendarBinding.inflate(inflater, container, false)
         (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
+        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
         binding.lifecycleOwner = this
 
 
         binding.eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
         binding.eventRecycler.adapter = calendarAdapter
-
-        binding.eventRecycler.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                RecyclerView.VERTICAL
-            )
-        )
         calendarAdapter.notifyDataSetChanged()
 
 
