@@ -6,16 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.`object`.ClassInformation
+import com.sheldon.bujofe.`object`.ClassList
 import com.sheldon.bujofe.databinding.ItemProfileDetailBinding
 
-class ProfileDetailAdapter : ListAdapter<ClassInformation, ProfileDetailAdapter.ItemViewHolder>(DiffCallback) {
+class ProfileDetailAdapter : ListAdapter<ClassList, ProfileDetailAdapter.ItemViewHolder>(DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<ClassInformation>() {
-        override fun areItemsTheSame(oldItem: ClassInformation, newItem: ClassInformation): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<ClassList>() {
+        override fun areItemsTheSame(oldItem: ClassList, newItem: ClassList): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: ClassInformation, newItem: ClassInformation): Boolean {
+        override fun areContentsTheSame(oldItem: ClassList, newItem: ClassList): Boolean {
             return oldItem == newItem
         }
     }
@@ -23,8 +24,8 @@ class ProfileDetailAdapter : ListAdapter<ClassInformation, ProfileDetailAdapter.
 
     class ItemViewHolder(private var binding: ItemProfileDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(classInformation: ClassInformation) {
-            binding.classInformation = classInformation
+        fun bind(classList: ClassList) {
+            binding.classList = classList
             binding.executePendingBindings()
         }
     }
@@ -35,7 +36,7 @@ class ProfileDetailAdapter : ListAdapter<ClassInformation, ProfileDetailAdapter.
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val notice = getItem(position)
-        holder.bind(notice)
+        val classList = getItem(position)
+        holder.bind(classList)
     }
 }

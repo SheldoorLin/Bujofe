@@ -103,7 +103,9 @@ class StudyRoomFragment : Fragment() {
 
 
                         exSevenCalendar.notifyDateChanged(day.date)
-                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
+                        oldDate?.let {
+                            exSevenCalendar.notifyDateChanged(it)
+                        }
 
 
                         val serverDataFilter = viewModel.studyRoomdatas.value?.let {
@@ -121,6 +123,7 @@ class StudyRoomFragment : Fragment() {
                                 val filtedSeatList = serverDataFilter[0].seatList
                                 Log.d(TAG, "test_3 $filtedSeatList")
                                 viewModel.studyRoomdataSeats.value = filtedSeatList
+                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
                             }else{
                                 (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
                                 viewModel.pageStatus.value = 0

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+                name="viewModel"
+                type="com.sheldon.bujofe.profile.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

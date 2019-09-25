@@ -1,5 +1,8 @@
 package com.sheldon.bujofe.login
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +11,7 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.`object`.Users
 
 class LoginViewModel : ViewModel() {
@@ -32,7 +36,7 @@ class LoginViewModel : ViewModel() {
                 users.uid == uid
             }
         }
-        if(filted_user?.size == null ){
+        if (filted_user?.size == null) {
             addNewUser(uid)
         }
     }
@@ -59,10 +63,14 @@ class LoginViewModel : ViewModel() {
     }
 
 
-
-    fun addNewUser(uid: String){
+    fun addNewUser(uid: String) {
         val user = Users(uid)
 
+        /**
+         * SharedPreferences
+         * */
+        BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
+            ?.putString("uid", uid)?.apply()
 
         val db = FirebaseFirestore.getInstance()
         db.collection("users")

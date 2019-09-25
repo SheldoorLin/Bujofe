@@ -5,8 +5,8 @@
 
     <data>
         <variable
-                name="classInformation"
-                type="com.sheldon.bujofe.object.ClassInformation" />
+                name="classList"
+                type="com.sheldon.bujofe.object.ClassList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
-                android:text="@{classInformation.name}"
+                android:text="@{classList.classId}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView3"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
-                android:text="@{String.valueOf(classInformation.classRemaining)}"
+                android:text="@{String.valueOf(classList.toGo)}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
-                android:text="@{String.valueOf(classInformation.classReplacement)}"
+                android:text="@{String.valueOf(classList.makeUp)}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
