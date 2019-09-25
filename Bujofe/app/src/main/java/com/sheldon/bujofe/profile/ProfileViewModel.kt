@@ -1,23 +1,83 @@
 package com.sheldon.bujofe.profile
 
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import org.threeten.bp.LocalTime
+import com.sheldon.bujofe.BujofeApplication
+import com.sheldon.bujofe.`object`.ClassList
+import com.sheldon.bujofe.`object`.Users
 
 class ProfileViewModel : ViewModel() {
     private val TAG: String = "viewModel"
 
 
+    private val _userProfile = MutableLiveData<Users>()
+    val userProfile: LiveData<Users>
+        get() = _userProfile
+    val userList = mutableListOf<Users>()
+
+    private val _userClassList = MutableLiveData<List<ClassList>>()
+    val userClassList: LiveData<List<ClassList>>
+        get() = _userClassList
+    val classList_list = mutableListOf<ClassList>()
+
+
+
+
+    init {
+        getUid()
+    }
+
+
+    fun getUid() {
+        /**
+         * SharedPreferences
+         * */
+        val uid =
+            BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
+                .getString("uid", "")
+
+        Log.d("uid", uid.toString())
+
+        uid?.let { getUserDataFirebase(it) }
+    }
+
+    fun getUserDataFirebase(uid: String) {
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        val data = document.toObject(Users::class.java)
+
+                        userList.add(data)
+
+                        val userProfilelistFilter = userList.filter {
+                            it.uid == uid
+                        }
+
+                           _userProfile.value = userProfilelistFilter[0]
+
+
+                        Log.d(TAG, "data $data")
+                        Log.d(TAG, document.id + " => " + document.data)
+
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.exception)
+                }
+            }
+    }
+
+
     // Add a new document with a generated ID
 
     fun firebase() {
-
-
 
 
 //       val db = FirebaseFirestore.getInstance()
