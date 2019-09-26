@@ -1,11 +1,15 @@
 package com.sheldon.bujofe.profile
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ClassList
@@ -29,35 +33,56 @@ class ProfileFragment : Fragment() {
 
         binding.profileDetailRecycler.adapter = ProfileDetailAdapter()
         binding.viewModel = viewModel
+
+        /**
+         * SharedPreferences
+         * */
+        viewModel.userid.value =
+            BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
+                .getString("uid", "")
+        viewModel.userPhotoUrl.value =
+            BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
+                .getString("photoUrl", "")
+        viewModel.userName.value =
+            BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
+                .getString("displayName", "")
+
+
+
+        viewModel.serviece_userInformation.observe(this, Observer {
+            it.let {
+                viewModel.uidfileChecker(viewModel.userid.value.toString())
+            }
+        })
+
 //
         //mock data
-        val testList: ArrayList<ClassList> = ArrayList()
-        testList.add(ClassList("吳用化學", 30, 2))
-        testList.add(ClassList("芙丸英文", 30, 2))
-        testList.add(ClassList("超凡數學", 30, 2))
-        testList.add(ClassList("添財歷史", 30, 2))
-        testList.add(ClassList("飛翔地理", 30, 2))
-        testList.add(ClassList("天兵物理", 30, 2))
-        testList.add(ClassList("笨拙家政", 30, 2))
-        testList.add(ClassList("天兵物理", 30, 2))
-        testList.add(ClassList("笨拙家政", 30, 2))
-        testList.add(ClassList("笨拙家政", 30, 2))
-        testList.add(ClassList("笨拙家政", 30, 2))
-        testList.add(ClassList("超凡數學", 30, 2))
-        testList.add(ClassList("超凡數學", 30, 2))
-        testList.add(ClassList("超凡數學", 30, 2))
+//        val testList: ArrayList<ClassList> = ArrayList()
+//        testList.add(ClassList("吳用化學", 30, 2))
+//        testList.add(ClassList("芙丸英文", 30, 2))
+//        testList.add(ClassList("超凡數學", 30, 2))
+//        testList.add(ClassList("添財歷史", 30, 2))
+//        testList.add(ClassList("飛翔地理", 30, 2))
+//        testList.add(ClassList("天兵物理", 30, 2))
+//        testList.add(ClassList("笨拙家政", 30, 2))
+//        testList.add(ClassList("天兵物理", 30, 2))
+//        testList.add(ClassList("笨拙家政", 30, 2))
+//        testList.add(ClassList("笨拙家政", 30, 2))
+//        testList.add(ClassList("笨拙家政", 30, 2))
+//        testList.add(ClassList("超凡數學", 30, 2))
+//        testList.add(ClassList("超凡數學", 30, 2))
+//        testList.add(ClassList("超凡數學", 30, 2))
 //        binding.btnReplacementApply.setOnClickListener {
 //            this.viewModel.firebase()
 //        }
 
+        viewModel.userClassList.observe(this, Observer {
+            it.let {
+                (binding.profileDetailRecycler.adapter as ProfileDetailAdapter).submitList(it)
+                (binding.profileDetailRecycler.adapter as ProfileDetailAdapter).notifyDataSetChanged()
+            }
+        })
 
-
-//        viewModel.userProfile.observe(this, Observer {
-//            it.let {
-//                (binding.profileDetailRecycler.adapter as ProfileDetailAdapter).submitList()
-//            }
-//        })
-        (binding.profileDetailRecycler.adapter as ProfileDetailAdapter).submitList(testList)
 
 
         return binding.root

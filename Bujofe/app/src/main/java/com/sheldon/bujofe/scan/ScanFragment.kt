@@ -36,7 +36,6 @@ class ScanFragment : Fragment() {
         binding = FragmentScanBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-
         methodWithPermissions()
 
         viewModel.scanResults.observe(this, Observer {
@@ -50,7 +49,7 @@ class ScanFragment : Fragment() {
         return binding.root
     }
 
-    fun methodWithPermissions() = runWithPermissions(Manifest.permission.CAMERA) {
+    private fun methodWithPermissions() = runWithPermissions(Manifest.permission.CAMERA) {
         // Do the stuff with permissions safely
         val activity = requireActivity()
         codeScanner = CodeScanner(requireContext(), binding.scannerView)

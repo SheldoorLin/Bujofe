@@ -17,7 +17,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
 import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
@@ -43,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = FirebaseAuth.getInstance().currentUser
 
-        Log.d("Tommy------------uid", user?.uid.toString())
         if (user != null) {
             startActivity(MainActivity.getLaunchIntent(this))
             finish()
@@ -103,6 +101,7 @@ class LoginActivity : AppCompatActivity() {
                     /**
                      * SharedPreferences
                      * */
+
                     BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
                         ?.putString("displayName",it.displayName )?.apply()
                     BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
@@ -129,6 +128,8 @@ class LoginActivity : AppCompatActivity() {
                 val uid = firebaseAuth.uid.toString()
 
                 viewModel.uidChecker(uid)
+                BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
+                    ?.putString("uid",uid )?.apply()
 
                 startActivity(MainActivity.getLaunchIntent(this))
             } else {

@@ -23,10 +23,6 @@ class LoginViewModel : ViewModel() {
         get() = _serviece_userInformation
 
 
-    private val _userInformation = MutableLiveData<String>()
-    val userInformation: LiveData<String>
-        get() = _userInformation
-
     private val userData = mutableListOf<Users>()
 
     init {
@@ -41,9 +37,11 @@ class LoginViewModel : ViewModel() {
                 users.uid == uid
             }
         }
-
         if (filedUser.isNullOrEmpty()) {
             addNewUser(uid)
+            Log.d("filedUser", filedUser.toString())
+        } else {
+            Log.d("filedUser", filedUser.toString())
         }
     }
 
