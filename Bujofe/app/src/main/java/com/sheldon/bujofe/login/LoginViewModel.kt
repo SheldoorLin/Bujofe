@@ -1,11 +1,10 @@
 package com.sheldon.bujofe.login
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -28,17 +27,27 @@ class LoginViewModel : ViewModel() {
     val userInformation: LiveData<String>
         get() = _userInformation
 
+    private val userData = mutableListOf<Users>()
+
+    init {
+        sendLoginInformation()
+    }
+
 
     fun uidChecker(uid: String) {
-        sendLoginInformation()
-        val filted_user = serviece_userInformation.value?.let {
+
+        val filedUser = serviece_userInformation.value?.let {
             it.filter { users ->
                 users.uid == uid
             }
         }
-        if (filted_user?.size == null) {
+
+        if (filedUser.isNullOrEmpty()) {
             addNewUser(uid)
         }
+//        if (filedUser.value.isNullOrEmpty()) {
+//            addNewUser(uid)
+//        }
     }
 
 
@@ -54,7 +63,8 @@ class LoginViewModel : ViewModel() {
                     for (document in task.result!!) {
                         Log.d(TAG, document.id + " => " + document.data)
                         val data = document.toObject(Users::class.java)
-                        _serviece_userInformation.value = listOf(data)
+                        userData.add(data)
+                        _serviece_userInformation.value = userData
                     }
                 } else {
                     Log.w(TAG, "Error getting documents.", task.exception)

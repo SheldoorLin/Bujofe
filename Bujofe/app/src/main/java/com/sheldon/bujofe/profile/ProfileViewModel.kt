@@ -61,7 +61,7 @@ class ProfileViewModel : ViewModel() {
                             it.uid == uid
                         }
 
-                           _userProfile.value = userProfilelistFilter[0]
+//                           _userProfile.value = userProfilelistFilter[0]
 
 
                         Log.d(TAG, "data $data")

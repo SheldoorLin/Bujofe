@@ -116,6 +116,7 @@ class LoginActivity : AppCompatActivity() {
                  */
                 Log.d("firebaseAuth", firebaseAuth.uid.toString())
                 val uid = firebaseAuth.uid.toString()
+
                 viewModel.uidChecker(uid)
 
                 startActivity(MainActivity.getLaunchIntent(this))
@@ -124,6 +125,5 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 }
 
