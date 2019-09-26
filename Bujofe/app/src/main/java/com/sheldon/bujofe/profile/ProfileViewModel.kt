@@ -14,6 +14,10 @@ class ProfileViewModel : ViewModel() {
     private val TAG: String = "viewModel"
 
 
+    val userName = MutableLiveData<String>()
+    val userPhotoUrl = MutableLiveData<String>()
+    val userEmail = MutableLiveData<String>()
+
     private val _userProfile = MutableLiveData<Users>()
     val userProfile: LiveData<Users>
         get() = _userProfile
@@ -25,24 +29,30 @@ class ProfileViewModel : ViewModel() {
     val classList_list = mutableListOf<ClassList>()
 
 
-
-
     init {
-        getUid()
+        getUserDetail()
     }
 
 
-    fun getUid() {
+    fun getUserDetail() {
         /**
          * SharedPreferences
          * */
         val uid =
             BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
                 .getString("uid", "")
+        val photoUrl =
+            BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
+                .getString("photoUrl", "")
+        val displayName =
+            BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
+                .getString("displayName", "")
 
-        Log.d("uid", uid.toString())
 
+        displayName?.let { userName.value = it }
+        photoUrl?.let { userPhotoUrl.value = it }
         uid?.let { getUserDataFirebase(it) }
+        Log.d("uid", uid.toString())
     }
 
     fun getUserDataFirebase(uid: String) {

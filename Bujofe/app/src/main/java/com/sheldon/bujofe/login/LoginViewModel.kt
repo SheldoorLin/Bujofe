@@ -45,9 +45,6 @@ class LoginViewModel : ViewModel() {
         if (filedUser.isNullOrEmpty()) {
             addNewUser(uid)
         }
-//        if (filedUser.value.isNullOrEmpty()) {
-//            addNewUser(uid)
-//        }
     }
 
 
