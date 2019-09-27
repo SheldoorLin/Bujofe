@@ -13,7 +13,6 @@ import com.sheldon.bujofe.`object`.Records
 import com.sheldon.bujofe.databinding.ItemReclassRecodeBinding
 import org.threeten.bp.format.DateTimeFormatter
 import java.sql.Date
-import java.util.*
 
 
 class ReclassAdapter : ListAdapter<Records, ReclassAdapter.ItemViewHolder>(DiffCallback) {
@@ -28,19 +27,20 @@ class ReclassAdapter : ListAdapter<Records, ReclassAdapter.ItemViewHolder>(DiffC
         }
     }
 
-    private val formatter = DateTimeFormatter.ofPattern("MM'月' dd'號' HH:mm")
-
     class ItemViewHolder(private var binding: ItemReclassRecodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
         @SuppressLint("ResourceAsColor")
         fun bind(records: Records) {
+
             binding.records = records
 
             val sfd = SimpleDateFormat("yyyy-MM-dd")
             sfd.format(Date(records.date.seconds))
+
             Log.d("test", "sfd = ${sfd.format(Date(records.date.seconds*1000))}")
+
             binding.date.text = sfd.format(Date(records.date.seconds*1000))
 
 

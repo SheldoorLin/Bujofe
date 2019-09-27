@@ -30,13 +30,14 @@ data class ClassList(
 data class Records(
     val classDate: String = "",
     val classId: String = "",
+    val lesson: String = "",
 
     @ServerTimestamp
     val date: Timestamp = Timestamp.now(),
 
     val endTime: String = "",
     val reclassId: Int = 0,
-    val className: String="",
+    val className: String = "",
     val startTime: String = "0",
     val status: String = "",
     val type: String = ""

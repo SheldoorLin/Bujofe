@@ -8,6 +8,9 @@
         <variable
                 name="orderedTimes"
                 type="com.sheldon.bujofe.object.OrderedTimes" />
+        <variable
+                name="viewModel"
+                type="com.sheldon.bujofe.studyroom.StudyRoomViewModel" />
     </data>
 
 

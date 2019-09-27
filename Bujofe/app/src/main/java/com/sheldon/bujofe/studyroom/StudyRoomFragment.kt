@@ -1,13 +1,17 @@
 package com.sheldon.bujofe.studyroom
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.calendar.getColorCompat
@@ -103,9 +108,7 @@ class StudyRoomFragment : Fragment() {
 
 
                         exSevenCalendar.notifyDateChanged(day.date)
-                        oldDate?.let {
-                            exSevenCalendar.notifyDateChanged(it)
-                        }
+                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
 
 
                         val serverDataFilter = viewModel.studyRoomdatas.value?.let {
@@ -120,16 +123,18 @@ class StudyRoomFragment : Fragment() {
                                 (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
                                 viewModel.pageStatus.value = 1
                                 binding.seatView.visibility = View.VISIBLE
+                                viewModel.checkedDate.value = serverDataFilter[0].local_date
                                 val filtedSeatList = serverDataFilter[0].seatList
                                 Log.d(TAG, "test_3 $filtedSeatList")
                                 viewModel.studyRoomdataSeats.value = filtedSeatList
                                 (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-                            }else{
+                            } else {
                                 (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
                                 viewModel.pageStatus.value = 0
                                 binding.seatView.visibility = View.INVISIBLE
-                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
-
+                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
+                                    null
+                                )
                             }
                         }
 
@@ -204,6 +209,7 @@ class StudyRoomFragment : Fragment() {
                         val seatTableFilter = it.filter {
                             it.column == column && it.row == row
                         }
+                        viewModel.checkSeatId.value = seatTableFilter[0].id
                         val orderedSeatTime = listOf(seatTableFilter[0].orderedTimes)
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
                             orderedSeatTime
@@ -227,6 +233,29 @@ class StudyRoomFragment : Fragment() {
                 })
             }
         })
+
+
+        viewModel.seatStatus.observe(this, Observer {
+            it.let {
+                when (it) {
+                    1 -> { SeatBookingDialog() }
+//                    2 -> { }
+                }
+            }
+        })
+
+
+
+
         return binding.root
     }
+}
+fun SeatBookingDialog(){
+
+    AlertDialog.Builder(AppCompatActivity())
+        .setMessage("Your BMI is ")
+        .setTitle("BMI")
+        .setPositiveButton("OK", null)
+        .setNeutralButton("Cancel", null)
+        .show()
 }

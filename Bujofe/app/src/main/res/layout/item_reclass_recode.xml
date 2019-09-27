@@ -196,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_reclass_text_context"
                         android:gravity="center"
-                        android:text="@{records.classId}"
+                        android:text="@{records.lesson}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/reclass_type"

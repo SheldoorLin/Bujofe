@@ -33,6 +33,9 @@ class StudyRoomViewModel : ViewModel() {
     val studyRoomdataSeats = MutableLiveData<List<SeatList>>()
 
 
+    val checkSeatId = MutableLiveData<String>()
+    val checkedDate = MutableLiveData<String>()
+    val seatStatus = MutableLiveData<Int>()
 
 
     fun getStudyRoomfirebase() {
