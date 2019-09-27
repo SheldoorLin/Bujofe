@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="reClass"
-                type="com.sheldon.bujofe.object.ReClass" />
+                name="records"
+                type="com.sheldon.bujofe.object.Records" />
 
     </data>
 
@@ -119,7 +119,6 @@
                         android:paddingTop="3dp"
                         android:paddingEnd="5dp"
                         android:paddingBottom="3dp"
-                        android:text="@{reClass.date}"
                         android:textColor="@color/Color_White_ffffff"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_reclass_text_context"
                         android:gravity="center"
-                        android:text="@{reClass.className}"
+                        android:text="@{records.className}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tx_class_name"
@@ -147,10 +146,9 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_reclass_text_context"
                         android:gravity="center"
-
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:text="@{reClass.re_class_time}"
+                        android:text="@{records.classDate}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tx_start_time"
@@ -165,7 +163,7 @@
                         android:background="@drawable/rounded_reclass_text_context"
                         android:fontFamily="@font/noto_sans"
                         android:gravity="center"
-                        android:text="@{reClass.re_class_type}"
+                        android:text="@{records.type}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tx_reclass_type"
@@ -183,7 +181,7 @@
                         android:background="@drawable/rounded_reclass_text_context"
                         android:fontFamily="@font/noto_sans"
                         android:gravity="center"
-                        android:text="@{reClass.status}"
+                        android:text="@{records.status}"
                         android:textColor="@color/Color_White_ffffff"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/tx_status"
@@ -198,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_reclass_text_context"
                         android:gravity="center"
-                        android:text="@{reClass.re_class_context}"
+                        android:text="@{records.classId}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/reclass_type"

@@ -55,27 +55,6 @@ class ProfileFragment : Fragment() {
             }
         })
 
-//
-        //mock data
-//        val testList: ArrayList<ClassList> = ArrayList()
-//        testList.add(ClassList("吳用化學", 30, 2))
-//        testList.add(ClassList("芙丸英文", 30, 2))
-//        testList.add(ClassList("超凡數學", 30, 2))
-//        testList.add(ClassList("添財歷史", 30, 2))
-//        testList.add(ClassList("飛翔地理", 30, 2))
-//        testList.add(ClassList("天兵物理", 30, 2))
-//        testList.add(ClassList("笨拙家政", 30, 2))
-//        testList.add(ClassList("天兵物理", 30, 2))
-//        testList.add(ClassList("笨拙家政", 30, 2))
-//        testList.add(ClassList("笨拙家政", 30, 2))
-//        testList.add(ClassList("笨拙家政", 30, 2))
-//        testList.add(ClassList("超凡數學", 30, 2))
-//        testList.add(ClassList("超凡數學", 30, 2))
-//        testList.add(ClassList("超凡數學", 30, 2))
-//        binding.btnReplacementApply.setOnClickListener {
-//            this.viewModel.firebase()
-//        }
-
         viewModel.userClassList.observe(this, Observer {
             it.let {
                 (binding.profileDetailRecycler.adapter as ProfileDetailAdapter).submitList(it)
