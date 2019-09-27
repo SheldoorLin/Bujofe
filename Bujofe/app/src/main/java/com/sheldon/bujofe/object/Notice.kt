@@ -16,7 +16,4 @@ data class Notice(
 
     @ServerTimestamp
     val time: Date? = null
-
-
-
 )

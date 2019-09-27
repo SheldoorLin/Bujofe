@@ -1,7 +1,7 @@
 package com.sheldon.bujofe.scan
 
+import android.Manifest
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.`object`.QRcode
 import com.sheldon.bujofe.databinding.FragmentScanBinding
@@ -41,42 +36,8 @@ class ScanFragment : Fragment() {
         binding = FragmentScanBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-        val scannerView = binding.scannerView
-        val activity = requireActivity()
+        methodWithPermissions()
 
-
-
-
-        Dexter.withActivity(activity)
-            .withPermission(android.Manifest.permission.CAMERA)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-
-                    codeScanner = CodeScanner(activity, scannerView)
-                    codeScanner?.decodeCallback = DecodeCallback {
-                        activity.runOnUiThread {
-                            Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
-                            viewModel.scanResults.value = QRcode(it.text, it.timestamp)
-                        }
-                    }
-                    scannerView.setOnClickListener {
-                        codeScanner?.startPreview()
-                    }
-
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permission: PermissionRequest?,
-                    token: PermissionToken?
-                ) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
-
-                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-
-                }
-            })
-            .check()
         viewModel.scanResults.observe(this, Observer {
             it?.let {
                 this.findNavController()
@@ -86,6 +47,21 @@ class ScanFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun methodWithPermissions() = runWithPermissions(Manifest.permission.CAMERA) {
+        // Do the stuff with permissions safely
+        val activity = requireActivity()
+        codeScanner = CodeScanner(requireContext(), binding.scannerView)
+        codeScanner?.decodeCallback = DecodeCallback {
+            activity.runOnUiThread {
+                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+                viewModel.scanResults.value = QRcode(it.text, it.timestamp)
+            }
+        }
+        binding.scannerView.setOnClickListener {
+            codeScanner?.startPreview()
+        }
     }
 
 

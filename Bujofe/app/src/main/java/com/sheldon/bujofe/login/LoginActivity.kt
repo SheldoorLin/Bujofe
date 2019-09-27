@@ -17,7 +17,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
+import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.ActivityLoginBinding
@@ -42,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = FirebaseAuth.getInstance().currentUser
 
-        Log.d("Tommy------------uid", user?.uid.toString())
         if (user != null) {
             startActivity(MainActivity.getLaunchIntent(this))
             finish()
@@ -98,6 +97,17 @@ class LoginActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 account?.let {
                     firebaseAuthWithGoogle(it)
+
+                    /**
+                     * SharedPreferences
+                     * */
+
+                    BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
+                        ?.putString("displayName",it.displayName )?.apply()
+                    BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
+                        ?.putString("email",it.email )?.apply()
+                    BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
+                        ?.putString("photoUrl",it.photoUrl.toString() )?.apply()
                 }
 
             } catch (e: ApiException) {
@@ -116,7 +126,10 @@ class LoginActivity : AppCompatActivity() {
                  */
                 Log.d("firebaseAuth", firebaseAuth.uid.toString())
                 val uid = firebaseAuth.uid.toString()
+
                 viewModel.uidChecker(uid)
+                BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
+                    ?.putString("uid",uid )?.apply()
 
                 startActivity(MainActivity.getLaunchIntent(this))
             } else {
@@ -124,6 +137,5 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 }
 
