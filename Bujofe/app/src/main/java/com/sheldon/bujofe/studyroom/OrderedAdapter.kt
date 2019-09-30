@@ -1,5 +1,6 @@
 package com.sheldon.bujofe.studyroom
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.OrderedTimes
+import com.sheldon.bujofe.`object`.SeatOrder
 import com.sheldon.bujofe.calendar.setTextColorRes
 import com.sheldon.bujofe.databinding.ItemStudyroomSeatOrderedBinding
 
@@ -69,13 +71,50 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
 
 
             binding.btnFirstSlot.setOnClickListener {
-                viewModel.seatStatus.value = 1
+                for(item in viewModel.originSeatList.value!!.seatList){
+                    if (item.id == viewModel.checkSeatId.value!!){
+                        item.orderedTimes?.firstTimeSlot =  viewModel.userName!!
+                    }
+                }
+
+                viewModel.checkSeatStatus.value = SeatOrder(
+                    viewModel.checkSeatId.value!!,
+                    viewModel.checkedDate.value!!,
+                    viewModel.checkedDocumentId.value!!,
+                    OrderedTimes(firstTimeSlot = viewModel.userName!!),
+                    viewModel.originSeatList.value!!
+                )
             }
             binding.btnSecSlot.setOnClickListener {
-                viewModel.seatStatus.value = 2
+                for(item in viewModel.originSeatList.value!!.seatList){
+                    if (item.id == viewModel.checkSeatId.value!!){
+                        item.orderedTimes?.secTimeSlot =  viewModel.userName!!
+                    }
+                }
+
+                viewModel.checkSeatStatus.value = SeatOrder(
+                    viewModel.checkSeatId.value!!,
+                    viewModel.checkedDate.value!!,
+                    viewModel.checkedDocumentId.value!!,
+                    OrderedTimes(secTimeSlot = viewModel.userName!!),
+                    viewModel.originSeatList.value!!
+                )
             }
             binding.btnThirdSlot.setOnClickListener {
-                viewModel.seatStatus.value = 3
+
+                for(item in viewModel.originSeatList.value!!.seatList){
+                    if (item.id == viewModel.checkSeatId.value!!){
+                        item.orderedTimes?.thirdTimeSlot =  viewModel.userName!!
+                    }
+                }
+
+                viewModel.checkSeatStatus.value = SeatOrder(
+                    viewModel.checkSeatId.value!!,
+                    viewModel.checkedDate.value!!,
+                    viewModel.checkedDocumentId.value!!,
+                    OrderedTimes(thirdTimeSlot = viewModel.userName!!),
+                    viewModel.originSeatList.value!!
+                )
             }
 
 
@@ -90,8 +129,7 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val notice = getItem(position)
-        holder.bind(notice,viewModel)
-
+        holder.bind(notice, viewModel)
 
 
     }

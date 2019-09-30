@@ -1,27 +1,26 @@
 package com.sheldon.bujofe.studyroom
 
-import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.*
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
+import com.sheldon.bujofe.`object`.OrderedTimes
+import com.sheldon.bujofe.`object`.SeatOrder
 import com.sheldon.bujofe.calendar.getColorCompat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
 import kotlinx.android.synthetic.main.item_studyroom_calendar_day.view.*
@@ -29,6 +28,8 @@ import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
+import java.lang.Exception
+
 
 class StudyRoomFragment : Fragment() {
 
@@ -124,6 +125,8 @@ class StudyRoomFragment : Fragment() {
                                 viewModel.pageStatus.value = 1
                                 binding.seatView.visibility = View.VISIBLE
                                 viewModel.checkedDate.value = serverDataFilter[0].local_date
+                                viewModel.checkedDocumentId.value = serverDataFilter[0].documentId
+                                viewModel.originSeatList.value = serverDataFilter[0]
                                 val filtedSeatList = serverDataFilter[0].seatList
                                 Log.d(TAG, "test_3 $filtedSeatList")
                                 viewModel.studyRoomdataSeats.value = filtedSeatList
@@ -235,27 +238,17 @@ class StudyRoomFragment : Fragment() {
         })
 
 
-        viewModel.seatStatus.observe(this, Observer {
+
+
+        viewModel.checkSeatStatus.observe(this, Observer {
             it.let {
-                when (it) {
-                    1 -> { SeatBookingDialog() }
-//                    2 -> { }
-                }
+                this.findNavController().navigate(
+                    StudyRoomFragmentDirections.actionStudyRoomFragmentToOrderSeatFragment(it)
+                )
             }
         })
 
 
-
-
         return binding.root
     }
-}
-fun SeatBookingDialog(){
-
-    AlertDialog.Builder(AppCompatActivity())
-        .setMessage("Your BMI is ")
-        .setTitle("BMI")
-        .setPositiveButton("OK", null)
-        .setNeutralButton("Cancel", null)
-        .show()
 }

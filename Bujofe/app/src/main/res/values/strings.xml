@@ -66,6 +66,13 @@
     <string name="tx_reclass_type">補課方式</string>
     <string name="time_test">2019/09/23</string>
     <string name="scan_test_class_name">芙丸英文</string>
+    <string name="seat_order_ok">確認</string>
+    <string name="seat_order_cancel">取消</string>
+    <string name="order_check">確定選取座位?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="result_text">送出成功</string>
 
 
 </resources>

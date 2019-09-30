@@ -1,13 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+                name="viewModel"
+                type="com.sheldon.bujofe.studyroom.OrderSeatViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".studyroom.OrderSeatFragment"/>
+            tools:context=".studyroom.OrderSeatFragment">
+
+        <Button
+                android:id="@+id/btn_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_log_in_button"
+                android:text="@string/seat_order_ok"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_bg"
+                app:layout_constraintStart_toStartOf="@+id/img_bg" />
+
+        <Button
+                android:id="@+id/btn_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_log_in_button"
+                android:text="@string/seat_order_cancel"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_bg"
+                app:layout_constraintEnd_toEndOf="@+id/img_bg" />
+
+        <ImageView
+                android:id="@+id/img_bg"
+                android:layout_width="300dp"
+                android:layout_height="250dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/color_orange_lite_Login_page" />
+
+        <TextView
+                android:id="@+id/tx_seat_rder_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{viewModel.seatOrders.id}"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/img_bg"
+                app:layout_constraintStart_toStartOf="@+id/img_bg"
+                app:layout_constraintTop_toTopOf="@+id/img_bg" />
+
+        <TextView
+                android:id="@+id/tx_seat_rder_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/order_check"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/tx_seat_rder_id"
+                app:layout_constraintStart_toStartOf="@+id/tx_seat_rder_id"
+                app:layout_constraintTop_toBottomOf="@+id/tx_seat_rder_id" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
