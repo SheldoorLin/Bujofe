@@ -8,13 +8,16 @@ data class TeachList(
     val teacher: String = "",
     val teachingRoom: String = "",
     val type: String = "",
-    val dataList: List<DateList> = mutableListOf(),
+    val dateList: List<DateList> = mutableListOf(),
     val class_size: List<String> = mutableListOf()
 )
 
 
 data class DateList(
-    val date: String,
-    val lesson: String,
+    val date: String = "",
+    val date_year: Int = 0,
+    val date_month: Int = 0,
+    val date_day: Int = 0,
+    val lesson: String = "",
     val rollNameList: List<String> = mutableListOf()
 )
