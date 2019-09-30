@@ -80,7 +80,14 @@
         <argument
                 android:name="seatOrder"
                 app:argType="com.sheldon.bujofe.object.SeatOrder" />
+        <action
+                android:id="@+id/action_orderSeatFragment_to_orderResultFragment"
+                app:destination="@id/orderResultFragment" />
     </dialog>
+    <dialog
+            android:id="@+id/orderResultFragment"
+            android:name="com.sheldon.bujofe.studyroom.result.OrderResultFragment"
+            android:label="OrderResultFragment" />
 
 
 </navigation>

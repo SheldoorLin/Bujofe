@@ -11,6 +11,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.sheldon.bujofe.databinding.FragmentOrderSeatBinding
 import com.sheldon.bujofe.scan.ScanFactory
 import com.sheldon.bujofe.scan.ScanResultFragmentArgs
@@ -54,18 +55,25 @@ class OrderSeatFragment : AppCompatDialogFragment() {
 //        }
 
 
-            viewModel.seatOrders.observe(this, Observer {
-                it.let {
-                    binding.txSeatRderId.text = it.id
-                }
-            })
+        viewModel.seatOrders.observe(this, Observer {
+            it.let {
+                binding.txSeatRderId.text = it.id
+            }
+        })
 
         binding.btnYes.setOnClickListener {
             viewModel.setNewData()
+            this.findNavController()
+                .navigate(OrderSeatFragmentDirections.actionOrderSeatFragmentToOrderResultFragment())
+            onStop()
+        }
+        binding.btnNo.setOnClickListener {
+            onStop()
         }
 
         return binding.root
     }
+
 
 }
 
