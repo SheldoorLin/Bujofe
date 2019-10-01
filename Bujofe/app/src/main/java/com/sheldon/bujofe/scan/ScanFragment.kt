@@ -2,10 +2,10 @@ package com.sheldon.bujofe.scan
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -38,6 +38,24 @@ class ScanFragment : Fragment() {
 
         methodWithPermissions()
 
+//        viewModel.teachLists.observe(this, Observer {
+//            it?.let {
+//                viewModel.getTeacherList()
+//            }
+//        })
+
+//        viewModel.flag.observe(this, Observer {
+//            it?.let {
+//                if (it){
+//                    viewModel.getTeacherList()
+//                    viewModel.flag.value = false
+//                }
+//            }
+//        })
+
+
+
+
         viewModel.scanResults.observe(this, Observer {
             it?.let {
                 this.findNavController()
@@ -55,8 +73,13 @@ class ScanFragment : Fragment() {
         codeScanner = CodeScanner(requireContext(), binding.scannerView)
         codeScanner?.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
-                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
-                viewModel.scanResults.value = QRcode(it.text, it.timestamp)
+
+                //Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+                viewModel.preScanResult.value = QRcode("飛帆英文", it.timestamp)
+                Log.d("ScanFragment", "scan result = ${it.text}+${it.timestamp}")
+                viewModel.getTeacherList()
+                viewModel.setNewData()
+                viewModel.scanResults.value = viewModel.preScanResult.value
             }
         }
         binding.scannerView.setOnClickListener {

@@ -63,7 +63,7 @@
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
-                android:text="@string/scan_test_class_name"
+                android:text="@{viewModel.rollName.title}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tx_class_name"
@@ -89,7 +89,7 @@
                 android:id="@+id/class_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.scanTimestamp}"
+
                 app:layout_constraintBottom_toBottomOf="@+id/tx_class_start_time"
                 app:layout_constraintStart_toEndOf="@+id/tx_class_start_time"
                 app:layout_constraintTop_toTopOf="@+id/tx_class_start_time" />
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/noto_sans"
-                android:text="@string/time_test"
+                android:text="@{viewModel.scanTimestamp}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tx_class_start_time"

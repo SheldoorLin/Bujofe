@@ -47,12 +47,6 @@ class OrderSeatFragment : AppCompatDialogFragment() {
         ).get(OrderSeatViewModel::class.java)
 
 
-//        val checkedId = viewModel.seatOrders.value?.id
-//        for(item in viewModel.seatOrders.value?.originSeatList!!.seatList){
-//            if (item.id == checkedId){
-//
-//            }
-//        }
 
 
         viewModel.seatOrders.observe(this, Observer {

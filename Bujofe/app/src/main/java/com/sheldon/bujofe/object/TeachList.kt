@@ -1,7 +1,7 @@
 package com.sheldon.bujofe.`object`
 
 data class TeachList(
-    val id: String = "",
+    var id: String = "",
     val startTime: String = "",
     val endTime: String = "",
     val title: String = "",
@@ -19,5 +19,5 @@ data class DateList(
     val date_month: Int = 0,
     val date_day: Int = 0,
     val lesson: String = "",
-    val rollNameList: List<String> = mutableListOf()
+    val rollNameList: ArrayList<String> = ArrayList()
 )
