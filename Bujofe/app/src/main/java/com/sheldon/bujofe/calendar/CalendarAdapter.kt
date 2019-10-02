@@ -3,6 +3,7 @@ package com.sheldon.bujofe.calendar
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ClassMute
@@ -11,7 +12,7 @@ import kotlinx.android.synthetic.main.item_calendar_event_view.*
 import org.threeten.bp.format.DateTimeFormatter
 
 
-class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder>() {
+class CalendarAdapter : ListAdapter<ClassMute,CalendarAdapter.EventItemViewHolder>(DiffCallback) {
 
 
     val classMute = mutableListOf<ClassMute>()
@@ -51,7 +52,7 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.EventItemViewHolder
             itemFlightDateText.text = formatter.format(classMute.time)
             itemDepartureAirportCityText.text = classMute.departure.type
             textView2.text = classMute.departure.teach_class
-            textView.text =  classMute.departure.order_people
+            textView.text = classMute.departure.order_people
             itemDepartureAirportCodeText.text = classMute.departure.class_context
         }
     }

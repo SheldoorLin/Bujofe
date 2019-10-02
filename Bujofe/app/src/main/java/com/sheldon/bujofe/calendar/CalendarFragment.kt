@@ -2,6 +2,7 @@ package com.sheldon.bujofe.calendar
 
 
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -24,7 +25,7 @@ import com.kizitonwose.calendarview.utils.previous
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentCalendarBinding
-import kotlinx.android.synthetic.main.calendar_day_legend.view.*
+import kotlinx.android.synthetic.main.item_calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import org.threeten.bp.LocalDate
@@ -38,15 +39,11 @@ class CalendarFragment : Fragment() {
         ViewModelProviders.of(this).get(CalendarViewModel::class.java)
     }
 
-
     private var selectedDate: LocalDate? = null
 
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
     private val calendarAdapter = CalendarAdapter()
-
-    private val classMutes = generateFlights().groupBy { it.time.toLocalDate() }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,9 +59,25 @@ class CalendarFragment : Fragment() {
         binding.eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.eventRecycler.adapter = calendarAdapter
+
+
+
+
+        viewModel.teachLists.observe(this, Observer {
+            it.let {
+                viewModel.getTeacherList()
+                Log.d("CalendarView", "getTeacherList() = ${viewModel.getTeacherList()}")
+                val classMutes = viewModel.getTeacherList().groupBy { it.time.toLocalDate() }
+                viewModel.classMutes = classMutes
+                binding.eventCalendar.notifyCalendarChanged()
+                Log.d("CalendarView", "classMutes = $classMutes")
+            }
+        })
         calendarAdapter.notifyDataSetChanged()
 
 
+
+//        Log.d("CalendarView", "getTeacherList() = ${viewModel.getTeacherList().toString()}")
         val daysOfWeek = daysOfWeekFromLocale()
 
         val currentMonth = YearMonth.now()
@@ -75,7 +88,6 @@ class CalendarFragment : Fragment() {
             currentMonth.plusMonths(10),
             daysOfWeek.first()
         )
-
         eventCalendar.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
@@ -89,7 +101,6 @@ class CalendarFragment : Fragment() {
             val dayTopView = view.exFiveDayFlightTop
 
             val dayBottomView = view.exFiveDayFlightBottom
-
 
             init {
                 view.setOnClickListener {
@@ -109,9 +120,7 @@ class CalendarFragment : Fragment() {
         }
 
         eventCalendar.dayBinder = object : DayBinder<DayViewContainer> {
-
             override fun create(view: View) = DayViewContainer(view)
-
             override fun bind(container: DayViewContainer, day: CalendarDay) {
 
                 container.day = day
@@ -121,7 +130,6 @@ class CalendarFragment : Fragment() {
                 val layout = container.layout
 
                 textView.text = day.date.dayOfMonth.toString()
-
 
                 val dayTopView = container.dayTopView
 
@@ -134,19 +142,20 @@ class CalendarFragment : Fragment() {
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.setTextColorRes(R.color.black)
                     layout.setBackgroundResource(
-                        if (selectedDate == day.date)
+                        if (selectedDate == day.date) {
                             R.drawable.calendar_selected_bg
-                        else
+                        } else {
                             R.drawable.calendar_unselected_bg
+                        }
                     )
 
-                    val classMutes = classMutes[day.date]
+                    val classMutes = viewModel.classMutes[day.date]
 
                     if (classMutes != null) {
-
                         dayBottomView.setBackgroundResource(R.drawable.calendar_event_dot_shape)
-
                     }
+
+
                 } else {
                     textView.setTextColorRes(R.color.title_color_white)
                     layout.background = null
@@ -158,7 +167,6 @@ class CalendarFragment : Fragment() {
         class MonthViewContainer(view: View) : ViewContainer(view) {
             val legendLayout = view.legendLayout
         }
-
 
         //一周星期標題
         eventCalendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
@@ -218,8 +226,7 @@ class CalendarFragment : Fragment() {
 
     private fun updateAdapterForDate(date: LocalDate?) {
         calendarAdapter.classMute.clear()
-        calendarAdapter.classMute.addAll(classMutes[date].orEmpty())
+        calendarAdapter.classMute.addAll(viewModel.classMutes[date].orEmpty())
         calendarAdapter.notifyDataSetChanged()
     }
-
 }

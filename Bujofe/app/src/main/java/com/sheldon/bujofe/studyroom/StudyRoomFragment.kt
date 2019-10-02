@@ -9,14 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
+import com.sheldon.bujofe.`object`.OrderedTimes
+import com.sheldon.bujofe.`object`.SeatOrder
 import com.sheldon.bujofe.calendar.getColorCompat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
 import kotlinx.android.synthetic.main.item_studyroom_calendar_day.view.*
@@ -24,6 +28,8 @@ import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
+import java.lang.Exception
+
 
 class StudyRoomFragment : Fragment() {
 
@@ -103,9 +109,7 @@ class StudyRoomFragment : Fragment() {
 
 
                         exSevenCalendar.notifyDateChanged(day.date)
-                        oldDate?.let {
-                            exSevenCalendar.notifyDateChanged(it)
-                        }
+                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
 
 
                         val serverDataFilter = viewModel.studyRoomdatas.value?.let {
@@ -120,16 +124,20 @@ class StudyRoomFragment : Fragment() {
                                 (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
                                 viewModel.pageStatus.value = 1
                                 binding.seatView.visibility = View.VISIBLE
+                                viewModel.checkedDate.value = serverDataFilter[0].local_date
+                                viewModel.checkedDocumentId.value = serverDataFilter[0].documentId
+                                viewModel.originSeatList.value = serverDataFilter[0]
                                 val filtedSeatList = serverDataFilter[0].seatList
                                 Log.d(TAG, "test_3 $filtedSeatList")
                                 viewModel.studyRoomdataSeats.value = filtedSeatList
                                 (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-                            }else{
+                            } else {
                                 (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
                                 viewModel.pageStatus.value = 0
                                 binding.seatView.visibility = View.INVISIBLE
-                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
-
+                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
+                                    null
+                                )
                             }
                         }
 
@@ -204,6 +212,7 @@ class StudyRoomFragment : Fragment() {
                         val seatTableFilter = it.filter {
                             it.column == column && it.row == row
                         }
+                        viewModel.checkSeatId.value = seatTableFilter[0].id
                         val orderedSeatTime = listOf(seatTableFilter[0].orderedTimes)
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
                             orderedSeatTime
@@ -227,6 +236,19 @@ class StudyRoomFragment : Fragment() {
                 })
             }
         })
+
+
+
+
+        viewModel.checkSeatStatus.observe(this, Observer {
+            it.let {
+                this.findNavController().navigate(
+                    StudyRoomFragmentDirections.actionStudyRoomFragmentToOrderSeatFragment(it)
+                )
+            }
+        })
+
+
         return binding.root
     }
 }

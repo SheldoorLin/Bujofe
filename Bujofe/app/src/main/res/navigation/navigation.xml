@@ -19,7 +19,11 @@
     <fragment
             android:id="@+id/studyRoomFragment"
             android:name="com.sheldon.bujofe.studyroom.StudyRoomFragment"
-            android:label="StudyRoomFragment" />
+            android:label="StudyRoomFragment" >
+        <action
+                android:id="@+id/action_studyRoomFragment_to_orderSeatFragment"
+                app:destination="@id/orderSeatFragment" />
+    </fragment>
 
     <fragment
             android:id="@+id/profileFragment"
@@ -69,9 +73,21 @@
                 android:name="roll_name"
                 app:argType="com.sheldon.bujofe.object.QRcode"/>
     </dialog>
-
-
-
+    <dialog
+            android:id="@+id/orderSeatFragment"
+            android:name="com.sheldon.bujofe.studyroom.OrderSeatFragment"
+            android:label="OrderSeatFragment" >
+        <argument
+                android:name="seatOrder"
+                app:argType="com.sheldon.bujofe.object.SeatOrder" />
+        <action
+                android:id="@+id/action_orderSeatFragment_to_orderResultFragment"
+                app:destination="@id/orderResultFragment" />
+    </dialog>
+    <dialog
+            android:id="@+id/orderResultFragment"
+            android:name="com.sheldon.bujofe.studyroom.result.OrderResultFragment"
+            android:label="OrderResultFragment" />
 
 
 </navigation>

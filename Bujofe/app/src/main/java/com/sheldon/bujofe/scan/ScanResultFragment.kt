@@ -52,7 +52,7 @@ class ScanResultFragment : AppCompatDialogFragment() {
         })
 
 
-        val timer = object: CountDownTimer(2000, 1000) {
+        val timer = object: CountDownTimer(6000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
             }
             override fun onFinish() {

@@ -1,5 +1,6 @@
 package com.sheldon.bujofe.studyroom
 
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.util.Log
 import android.widget.TextView
@@ -7,9 +8,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.`object`.OrderedTimes
 import com.sheldon.bujofe.`object`.StudyroomSeat
 import com.sheldon.bujofe.`object`.SeatList
+import com.sheldon.bujofe.`object`.SeatOrder
 
 
 class StudyRoomViewModel : ViewModel() {
@@ -23,15 +26,22 @@ class StudyRoomViewModel : ViewModel() {
         getStudyRoomfirebase()
     }
 
+
     private val _studyRoomdatas = MutableLiveData<List<StudyroomSeat>>()
     val studyRoomdatas: LiveData<List<StudyroomSeat>>
         get() = _studyRoomdatas
-
-    val recoderList = mutableListOf<StudyroomSeat>()
-
-
     val studyRoomdataSeats = MutableLiveData<List<SeatList>>()
 
+
+    val userName =  BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
+        .getString("displayName", "")
+
+    val checkSeatStatus = MutableLiveData<SeatOrder>()
+    val checkSeatId = MutableLiveData<String>()
+    val checkedDate = MutableLiveData<String>()
+    val checkedDocumentId = MutableLiveData<String>()
+
+    val originSeatList = MutableLiveData<StudyroomSeat>()
 
 
 
@@ -40,14 +50,18 @@ class StudyRoomViewModel : ViewModel() {
         db.collection("StudyroomSeat")
             .get()
             .addOnSuccessListener { result ->
+                val recoderList = mutableListOf<StudyroomSeat>()
                 for (document in result) {
                     val data = document.toObject(StudyroomSeat::class.java)
                     val dateTime = java.sql.Date(data.date!!.time)
                     val format = SimpleDateFormat("yyy/MM/dd")
                     Log.d(TAG, "format.format(dateTime) is ${format.format(dateTime)}")
                     recoderList.add(data)
+                    val index = recoderList.size -1
+                    recoderList[index].documentId = document.id
                     _studyRoomdatas.value = recoderList
-                    Log.d(TAG, "server_data is $data")
+//                    Log.d(TAG, "server_data is  $recoderList")
+//                    Log.d(TAG, "server_data_doc_id is  ${studyRoomdatas.value.toString()}")
                 }
             }
             .addOnFailureListener { exception ->

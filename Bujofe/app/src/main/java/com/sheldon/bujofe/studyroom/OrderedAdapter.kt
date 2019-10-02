@@ -1,6 +1,5 @@
 package com.sheldon.bujofe.studyroom
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,10 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.OrderedTimes
+import com.sheldon.bujofe.`object`.SeatOrder
 import com.sheldon.bujofe.calendar.setTextColorRes
 import com.sheldon.bujofe.databinding.ItemStudyroomSeatOrderedBinding
 
-class OrderedAdapter(viewModel: StudyRoomViewModel) : ListAdapter<OrderedTimes, OrderedAdapter.ItemViewHolder>(DiffCallback) {
+class OrderedAdapter(val viewModel: StudyRoomViewModel) :
+    ListAdapter<OrderedTimes, OrderedAdapter.ItemViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<OrderedTimes>() {
         override fun areItemsTheSame(oldItem: OrderedTimes, newItem: OrderedTimes): Boolean {
@@ -27,42 +28,91 @@ class OrderedAdapter(viewModel: StudyRoomViewModel) : ListAdapter<OrderedTimes, 
     class ItemViewHolder(private var binding: ItemStudyroomSeatOrderedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        fun bind(orderedTimes: OrderedTimes, viewModel: StudyRoomViewModel) {
 
-        fun bind(orderedTimes: OrderedTimes) {
             binding.orderedTimes = orderedTimes
 
-            binding.btnFirstSlot.isEnabled = orderedTimes.firstTimeSlot == ""
-            if (orderedTimes.firstTimeSlot!=""){
+            binding.viewModel = viewModel
+
+            if (orderedTimes.firstTimeSlot != "") {
                 binding.btnFirstSlot.text = "已預定"
                 binding.btnFirstSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
-            }else{
+            } else {
                 binding.btnFirstSlot.text = "可預訂"
+                binding.btnFirstSlot.isEnabled
                 binding.btnFirstSlot.setTextColorRes(R.color.black)
                 binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
-
-            binding.btnSecSlot.isEnabled = orderedTimes.secTimeSlot == ""
-            if (orderedTimes.secTimeSlot!=""){
+            if (orderedTimes.secTimeSlot != "") {
                 binding.btnSecSlot.text = "已預定"
                 binding.btnSecSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
-            }else{
+            } else {
                 binding.btnSecSlot.text = "可預訂"
+                binding.btnSecSlot.isEnabled
                 binding.btnSecSlot.setTextColorRes(R.color.black)
                 binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
-
-            binding.btnThirdSlot.isEnabled = orderedTimes.thirdTimeSlot == ""
-            if (orderedTimes.thirdTimeSlot!=""){
+            if (orderedTimes.thirdTimeSlot != "") {
                 binding.btnThirdSlot.text = "已預定"
                 binding.btnThirdSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
-            }else{
+            } else {
                 binding.btnThirdSlot.text = "可預訂"
+                binding.btnThirdSlot.isEnabled
                 binding.btnThirdSlot.setTextColorRes(R.color.black)
                 binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
+
+
+            binding.btnFirstSlot.setOnClickListener {
+                for(item in viewModel.originSeatList.value!!.seatList){
+                    if (item.id == viewModel.checkSeatId.value!!){
+                        item.orderedTimes?.firstTimeSlot =  viewModel.userName!!
+                    }
+                }
+
+                viewModel.checkSeatStatus.value = SeatOrder(
+                    viewModel.checkSeatId.value!!,
+                    viewModel.checkedDate.value!!,
+                    viewModel.checkedDocumentId.value!!,
+                    OrderedTimes(firstTimeSlot = viewModel.userName!!),
+                    viewModel.originSeatList.value!!
+                )
+            }
+            binding.btnSecSlot.setOnClickListener {
+                for(item in viewModel.originSeatList.value!!.seatList){
+                    if (item.id == viewModel.checkSeatId.value!!){
+                        item.orderedTimes?.secTimeSlot =  viewModel.userName!!
+                    }
+                }
+
+                viewModel.checkSeatStatus.value = SeatOrder(
+                    viewModel.checkSeatId.value!!,
+                    viewModel.checkedDate.value!!,
+                    viewModel.checkedDocumentId.value!!,
+                    OrderedTimes(secTimeSlot = viewModel.userName!!),
+                    viewModel.originSeatList.value!!
+                )
+            }
+            binding.btnThirdSlot.setOnClickListener {
+
+                for(item in viewModel.originSeatList.value!!.seatList){
+                    if (item.id == viewModel.checkSeatId.value!!){
+                        item.orderedTimes?.thirdTimeSlot =  viewModel.userName!!
+                    }
+                }
+
+                viewModel.checkSeatStatus.value = SeatOrder(
+                    viewModel.checkSeatId.value!!,
+                    viewModel.checkedDate.value!!,
+                    viewModel.checkedDocumentId.value!!,
+                    OrderedTimes(thirdTimeSlot = viewModel.userName!!),
+                    viewModel.originSeatList.value!!
+                )
+            }
+
 
             binding.executePendingBindings()
         }
@@ -75,6 +125,8 @@ class OrderedAdapter(viewModel: StudyRoomViewModel) : ListAdapter<OrderedTimes, 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val notice = getItem(position)
-        holder.bind(notice)
+        holder.bind(notice, viewModel)
+
+
     }
 }

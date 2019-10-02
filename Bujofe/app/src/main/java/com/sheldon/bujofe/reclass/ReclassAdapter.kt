@@ -13,7 +13,6 @@ import com.sheldon.bujofe.`object`.Records
 import com.sheldon.bujofe.databinding.ItemReclassRecodeBinding
 import org.threeten.bp.format.DateTimeFormatter
 import java.sql.Date
-import java.util.*
 
 
 class ReclassAdapter : ListAdapter<Records, ReclassAdapter.ItemViewHolder>(DiffCallback) {
@@ -28,26 +27,27 @@ class ReclassAdapter : ListAdapter<Records, ReclassAdapter.ItemViewHolder>(DiffC
         }
     }
 
-    private val formatter = DateTimeFormatter.ofPattern("MM'月' dd'號' HH:mm")
-
     class ItemViewHolder(private var binding: ItemReclassRecodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
         @SuppressLint("ResourceAsColor")
         fun bind(records: Records) {
+
             binding.records = records
 
             val sfd = SimpleDateFormat("yyyy-MM-dd")
             sfd.format(Date(records.date.seconds))
+
             Log.d("test", "sfd = ${sfd.format(Date(records.date.seconds*1000))}")
+
             binding.date.text = sfd.format(Date(records.date.seconds*1000))
 
 
             when (records.status) {
-                "Approved" -> binding.status.setBackgroundResource(R.drawable.rounded_reclass_text_approve)
-                "Rejected" -> binding.status.setBackgroundResource(R.drawable.rounded_reclass_text_reject)
-                "Waiting" -> binding.status.setBackgroundResource(R.drawable.rounded_reclass_text_waiting)
+                "Approved" -> binding.status.setTextColor(R.color.green_700)
+                "Rejected" -> binding.status.setTextColor(R.color.red_800)
+                "Waiting" -> binding.status.setTextColor(R.color.Color_gray_aeaeae)
             }
             binding.executePendingBindings()
         }

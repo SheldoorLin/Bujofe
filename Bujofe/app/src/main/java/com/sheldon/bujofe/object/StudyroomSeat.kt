@@ -1,6 +1,7 @@
 package com.sheldon.bujofe.`object`
 
 import android.os.Parcelable
+import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ServerTimestamp
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -12,7 +13,9 @@ data class StudyroomSeat(
     @ServerTimestamp
     val date: Date? = null,
     val local_date: String = "",
-    val seatList: List<SeatList> = mutableListOf()
+    val seatList: List<SeatList> = mutableListOf(),
+    @get:Exclude
+    var documentId:String=""
 
 ) : Parcelable
 
@@ -29,7 +32,7 @@ data class SeatList(
 
 @Parcelize
 data class OrderedTimes(
-    val firstTimeSlot: String = "",
-    val secTimeSlot: String = "",
-    val thirdTimeSlot: String = ""
+    var firstTimeSlot: String = "",
+    var secTimeSlot: String = "",
+    var thirdTimeSlot: String = ""
 ) : Parcelable
