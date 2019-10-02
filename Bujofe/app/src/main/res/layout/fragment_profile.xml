@@ -15,19 +15,7 @@
             android:layout_height="match_parent"
             tools:context=".profile.ProfileFragment">
 
-        <com.notrika.roundedimage.RoundedImageView
-                android:id="@+id/roundedImageView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/dogiii"
-                android:visibility="gone"
-                app:cornerRadus="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.cardview.widget.CardView
                 android:layout_width="0dp"

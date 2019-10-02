@@ -24,19 +24,20 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
         (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
+
         binding.lifecycleOwner = this
 
         binding.homeRecyclerViewNotice.adapter = NoticeItemAdapter()
-
 
         viewModel.getNoticefirebase()
 
         viewModel.notices.observe(this, Observer {
             it.let {
-                Log.d("Notices","$it")
                 (binding.homeRecyclerViewNotice.adapter as NoticeItemAdapter).submitList(it)
                 (binding.homeRecyclerViewNotice.adapter as NoticeItemAdapter).notifyDataSetChanged()
             }
