@@ -32,16 +32,15 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
 
         fun bind(notice: Notice) {
             binding.notice = notice
-            binding.imgNoticeIcon
 
             img.setColorFilter(
-                ContextCompat.getColor(BujofeApplication.instance, R.color.color_orange_text_gray),
+                ContextCompat.getColor(BujofeApplication.instance, R.color.color_orange_Dark),
                 android.graphics.PorterDuff.Mode.SRC_IN
             )
 
             when (notice.type) {
                 1 -> img.setImageResource(R.drawable.tornado)
-                2 -> img.setImageResource(R.drawable.smallmanread)
+                2 -> img.setImageResource(R.drawable.ic_small_man_read)
                 3 -> img.setImageResource(R.drawable.crown_icon)
 
             }

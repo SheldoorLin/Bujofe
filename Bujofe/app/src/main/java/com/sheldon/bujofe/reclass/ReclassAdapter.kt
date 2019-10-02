@@ -45,9 +45,9 @@ class ReclassAdapter : ListAdapter<Records, ReclassAdapter.ItemViewHolder>(DiffC
 
 
             when (records.status) {
-                "Approved" -> binding.status.setBackgroundResource(R.drawable.rounded_reclass_text_approve)
-                "Rejected" -> binding.status.setBackgroundResource(R.drawable.rounded_reclass_text_reject)
-                "Waiting" -> binding.status.setBackgroundResource(R.drawable.rounded_reclass_text_waiting)
+                "Approved" -> binding.status.setTextColor(R.color.green_700)
+                "Rejected" -> binding.status.setTextColor(R.color.red_800)
+                "Waiting" -> binding.status.setTextColor(R.color.Color_gray_aeaeae)
             }
             binding.executePendingBindings()
         }
