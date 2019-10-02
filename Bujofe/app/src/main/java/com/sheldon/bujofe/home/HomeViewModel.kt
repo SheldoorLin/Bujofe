@@ -12,17 +12,18 @@ import kotlin.collections.ArrayList
 
 class HomeViewModel : ViewModel() {
 
-    private val TAG: String = "HomeViewModel"
+    private val TAG = "HomeViewModel"
 
     private val _notices = MutableLiveData<List<Notice>>()
     val notices: LiveData<List<Notice>>
         get() = _notices
 
-    private val list: ArrayList<Notice> = ArrayList()
+    private val noticeLists: ArrayList<Notice> = ArrayList()
 
+    fun getNoticeFirebase() {
 
-    fun getNoticefirebase() {
         val db = FirebaseFirestore.getInstance()
+
         db.collection("notice")
             .get()
             .addOnSuccessListener { result ->
@@ -31,12 +32,14 @@ class HomeViewModel : ViewModel() {
                     val dateTime = java.sql.Date(data.time!!.time)
                     val format = SimpleDateFormat("yyy/MM/dd")
 
-                    list.add(Notice(data.title, data.context, format.format(dateTime) , data.type))
-                    Log.d("originTime", "${data.time}")
-                    Log.d("Time", format.format(dateTime))
-                    Log.d("dateTime", "$dateTime")
-                    _notices.value = list
-                    Log.d(TAG, "User ====" + data.title)
+                    noticeLists.add(Notice(data.title, data.context, format.format(dateTime) , data.type))
+
+                    _notices.value = noticeLists
+
+                    Log.d(TAG,"originTime = ${data.time}")
+                    Log.d(TAG,"Time = ${format.format(dateTime)}")
+                    Log.d(TAG,"dateTime = $dateTime")
+                    Log.d(TAG, "User =  ${data.title}")
                 }
             }
             .addOnFailureListener { exception ->

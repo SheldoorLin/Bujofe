@@ -25,7 +25,7 @@ import com.kizitonwose.calendarview.utils.previous
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentCalendarBinding
-import kotlinx.android.synthetic.main.calendar_day_legend.view.*
+import kotlinx.android.synthetic.main.item_calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import org.threeten.bp.LocalDate
@@ -44,12 +44,6 @@ class CalendarFragment : Fragment() {
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
     private val calendarAdapter = CalendarAdapter()
-
-//    private val classMutes = generateFlights().groupBy {
-//        it.time.toLocalDate()
-//    }
-//        private val classMutes = viewModel.getTeacherList().groupBy { it.time.toLocalDate() }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -27,6 +27,5 @@
                 app:spanCount="1"
                 tools:listitem="@layout/item_home_notice_card" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

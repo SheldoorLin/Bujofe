@@ -22,27 +22,31 @@ import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.ActivityLoginBinding
 
-
 class LoginActivity : AppCompatActivity() {
-
-
-    private lateinit var binding: ActivityLoginBinding
-
-    private val RC_SIGN_IN: Int = 1
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private lateinit var mGoogleSignInOptions: GoogleSignInOptions
-    private lateinit var firebaseAuth: FirebaseAuth
-    private val TAG: String = "LoginActivity"
 
     private val viewModel: LoginViewModel by lazy {
         ViewModelProviders.of(this).get(LoginViewModel::class.java)
     }
 
+    private lateinit var binding: ActivityLoginBinding
+
+    private val RC_SIGN_IN: Int = 1
+
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+
+    private lateinit var mGoogleSignInOptions: GoogleSignInOptions
+
+    private lateinit var firebaseAuth: FirebaseAuth
+
+    private val TAG: String = "LoginActivity"
+
     override fun onStart() {
         super.onStart()
+
         val user = FirebaseAuth.getInstance().currentUser
 
         if (user != null) {
+
             startActivity(MainActivity.getLaunchIntent(this))
             finish()
         }
@@ -50,16 +54,23 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
         firebaseAuth = FirebaseAuth.getInstance()
+
         binding.lifecycleOwner = this
+
         binding.viewModel = viewModel
+
         setupUI()
+
         configureGoogleSignIn()
 
     }
 
     companion object {
+
         fun getLaunchIntent(from: Context) = Intent(from, LoginActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
@@ -70,22 +81,21 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLoginDesign.setOnClickListener {
             signIn()
         }
-
-//        binding.btnSignIn.setOnClickListener {
-//            signIn()
-//        }
     }
 
     private fun signIn() {
+
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     private fun configureGoogleSignIn() {
+
         mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
     }
 
@@ -101,16 +111,24 @@ class LoginActivity : AppCompatActivity() {
                     /**
                      * SharedPreferences
                      * */
+                    BujofeApplication.instance.getSharedPreferences(
+                        "userProfile",
+                        Context.MODE_PRIVATE
+                    )?.edit()?.putString("displayName", it.displayName)?.apply()
 
-                    BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
-                        ?.putString("displayName",it.displayName )?.apply()
-                    BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
-                        ?.putString("email",it.email )?.apply()
-                    BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
-                        ?.putString("photoUrl",it.photoUrl.toString() )?.apply()
+                    BujofeApplication.instance.getSharedPreferences(
+                        "userProfile",
+                        Context.MODE_PRIVATE
+                    )?.edit()?.putString("email", it.email)?.apply()
+
+                    BujofeApplication.instance.getSharedPreferences(
+                        "userProfile",
+                        Context.MODE_PRIVATE
+                    )?.edit()?.putString("photoUrl", it.photoUrl.toString())?.apply()
                 }
 
             } catch (e: ApiException) {
+
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
         }
@@ -124,14 +142,19 @@ class LoginActivity : AppCompatActivity() {
                 /**
                  *  Firebase Login uid
                  */
-                Log.d("firebaseAuth", firebaseAuth.uid.toString())
+
                 val uid = firebaseAuth.uid.toString()
 
                 viewModel.uidChecker(uid)
-                BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)?.edit()
-                    ?.putString("uid",uid )?.apply()
+                Log.d(TAG, "firebaseAuth uid = ${firebaseAuth.uid.toString()}")
+
+                BujofeApplication.instance.getSharedPreferences(
+                    "userProfile",
+                    Context.MODE_PRIVATE
+                )?.edit()?.putString("uid", uid)?.apply()
 
                 startActivity(MainActivity.getLaunchIntent(this))
+
             } else {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
