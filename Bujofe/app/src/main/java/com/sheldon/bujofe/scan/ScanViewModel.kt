@@ -94,7 +94,7 @@ class ScanViewModel : ViewModel() {
 
     fun setNewData() {
         for (item in teachLists.value!!) {
-            
+
             if (item.title == "飛帆英文") {
 
                 val teachListFilter = teachLists.value!!.filter {
