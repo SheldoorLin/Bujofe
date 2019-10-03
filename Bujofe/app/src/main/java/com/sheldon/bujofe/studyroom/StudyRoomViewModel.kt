@@ -3,34 +3,32 @@ package com.sheldon.bujofe.studyroom
 import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.util.Log
-import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sheldon.bujofe.BujofeApplication
-import com.sheldon.bujofe.`object`.OrderedTimes
-import com.sheldon.bujofe.`object`.StudyroomSeat
+import com.sheldon.bujofe.`object`.StudyRoomSeat
 import com.sheldon.bujofe.`object`.SeatList
 import com.sheldon.bujofe.`object`.SeatOrder
 
 
 class StudyRoomViewModel : ViewModel() {
 
-    private var TAG: String = "StudyroomViewModel"
+    private var TAG: String = "StudyRoomViewModel"
 
     val pageStatus = MutableLiveData<Int>()
 
     init {
         pageStatus.value = 0
-        getStudyRoomfirebase()
+        getStudyRoomFirebase()
     }
 
 
-    private val _studyRoomdatas = MutableLiveData<List<StudyroomSeat>>()
-    val studyRoomdatas: LiveData<List<StudyroomSeat>>
+    private val _studyRoomdatas = MutableLiveData<List<StudyRoomSeat>>()
+    val studyRoomdatas: LiveData<List<StudyRoomSeat>>
         get() = _studyRoomdatas
-    val studyRoomdataSeats = MutableLiveData<List<SeatList>>()
+    val studyRoomDataSeats = MutableLiveData<List<SeatList>>()
 
 
     val userName =  BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
@@ -41,19 +39,19 @@ class StudyRoomViewModel : ViewModel() {
     val checkedDate = MutableLiveData<String>()
     val checkedDocumentId = MutableLiveData<String>()
 
-    val originSeatList = MutableLiveData<StudyroomSeat>()
+    val originSeatList = MutableLiveData<StudyRoomSeat>()
 
 
 
-    fun getStudyRoomfirebase() {
+    private fun getStudyRoomFirebase() {
         val db = FirebaseFirestore.getInstance()
         db.collection("StudyroomSeat")
             .get()
             .addOnSuccessListener { result ->
-                val recoderList = mutableListOf<StudyroomSeat>()
+                val recoderList = mutableListOf<StudyRoomSeat>()
                 for (document in result) {
-                    val data = document.toObject(StudyroomSeat::class.java)
-                    val dateTime = java.sql.Date(data.date!!.time)
+                    val data = document.toObject(StudyRoomSeat::class.java)
+                    val dateTime = java.sql.Date(data.date.time)
                     val format = SimpleDateFormat("yyy/MM/dd")
                     Log.d(TAG, "format.format(dateTime) is ${format.format(dateTime)}")
                     recoderList.add(data)

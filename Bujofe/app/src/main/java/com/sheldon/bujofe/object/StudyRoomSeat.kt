@@ -8,7 +8,7 @@ import java.util.*
 
 
 @Parcelize
-data class StudyroomSeat(
+data class StudyRoomSeat(
 
     @ServerTimestamp
     val date: Date = Date(),

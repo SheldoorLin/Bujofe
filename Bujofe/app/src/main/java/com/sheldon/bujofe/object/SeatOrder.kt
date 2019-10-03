@@ -10,5 +10,5 @@ data class SeatOrder(
     val date: String,
     val documentId: String,
     val orderedTimes: OrderedTimes,
-    val originSeatList:StudyroomSeat
+    val originSeatList:StudyRoomSeat
 ) : Parcelable

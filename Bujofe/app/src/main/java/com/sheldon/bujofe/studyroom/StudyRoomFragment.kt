@@ -126,7 +126,7 @@ class StudyRoomFragment : Fragment() {
                                 viewModel.originSeatList.value = serverDataFilter[0]
                                 val filtedSeatList = serverDataFilter[0].seatList
                                 Log.d(TAG, "test_3 $filtedSeatList")
-                                viewModel.studyRoomdataSeats.value = filtedSeatList
+                                viewModel.studyRoomDataSeats.value = filtedSeatList
                                 (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
                             } else {
                                 (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
@@ -167,7 +167,7 @@ class StudyRoomFragment : Fragment() {
 
 
 
-        viewModel.studyRoomdataSeats.observe(this, Observer { seatListOnline ->
+        viewModel.studyRoomDataSeats.observe(this, Observer { seatListOnline ->
             seatListOnline.let { it ->
                 /**
                  * 繪製座位圖  seatTable
