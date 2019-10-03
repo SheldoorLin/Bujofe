@@ -31,12 +31,4 @@ class ScanResultViewModel(qrCode: QRcode, app: Application) : AndroidViewModel(a
             Log.d("scanTimestamp", scanTimestamp.value.toString())
         }
     }
-
-
-
-
-
-
-
-
 }

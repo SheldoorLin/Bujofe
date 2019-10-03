@@ -11,12 +11,12 @@ import java.util.*
 data class StudyroomSeat(
 
     @ServerTimestamp
-    val date: Date? = null,
-    val local_date: String = "",
+    val date: Date = Date(),
+    @ServerTimestamp
+    val local_date: Date = Date(),
     val seatList: List<SeatList> = mutableListOf(),
     @get:Exclude
     var documentId:String=""
-
 ) : Parcelable
 
 

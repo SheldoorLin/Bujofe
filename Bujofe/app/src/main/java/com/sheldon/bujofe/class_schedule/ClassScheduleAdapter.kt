@@ -1,4 +1,4 @@
-package com.sheldon.bujofe.calendar
+package com.sheldon.bujofe.class_schedule
 
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +12,13 @@ import kotlinx.android.synthetic.main.item_calendar_event_view.*
 import org.threeten.bp.format.DateTimeFormatter
 
 
-class CalendarAdapter : ListAdapter<ClassMute,CalendarAdapter.EventItemViewHolder>(DiffCallback) {
+class ClassScheduleAdapter : ListAdapter<ClassMute,ClassScheduleAdapter.EventItemViewHolder>(DiffCallback) {
 
 
     val classMute = mutableListOf<ClassMute>()
 
 
     private val formatter = DateTimeFormatter.ofPattern("MM'月' dd'號' HH:mm")
-    private val formatter_start_time = DateTimeFormatter.ofPattern("HH:mm")
 
 
     companion object DiffCallback : DiffUtil.ItemCallback<ClassMute>() {

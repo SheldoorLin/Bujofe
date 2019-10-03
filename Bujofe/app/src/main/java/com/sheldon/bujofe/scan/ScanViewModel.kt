@@ -88,26 +88,26 @@ class ScanViewModel : ViewModel() {
                 }
             }
         }
-        Log.d("teachLists","teachLists.value = ${teachLists.value}")
+        Log.d("teachLists", "teachLists.value = ${teachLists.value}")
     }
 
 
     fun setNewData() {
         for (item in teachLists.value!!) {
+            preScanResult.value?.let { scanItem ->
+                if (item.title == scanItem.title) {
 
-            if (item.title == "飛帆英文") {
+                    val teachListFilter = teachLists.value!!.filter {
+                        it.title == "飛帆英文"
+                    }
 
-                val teachListFilter = teachLists.value!!.filter {
-                    it.title == "飛帆英文"
+                    val db = FirebaseFirestore.getInstance()
+
+                    val washingtonRef = db.collection("teachList").document(item.id)
+
+                    washingtonRef.set(teachListFilter[0], SetOptions.merge())
                 }
 
-
-                val db = FirebaseFirestore.getInstance()
-
-                val washingtonRef = db.collection("teachList").document(item.id)
-
-
-                washingtonRef.set(teachListFilter[0], SetOptions.merge())
             }
         }
     }

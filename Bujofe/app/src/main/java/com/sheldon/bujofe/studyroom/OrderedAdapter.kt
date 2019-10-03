@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.OrderedTimes
 import com.sheldon.bujofe.`object`.SeatOrder
-import com.sheldon.bujofe.calendar.setTextColorRes
+import com.sheldon.bujofe.class_schedule.setTextColorRes
 import com.sheldon.bujofe.databinding.ItemStudyroomSeatOrderedBinding
 
 class OrderedAdapter(val viewModel: StudyRoomViewModel) :

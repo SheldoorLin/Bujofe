@@ -6,6 +6,7 @@ import java.util.*
 
 
 data class Notice(
+
     val title: String? = null,
     val context: String? = null,
 

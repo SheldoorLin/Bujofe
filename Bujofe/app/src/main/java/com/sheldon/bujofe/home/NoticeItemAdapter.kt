@@ -14,6 +14,7 @@ import com.sheldon.bujofe.databinding.ItemHomeNoticeCardBinding
 
 class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(DiffCallback) {
 
+
     companion object DiffCallback : DiffUtil.ItemCallback<Notice>() {
 
         override fun areItemsTheSame(oldItem: Notice, newItem: Notice): Boolean {
@@ -23,6 +24,12 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
         override fun areContentsTheSame(oldItem: Notice, newItem: Notice): Boolean {
             return oldItem.title == newItem.title
         }
+
+        private const val CLASS_EMERGENCY_CODE = 1
+
+        private const val CLASS_NOTE_CODE = 2
+
+        private const val CLASS_SCHOLARSHIP_CODE = 3
     }
 
     class ItemViewHolder(private var binding: ItemHomeNoticeCardBinding) :
@@ -41,9 +48,11 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
 
             when (notice.type) {
 
-                1 -> imgNoticeIcon.setImageResource(R.drawable.tornado)
-                2 -> imgNoticeIcon.setImageResource(R.drawable.ic_small_man_read)
-                3 -> imgNoticeIcon.setImageResource(R.drawable.crown_icon)
+                CLASS_EMERGENCY_CODE -> imgNoticeIcon.setImageResource(R.drawable.tornado)
+
+                CLASS_NOTE_CODE -> imgNoticeIcon.setImageResource(R.drawable.ic_small_man_read)
+
+                CLASS_SCHOLARSHIP_CODE -> imgNoticeIcon.setImageResource(R.drawable.crown_icon)
             }
 
             binding.executePendingBindings()

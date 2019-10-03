@@ -12,7 +12,7 @@
             tools:layout="@layout/fragment_home" />
     <fragment
             android:id="@+id/calendarFragment"
-            android:name="com.sheldon.bujofe.calendar.CalendarFragment"
+            android:name="com.sheldon.bujofe.class_schedule.ClassScheduleFragment"
             android:label="fragment_calendar"
             tools:layout="@layout/fragment_calendar" />
 

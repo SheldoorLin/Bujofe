@@ -13,7 +13,7 @@
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            tools:context=".calendar.CalendarFragment">
+            tools:context=".class_schedule.ClassScheduleFragment">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/exFiveAppBarLayout"

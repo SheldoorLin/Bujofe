@@ -1,4 +1,4 @@
-package com.sheldon.bujofe.calendar
+package com.sheldon.bujofe.class_schedule
 
 
 import android.os.Bundle
@@ -28,22 +28,25 @@ import com.sheldon.bujofe.databinding.FragmentCalendarBinding
 import kotlinx.android.synthetic.main.item_calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.item_calendar_day.view.*
+import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 
 
-class CalendarFragment : Fragment() {
+class ClassScheduleFragment : Fragment() {
 
-    private val viewModel: CalendarViewModel by lazy {
-        ViewModelProviders.of(this).get(CalendarViewModel::class.java)
+    private val TAG = "ClassScheduleFragment"
+
+    private val viewModel: ClassScheduleViewModel by lazy {
+        ViewModelProviders.of(this).get(ClassScheduleViewModel::class.java)
     }
 
     private var selectedDate: LocalDate? = null
 
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
-    private val calendarAdapter = CalendarAdapter()
+    private val calendarAdapter = ClassScheduleAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,6 +111,13 @@ class CalendarFragment : Fragment() {
                         if (selectedDate != day.date) {
                             val oldDate = selectedDate
                             selectedDate = day.date
+
+                            val test = DateTimeUtils.toSqlDate(selectedDate)
+                            Log.d(TAG,"test = ${test.time}")
+
+//                            val test_2 = DateTimeUtils.toLocalDate()
+
+
                             eventCalendar.notifyDateChanged(day.date)
                             oldDate?.let {
                                 eventCalendar.notifyDateChanged(it)

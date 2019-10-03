@@ -1,25 +1,20 @@
-package com.sheldon.bujofe.calendar
+package com.sheldon.bujofe.class_schedule
 
-import android.icu.text.SimpleDateFormat
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sheldon.bujofe.`object`.ClassMute
 import com.sheldon.bujofe.`object`.ClassName
-import com.sheldon.bujofe.`object`.Notice
 import com.sheldon.bujofe.`object`.TeachList
+import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
 
-class CalendarViewModel : ViewModel() {
-    private val TAG: String = "CalendarViewModel"
+class ClassScheduleViewModel : ViewModel() {
+    private val TAG: String = "ClassScheduleViewModel"
 
-
-
-
-    var classMutes :Map <LocalDate,List<ClassMute>> = mapOf()
+    var classMutes: Map<LocalDate, List<ClassMute>> = mapOf()
 
     private val _teachLists = MutableLiveData<List<TeachList>>()
     val teachLists: LiveData<List<TeachList>>
@@ -28,7 +23,6 @@ class CalendarViewModel : ViewModel() {
     private val teachListsOnline: ArrayList<TeachList> = ArrayList()
 
 //    val classMutes = getTeacherList().groupBy { it.time.toLocalDate() }
-
 
 
     init {
@@ -44,8 +38,15 @@ class CalendarViewModel : ViewModel() {
                 for (document in result) {
                     val data = document.toObject(TeachList::class.java)
                     teachListsOnline.add(data)
-                    _teachLists.value = teachListsOnline }
-            }.addOnFailureListener { exception -> Log.d(TAG, "Error getting documents: ", exception) }
+                    _teachLists.value = teachListsOnline
+                }
+            }.addOnFailureListener { exception ->
+                Log.d(
+                    TAG,
+                    "Error getting documents: ",
+                    exception
+                )
+            }
 
     }
 
@@ -60,12 +61,21 @@ class CalendarViewModel : ViewModel() {
                 val day = date_item.date_day
                 val time = LocalDate.of(year, month, day).atStartOfDay()
 
+
+//                val testOnline = date_item.date
+//
+//                val test = DateTimeUtils.toSqlTimestamp(testOnline)
+//                Log.d(TAG, "test = ${test}")
+//                val test_2 = DateTimeUtils.toLocalDateTime(test)
+//                Log.d(TAG, "test_2 = ${test_2}")
+
+
                 val classMute = ClassMute(
                     time,
                     ClassName(
                         date_item.lesson,
                         item.teachingRoom,
-                        date_item.rollNameList.size.toString()+"/"+item.class_size.size.toString(),
+                        date_item.rollNameList.size.toString() + "/" + item.class_size.size.toString(),
                         item.title
                     )
                 )

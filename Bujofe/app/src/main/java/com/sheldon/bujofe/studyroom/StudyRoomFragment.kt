@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,16 +18,14 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.`object`.OrderedTimes
-import com.sheldon.bujofe.`object`.SeatOrder
-import com.sheldon.bujofe.calendar.getColorCompat
+import com.sheldon.bujofe.class_schedule.getColorCompat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
 import kotlinx.android.synthetic.main.item_studyroom_calendar_day.view.*
+import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import java.lang.Exception
 
 
 class StudyRoomFragment : Fragment() {
@@ -36,8 +33,8 @@ class StudyRoomFragment : Fragment() {
     private val viewModel: StudyRoomViewModel by lazy {
         ViewModelProviders.of(this).get(StudyRoomViewModel::class.java)
     }
-    private val TAG = "StudyRoomFragment"
 
+    private val TAG = "StudyRoomFragment"
     private var selectedDate: LocalDate? = null
     private val dateFormatter = DateTimeFormatter.ofPattern("dd")
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
@@ -98,7 +95,6 @@ class StudyRoomFragment : Fragment() {
                         exSevenCalendar.smoothScrollToDate(day.date)
                     }
 
-
                     /** Example: If you want the clicked date to always be centered on the screen,
                      * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
                      */
@@ -112,11 +108,12 @@ class StudyRoomFragment : Fragment() {
                         oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
 
 
-                        val serverDataFilter = viewModel.studyRoomdatas.value?.let {
-                            it.filter {
-                                it.local_date == day.date.toString()
+                        val serverDataFilter =
+                            viewModel.studyRoomdatas.value?.let { listItem ->
+                                listItem.filter {
+                                    DateTimeUtils.toLocalDate(java.sql.Date(it.local_date.time)) == day.date
+                                }
                             }
-                        }
                         Log.d(TAG, "serverDataFilter $serverDataFilter")
 
                         if (serverDataFilter != null) {
@@ -124,7 +121,7 @@ class StudyRoomFragment : Fragment() {
                                 (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
                                 viewModel.pageStatus.value = 1
                                 binding.seatView.visibility = View.VISIBLE
-                                viewModel.checkedDate.value = serverDataFilter[0].local_date
+                                viewModel.checkedDate.value = serverDataFilter[0].local_date.toString()
                                 viewModel.checkedDocumentId.value = serverDataFilter[0].documentId
                                 viewModel.originSeatList.value = serverDataFilter[0]
                                 val filtedSeatList = serverDataFilter[0].seatList
@@ -140,9 +137,7 @@ class StudyRoomFragment : Fragment() {
                                 )
                             }
                         }
-
                     }
-
                 }
             }
 
@@ -218,11 +213,6 @@ class StudyRoomFragment : Fragment() {
                             orderedSeatTime
                         )
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "$row $column i was checked",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
                     }
 
                     override fun unCheck(row: Int, column: Int) {
@@ -232,13 +222,9 @@ class StudyRoomFragment : Fragment() {
                     override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
                         return null
                     }
-
                 })
             }
         })
-
-
-
 
         viewModel.checkSeatStatus.observe(this, Observer {
             it.let {
@@ -247,7 +233,6 @@ class StudyRoomFragment : Fragment() {
                 )
             }
         })
-
 
         return binding.root
     }

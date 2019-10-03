@@ -1,17 +1,14 @@
-package com.sheldon.bujofe.calendar
+package com.sheldon.bujofe.class_schedule
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.R
 import com.sheldon.bujofe.`object`.ClassMute
 import com.sheldon.bujofe.`object`.ClassName
 import com.sheldon.bujofe.`object`.TeachList
 import org.threeten.bp.LocalDate
-import org.threeten.bp.YearMonth
 
 
-fun generateFlights(): List<ClassMute> {
+fun generateCalendarDaliyEven(): List<ClassMute> {
     val TAG = "generate"
     val teachListsOnline: ArrayList<TeachList> = ArrayList()
 
