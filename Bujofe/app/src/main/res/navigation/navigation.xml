@@ -71,7 +71,7 @@
 
         <argument
                 android:name="roll_name"
-                app:argType="com.sheldon.bujofe.object.QRcode"/>
+                app:argType="com.sheldon.bujofe.data.QRcode"/>
     </dialog>
     <dialog
             android:id="@+id/orderSeatFragment"
@@ -79,7 +79,7 @@
             android:label="OrderSeatFragment" >
         <argument
                 android:name="seatOrder"
-                app:argType="com.sheldon.bujofe.object.SeatOrder" />
+                app:argType="com.sheldon.bujofe.data.SeatOrder" />
         <action
                 android:id="@+id/action_orderSeatFragment_to_orderResultFragment"
                 app:destination="@id/orderResultFragment" />

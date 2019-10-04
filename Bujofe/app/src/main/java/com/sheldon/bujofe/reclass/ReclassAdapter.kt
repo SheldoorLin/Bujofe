@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.`object`.Records
+import com.sheldon.bujofe.data.Records
 import com.sheldon.bujofe.databinding.ItemReclassRecodeBinding
-import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.DateTimeUtils
 import java.sql.Date
 
 
@@ -37,12 +37,11 @@ class ReclassAdapter : ListAdapter<Records, ReclassAdapter.ItemViewHolder>(DiffC
             binding.records = records
 
             val sfd = SimpleDateFormat("yyyy-MM-dd")
-            sfd.format(Date(records.date.seconds))
+            sfd.format(Date(records.date.seconds * 1000))
 
-            Log.d("test", "sfd = ${sfd.format(Date(records.date.seconds*1000))}")
+            Log.d("test", "new function = ${DateTimeUtils.toLocalDate(Date(records.date.seconds * 1000))}")
 
-            binding.date.text = sfd.format(Date(records.date.seconds*1000))
-
+            binding.date.text = sfd.format(Date(records.date.seconds * 1000))
 
             when (records.status) {
                 "Approved" -> binding.status.setTextColor(R.color.green_700)

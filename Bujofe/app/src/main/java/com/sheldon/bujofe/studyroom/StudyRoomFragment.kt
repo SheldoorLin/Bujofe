@@ -99,44 +99,18 @@ class StudyRoomFragment : Fragment() {
                      * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
                      */
                     if (selectedDate != day.date) {
+
                         val oldDate = selectedDate
+
                         selectedDate = day.date
+
                         viewModel.pageStatus.value = 1
 
+                        viewModel.checkdate.value = day.date
 
                         exSevenCalendar.notifyDateChanged(day.date)
+
                         oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
-
-
-                        val serverDataFilter =
-                            viewModel.studyRoomdatas.value?.let { listItem ->
-                                listItem.filter {
-                                    DateTimeUtils.toLocalDate(java.sql.Date(it.local_date.time)) == day.date
-                                }
-                            }
-                        Log.d(TAG, "serverDataFilter $serverDataFilter")
-
-                        if (serverDataFilter != null) {
-                            if (serverDataFilter.isNotEmpty()) {
-                                (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
-                                viewModel.pageStatus.value = 1
-                                binding.seatView.visibility = View.VISIBLE
-                                viewModel.checkedDate.value = serverDataFilter[0].local_date.toString()
-                                viewModel.checkedDocumentId.value = serverDataFilter[0].documentId
-                                viewModel.originSeatList.value = serverDataFilter[0]
-                                val filtedSeatList = serverDataFilter[0].seatList
-                                Log.d(TAG, "test_3 $filtedSeatList")
-                                viewModel.studyRoomDataSeats.value = filtedSeatList
-                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-                            } else {
-                                (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
-                                viewModel.pageStatus.value = 0
-                                binding.seatView.visibility = View.INVISIBLE
-                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
-                                    null
-                                )
-                            }
-                        }
                     }
                 }
             }
@@ -167,6 +141,56 @@ class StudyRoomFragment : Fragment() {
 
 
 
+        viewModel.checkdate.observe(this, Observer {
+            it.let {localdate ->
+
+                val serverDataFilter =
+                    viewModel.studyRoomdatas.value?.let { listItem ->
+                        listItem.filter {
+                            DateTimeUtils.toLocalDate(java.sql.Date(it.localDate.time)) == localdate
+                        }
+                    }
+
+                Log.d(TAG, "serverDataFilter $serverDataFilter")
+
+                if (serverDataFilter != null && serverDataFilter.isNotEmpty() ) {
+
+                        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
+                        viewModel.pageStatus.value = 1
+
+                        binding.seatView.visibility = View.VISIBLE
+
+                        viewModel.checkedDate.value = serverDataFilter[0].localDate.toString()
+
+                        viewModel.checkedDocumentId.value = serverDataFilter[0].documentId
+
+                        viewModel.originSeatList.value = serverDataFilter[0]
+
+                        val filtedSeatList = serverDataFilter[0].seatList
+
+                        Log.d(TAG, "test_3 $filtedSeatList")
+
+                        viewModel.studyRoomDataSeats.value = filtedSeatList
+
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
+
+                } else {
+                        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
+
+                        viewModel.pageStatus.value = 0
+
+                        binding.seatView.visibility = View.INVISIBLE
+
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
+                    }
+                }
+        })
+
+
+
+
+
+
         viewModel.studyRoomDataSeats.observe(this, Observer { seatListOnline ->
             seatListOnline.let { it ->
                 /**
@@ -182,9 +206,6 @@ class StudyRoomFragment : Fragment() {
                 seatTable.setSeatChecker(object : SeatTable.SeatChecker {
 
                     override fun isValidSeat(row: Int, column: Int): Boolean {
-                        //                    while (column ==1) {
-                        //                        return false
-                        //                    }
                         return true
                     }
 

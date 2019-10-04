@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sheldon.bujofe.`object`.ClassList
+import com.sheldon.bujofe.data.ClassList
 import com.sheldon.bujofe.databinding.ItemProfileDetailBinding
 
-class ProfileDetailAdapter : ListAdapter<ClassList, ProfileDetailAdapter.ItemViewHolder>(DiffCallback) {
+class ProfileDetailAdapter :
+    ListAdapter<ClassList, ProfileDetailAdapter.ItemViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<ClassList>() {
         override fun areItemsTheSame(oldItem: ClassList, newItem: ClassList): Boolean {

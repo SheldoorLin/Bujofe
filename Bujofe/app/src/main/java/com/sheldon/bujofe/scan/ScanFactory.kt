@@ -3,7 +3,7 @@ package com.sheldon.bujofe.scan
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.sheldon.bujofe.`object`.QRcode
+import com.sheldon.bujofe.data.QRcode
 
 class ScanFactory(
     private val qrCode: QRcode,
@@ -14,6 +14,6 @@ class ScanFactory(
         if (modelClass.isAssignableFrom(ScanResultViewModel::class.java)){
             return ScanResultViewModel(qrCode,application) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 }

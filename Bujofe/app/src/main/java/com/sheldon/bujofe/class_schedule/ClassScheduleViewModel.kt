@@ -5,85 +5,76 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.`object`.ClassMute
-import com.sheldon.bujofe.`object`.ClassName
-import com.sheldon.bujofe.`object`.TeachList
+import com.sheldon.bujofe.data.ClassEvent
+import com.sheldon.bujofe.data.ClassName
+import com.sheldon.bujofe.data.TeachList
+import com.sheldon.bujofe.util.Logger
 import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class ClassScheduleViewModel : ViewModel() {
+
     private val TAG: String = "ClassScheduleViewModel"
 
-    var classMutes: Map<LocalDate, List<ClassMute>> = mapOf()
+    var classEvents: Map<LocalDate, List<ClassEvent>> = mapOf()
 
     private val _teachLists = MutableLiveData<List<TeachList>>()
     val teachLists: LiveData<List<TeachList>>
         get() = _teachLists
 
-    private val teachListsOnline: ArrayList<TeachList> = ArrayList()
-
-//    val classMutes = getTeacherList().groupBy { it.time.toLocalDate() }
-
+    private val serverTeachList: ArrayList<TeachList> = ArrayList()
 
     init {
         getTeachListFirebase()
     }
 
-
     fun getTeachListFirebase() {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("teachList")
+
+        FirebaseFirestore.getInstance().collection("teachList")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val data = document.toObject(TeachList::class.java)
-                    teachListsOnline.add(data)
-                    _teachLists.value = teachListsOnline
+
+                    serverTeachList.add(document.toObject(TeachList::class.java))
+
+                    _teachLists.value = serverTeachList
                 }
             }.addOnFailureListener { exception ->
-                Log.d(
-                    TAG,
-                    "Error getting documents: ",
-                    exception
-                )
+                Logger.d(TAG + "Error getting documents: " + exception)
             }
-
     }
 
 
-    fun getTeacherList(): List<ClassMute> {
-        val list = mutableListOf<ClassMute>()
+    fun getTeacherList(): List<ClassEvent> {
+        val classEventList = mutableListOf<ClassEvent>()
         for (item in teachLists.value!!) {
             for (date_item in item.dateList) {
 
-                val year = date_item.date_year
-                val month = date_item.date_month
-                val day = date_item.date_day
-                val time = LocalDate.of(year, month, day).atStartOfDay()
+                val date = Timestamp(date_item.date.seconds * 1000)
 
+                val time = DateTimeUtils.toLocalDateTime(date)
 
-//                val testOnline = date_item.date
-//
-//                val test = DateTimeUtils.toSqlTimestamp(testOnline)
-//                Log.d(TAG, "test = ${test}")
-//                val test_2 = DateTimeUtils.toLocalDateTime(test)
-//                Log.d(TAG, "test_2 = ${test_2}")
+                val time2 = DateTimeUtils.toLocalDateTime(date).plusHours(item.lessonTime)
 
+                Log.d(TAG, "time2 = $time2")
 
-                val classMute = ClassMute(
-                    time,
-                    ClassName(
-                        date_item.lesson,
-                        item.teachingRoom,
-                        date_item.rollNameList.size.toString() + "/" + item.class_size.size.toString(),
-                        item.title
+                classEventList.add(
+                    ClassEvent(
+                        time, ClassName(
+                            date_item.lesson,
+                            item.teachingRoom,
+                            "${date_item.rollNameList.size}/${item.classSize.size}",
+                            item.title
+                        )
                     )
                 )
-                list.add(classMute)
             }
         }
-        return list
+        return classEventList
     }
-
-
 }

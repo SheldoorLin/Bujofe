@@ -1,4 +1,4 @@
-package com.sheldon.bujofe.`object`
+package com.sheldon.bujofe.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -10,5 +10,5 @@ data class SeatOrder(
     val date: String,
     val documentId: String,
     val orderedTimes: OrderedTimes,
-    val originSeatList:StudyRoomSeat
+    val originSeatList: StudyRoomSeat
 ) : Parcelable

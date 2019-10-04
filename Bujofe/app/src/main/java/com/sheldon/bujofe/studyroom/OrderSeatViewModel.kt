@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.sheldon.bujofe.`object`.SeatOrder
-import com.sheldon.bujofe.`object`.StudyRoomSeat
+import com.sheldon.bujofe.data.SeatOrder
+import com.sheldon.bujofe.data.StudyRoomSeat
 
 class OrderSeatViewModel(seatOrder: SeatOrder, app: Application) : AndroidViewModel(app) {
     private var TAG: String = "OrderSeatViewModel"

@@ -2,7 +2,6 @@ package com.sheldon.bujofe.class_schedule
 
 
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,6 @@ import com.sheldon.bujofe.databinding.FragmentCalendarBinding
 import kotlinx.android.synthetic.main.item_calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.item_calendar_day.view.*
-import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
@@ -36,15 +34,13 @@ import org.threeten.bp.format.DateTimeFormatter
 
 class ClassScheduleFragment : Fragment() {
 
-    private val TAG = "ClassScheduleFragment"
-
     private val viewModel: ClassScheduleViewModel by lazy {
         ViewModelProviders.of(this).get(ClassScheduleViewModel::class.java)
     }
 
     private var selectedDate: LocalDate? = null
 
-    private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
+    private val titleFormatter = DateTimeFormatter.ofPattern("yyy'年' MM'月'")
 
     private val calendarAdapter = ClassScheduleAdapter()
 
@@ -54,56 +50,58 @@ class ClassScheduleFragment : Fragment() {
     ): View? {
 
         val binding = FragmentCalendarBinding.inflate(inflater, container, false)
-        (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
-        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
-        binding.lifecycleOwner = this
 
+        (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
+
+        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
+
+        binding.lifecycleOwner = this
 
         binding.eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.eventRecycler.adapter = calendarAdapter
 
 
-
-
         viewModel.teachLists.observe(this, Observer {
             it.let {
+
                 viewModel.getTeacherList()
-                Log.d("CalendarView", "getTeacherList() = ${viewModel.getTeacherList()}")
-                val classMutes = viewModel.getTeacherList().groupBy { it.time.toLocalDate() }
-                viewModel.classMutes = classMutes
+
+                viewModel.classEvents = viewModel.getTeacherList().groupBy { classEvents ->
+                    classEvents.time.toLocalDate()
+                }
+
                 binding.eventCalendar.notifyCalendarChanged()
-                Log.d("CalendarView", "classMutes = $classMutes")
             }
         })
+
         calendarAdapter.notifyDataSetChanged()
 
-
-
-//        Log.d("CalendarView", "getTeacherList() = ${viewModel.getTeacherList().toString()}")
         val daysOfWeek = daysOfWeekFromLocale()
 
         val currentMonth = YearMonth.now()
 
         val eventCalendar = binding.eventCalendar
+
         eventCalendar.setup(
             currentMonth.minusMonths(10),
             currentMonth.plusMonths(10),
             daysOfWeek.first()
         )
+
         eventCalendar.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
 
             lateinit var day: CalendarDay // Will be set when this container is bound.
 
-            val textView = view.exFiveDayText
+            val textView = view.calendar_day_text
 
-            val layout = view.exFiveDayLayout
+            val layout = view.calender_day_layout
 
-            val dayTopView = view.exFiveDayFlightTop
+            val dayTopView = view.calendar_day_event_top
 
-            val dayBottomView = view.exFiveDayFlightBottom
+            val dayBottomView = view.calendar_day_event_bottom
 
             init {
                 view.setOnClickListener {
@@ -112,11 +110,9 @@ class ClassScheduleFragment : Fragment() {
                             val oldDate = selectedDate
                             selectedDate = day.date
 
-                            val test = DateTimeUtils.toSqlDate(selectedDate)
-                            Log.d(TAG,"test = ${test.time}")
-
+//                            val test = DateTimeUtils.toSqlDate(selectedDate)
+//                            Logger.d(TAG + "test = ${test.time}")
 //                            val test_2 = DateTimeUtils.toLocalDate()
-
 
                             eventCalendar.notifyDateChanged(day.date)
                             oldDate?.let {
@@ -159,19 +155,15 @@ class ClassScheduleFragment : Fragment() {
                         }
                     )
 
-                    val classMutes = viewModel.classMutes[day.date]
-
-                    if (classMutes != null) {
+                    if (viewModel.classEvents[day.date] != null) {
                         dayBottomView.setBackgroundResource(R.drawable.calendar_event_dot_shape)
                     }
-
 
                 } else {
                     textView.setTextColorRes(R.color.title_color_white)
                     layout.background = null
                 }
             }
-
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
@@ -182,61 +174,80 @@ class ClassScheduleFragment : Fragment() {
         eventCalendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+
                 // Setup each header day text if we have not done that already.
                 if (container.legendLayout.tag == null) {
+
                     container.legendLayout.tag = month.yearMonth
-                    container.legendLayout.children.map {
-                        it as TextView
-                    }.forEachIndexed { index, tv ->
-                        tv.text = daysOfWeek[index].name.take(3)
-                        tv.setTextColorRes(R.color.color_orange_Dark)
-                        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-                    }
+
+                    container.legendLayout.children
+                        .map { view -> view as TextView }
+                        .forEachIndexed { index, textView ->
+
+                            textView.text = daysOfWeek[index].name.take(3)
+
+                            textView.setTextColorRes(R.color.color_orange_Dark)
+
+                            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                        }
+
                     month.yearMonth
                 }
             }
         }
 
         eventCalendar.monthScrollListener = { month ->
-            val title = "${month.yearMonth.year}年 ${monthTitleFormatter.format(month.yearMonth)} "
-            exFiveMonthYearText.text = title
+
+
+            tx_calendar_month_year.text = titleFormatter.format(month.yearMonth)
 
             selectedDate?.let {
                 // Clear selection if we scroll to a new month.
                 selectedDate = null
+
                 eventCalendar.notifyDateChanged(it)
+
                 updateAdapterForDate(null)
             }
         }
 
-        binding.exFiveNextMonthImage.setOnClickListener {
+        binding.imgNextMonth.setOnClickListener {
+
             eventCalendar.findFirstVisibleMonth()?.let {
+
                 eventCalendar.smoothScrollToMonth(it.yearMonth.next)
             }
         }
 
-        binding.exFivePreviousMonthImage.setOnClickListener {
+        binding.imgPreviousMonth.setOnClickListener {
+
             eventCalendar.findFirstVisibleMonth()?.let {
+
                 eventCalendar.smoothScrollToMonth(it.yearMonth.previous)
             }
         }
 
-        binding.exFiveMonthYearText.setOnClickListener {
+        binding.txCalendarMonthYear.setOnClickListener {
+
             if (eventCalendar.visibility == View.VISIBLE) {
+
                 binding.eventCalendar.visibility = View.GONE
+
             } else {
                 binding.eventCalendar.visibility = View.VISIBLE
             }
         }
-
 
         return binding.root
     }
 
 
     private fun updateAdapterForDate(date: LocalDate?) {
-        calendarAdapter.classMute.clear()
-        calendarAdapter.classMute.addAll(viewModel.classMutes[date].orEmpty())
+
+        calendarAdapter.classEvents.clear()
+
+        calendarAdapter.classEvents.addAll(viewModel.classEvents[date].orEmpty())
+
         calendarAdapter.notifyDataSetChanged()
     }
 }

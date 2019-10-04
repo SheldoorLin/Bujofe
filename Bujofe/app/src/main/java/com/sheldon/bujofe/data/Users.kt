@@ -1,8 +1,7 @@
-package com.sheldon.bujofe.`object`
+package com.sheldon.bujofe.data
 
 import android.os.Parcelable
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ServerTimestamp
 import kotlinx.android.parcel.Parcelize
 
@@ -16,7 +15,6 @@ data class Users(
     val records: List<Records> = mutableListOf()
 ) : Parcelable
 
-
 @Parcelize
 data class ClassList(
     val classId: String = "",
@@ -25,16 +23,13 @@ data class ClassList(
     val toGo: Int = 0
 ) : Parcelable
 
-
 @Parcelize
 data class Records(
     val classDate: String = "",
     val classId: String = "",
     val lesson: String = "",
-
     @ServerTimestamp
     val date: Timestamp = Timestamp.now(),
-
     val endTime: String = "",
     val reclassId: Int = 0,
     val className: String = "",

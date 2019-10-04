@@ -47,8 +47,6 @@ class OrderSeatFragment : AppCompatDialogFragment() {
         ).get(OrderSeatViewModel::class.java)
 
 
-
-
         viewModel.seatOrders.observe(this, Observer {
             it.let {
                 binding.txSeatRderId.text = it.id
@@ -67,7 +65,5 @@ class OrderSeatFragment : AppCompatDialogFragment() {
 
         return binding.root
     }
-
-
 }
 

@@ -6,9 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.`object`.Notice
-import org.threeten.bp.DateTimeUtils
-import org.threeten.bp.format.DateTimeTextProvider
+import com.sheldon.bujofe.data.Notice
 import kotlin.collections.ArrayList
 
 
@@ -22,36 +20,38 @@ class HomeViewModel : ViewModel() {
 
     private val noticeLists: ArrayList<Notice> = ArrayList()
 
-    fun getNoticeFirebase() {
+    fun getNoticeFromFirebase() {
 
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection("notice")
+        FirebaseFirestore.getInstance().collection("notice")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val data = document.toObject(Notice::class.java)
+                    document.toObject(Notice::class.java).let { data ->
 
-                    val dateTime = java.sql.Date(data.time!!.time)
+                        val dateTime = data.time?.let { utilDateToSQLDateFormat(it) }
 
-                    val format = SimpleDateFormat("yyy/MM/dd")
+                        val format = SimpleDateFormat("yyy/MM/dd")
 
-                    val date_time = DateTimeUtils.toLocalDate(dateTime)
-                    Log.d(TAG,"date_time ==== $date_time")
+                        noticeLists.add(
+                            Notice(
+                                data.title,
+                                data.context,
+                                format.format(dateTime),
+                                data.type
+                            )
+                        )
 
-                    noticeLists.add(Notice(data.title, data.context, format.format(dateTime) , data.type))
-
-                    _notices.value = noticeLists
-
-                    Log.d(TAG,"originTime = ${data.time}")
-                    Log.d(TAG,"Time = ${format.format(dateTime)}")
-                    Log.d(TAG,"dateTime = $dateTime")
-                    Log.d(TAG, "User =  ${data.title}")
+                        _notices.value = noticeLists
+                    }
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
             }
+    }
+
+    private fun utilDateToSQLDateFormat(utilDate: java.util.Date): java.sql.Date {
+        return java.sql.Date(utilDate.time)
     }
 }
 

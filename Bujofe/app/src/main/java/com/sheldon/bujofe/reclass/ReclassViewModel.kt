@@ -1,24 +1,20 @@
 package com.sheldon.bujofe.reclass
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.BujofeApplication
-import com.sheldon.bujofe.`object`.ClassList
-import com.sheldon.bujofe.`object`.Records
-import com.sheldon.bujofe.`object`.TeachList
-import com.sheldon.bujofe.`object`.Users
+import com.sheldon.bujofe.data.Records
+import com.sheldon.bujofe.data.TeachList
+import com.sheldon.bujofe.data.Users
+import com.sheldon.bujofe.util.Logger
 
 class ReclassViewModel : ViewModel() {
 
     private val TAG: String = "ReclassViewModel"
 
-
-    val userid =MutableLiveData<String>()
-
+    val userid = MutableLiveData<String>()
 
     private val _servieceUserinformation = MutableLiveData<List<Users>>()
     val servieceUserinformation: LiveData<List<Users>>
@@ -30,27 +26,17 @@ class ReclassViewModel : ViewModel() {
     val userRecordsList: LiveData<List<Records>>
         get() = _userRecordsList
 
-
-
-
     private val _serviceTeachListInformation = MutableLiveData<List<TeachList>>()
     val serviece_teachListInformation: LiveData<List<TeachList>>
         get() = _serviceTeachListInformation
     private val teachListData = mutableListOf<TeachList>()
 
-
-
-
-
     init {
         getUserDataFirebase()
     }
 
-
-
     fun getUserDataFirebase() {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("users")
+        FirebaseFirestore.getInstance().collection("users")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -67,11 +53,6 @@ class ReclassViewModel : ViewModel() {
             }
     }
 
-
-
-
-
-
     fun getClassInformation() {
         val db = FirebaseFirestore.getInstance()
         db.collection("teachList")
@@ -83,13 +64,14 @@ class ReclassViewModel : ViewModel() {
                         val data = document.toObject(TeachList::class.java)
                         teachListData.add(data)
                         _serviceTeachListInformation.value = teachListData
-                        Log.d(TAG, "teachListData $teachListData")
+                        Logger.d(TAG + "teachListData $teachListData")
                     }
                 } else {
                     Log.w(TAG, "Error getting documents.", task.exception)
                 }
             }
     }
+
     fun uidfileChecker(uid: String) {
         val filedUser = servieceUserinformation.value?.let {
             it.filter { users ->
@@ -97,13 +79,11 @@ class ReclassViewModel : ViewModel() {
             }
         }
         if (filedUser.isNullOrEmpty()) {
-            Log.d(TAG, "filedUser ${filedUser.toString()}")
+            Logger.d("filedUser ${filedUser.toString()}")
         } else {
-            Log.d(TAG, "filedUser123 $filedUser")
+            Logger.d("filedUser123 $filedUser")
             _userRecordsList.value = filedUser[0].records
-            Log.d(TAG, "userClassList value = ${userRecordsList.value}")
-
+            Logger.d("userClassList value = ${userRecordsList.value}")
         }
     }
-
 }

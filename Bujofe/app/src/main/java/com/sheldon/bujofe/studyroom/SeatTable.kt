@@ -1,7 +1,6 @@
 package com.sheldon.bujofe.studyroom
 
 import android.animation.Animator
-import android.animation.TimeInterpolator
 import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
@@ -796,9 +795,9 @@ class SeatTable : View {
         val startX = left + seatWidth / 2 - txtWidth / 2
 
         //只繪製一行文字
-//        if (txt1 == null) {
+        if (txt1 == null) {
 //            canvas.drawText(txt, startX, getBaseLine(txtPaint, top, top + seatHeight), txtPaint)
-//        } else {
+        } else {
 //            canvas.drawText(txt, startX, getBaseLine(txtPaint, top, top + center), txtPaint)
 //            canvas.drawText(
 //                txt1,
@@ -806,7 +805,7 @@ class SeatTable : View {
 //                getBaseLine(txtPaint, top + center, top + center + seatHeight / 2),
 //                txtPaint
 //            )
-//        }
+        }
 
         if (DBG) {
             Log.d("drawTest:", "top:$top")

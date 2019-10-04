@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.`object`.Notice
+import com.sheldon.bujofe.data.Notice
 import com.sheldon.bujofe.databinding.ItemHomeNoticeCardBinding
 
 class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(DiffCallback) {
@@ -25,12 +25,14 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
             return oldItem.title == newItem.title
         }
 
-        private const val CLASS_EMERGENCY_CODE = 1
+        private const val CLASS_EMERGENCY_CODE = 0X01
+        private const val CLASS_NOTE_CODE = 0X02
+        private const val CLASS_SCHOLARSHIP_CODE = 0X03
 
-        private const val CLASS_NOTE_CODE = 2
-
-        private const val CLASS_SCHOLARSHIP_CODE = 3
+        private const val PERSON_LATE_CODE = 0X11
+        private const val PERSON_MISSING_CLASS_CODE = 0X12
     }
+
 
     class ItemViewHolder(private var binding: ItemHomeNoticeCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,7 +43,7 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
 
             binding.notice = notice
 
-            imgNoticeIcon.setColorFilter(
+            binding.imgNoticeIcon.setColorFilter(
                 ContextCompat.getColor(BujofeApplication.instance, R.color.color_orange_Dark),
                 android.graphics.PorterDuff.Mode.SRC_IN
             )
@@ -49,9 +51,7 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
             when (notice.type) {
 
                 CLASS_EMERGENCY_CODE -> imgNoticeIcon.setImageResource(R.drawable.tornado)
-
                 CLASS_NOTE_CODE -> imgNoticeIcon.setImageResource(R.drawable.ic_small_man_read)
-
                 CLASS_SCHOLARSHIP_CODE -> imgNoticeIcon.setImageResource(R.drawable.crown_icon)
             }
 

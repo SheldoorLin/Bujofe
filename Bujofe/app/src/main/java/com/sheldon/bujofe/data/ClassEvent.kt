@@ -1,14 +1,12 @@
-package com.sheldon.bujofe.`object`
+package com.sheldon.bujofe.data
 
-import androidx.annotation.ColorRes
 import org.threeten.bp.LocalDateTime
 
 
-data class ClassMute(
+data class ClassEvent(
     val time: LocalDateTime,
-    val departure: ClassName
+    val className: ClassName
 )
-
 
 data class ClassName(
     val class_context : String,

@@ -9,15 +9,21 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.sheldon.bujofe.BujofeApplication
-import com.sheldon.bujofe.`object`.QRcode
-import com.sheldon.bujofe.`object`.TeachList
+import com.sheldon.bujofe.UserManager
+import com.sheldon.bujofe.data.QRcode
+import com.sheldon.bujofe.data.TeachList
+import com.sheldon.bujofe.util.Logger
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ScanViewModel : ViewModel() {
+
     private val TAG: String = "ScanViewModel"
+
     val preScanResult = MutableLiveData<QRcode>()
+
     val scanResults = MutableLiveData<QRcode>()
+
     val flag = MutableLiveData<Boolean>()
 
     private val _teachLists = MutableLiveData<List<TeachList>>()
@@ -26,13 +32,10 @@ class ScanViewModel : ViewModel() {
 
 
     private val teachListsOnline: ArrayList<TeachList> = ArrayList()
-    val userName =
-        BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
-            .getString("displayName", "")
+    val userName = UserManager.userName
 
     init {
         getTeachListFirebase()
-
     }
 
 
@@ -52,64 +55,53 @@ class ScanViewModel : ViewModel() {
                     val index = teachListsOnline.size - 1
                     teachListsOnline[index].id = document.id
                     _teachLists.value = teachListsOnline
-//                    flag.value = true
                 }
             }.addOnFailureListener { exception ->
-                Log.d(
-                    TAG,
-                    "Error getting documents: ",
-                    exception
-                )
+                Logger.d(TAG + "Error getting documents: " + exception)
             }
-
     }
 
 
     fun getTeacherList() {
         var scanTimestamp: String = ""
         preScanResult.value?.let {
-            val date = Date(it.timestep)
+            val date = Date(it.timestamp)
             val format = SimpleDateFormat("yyyy-MM-dd")
             scanTimestamp = format.format(date)
         }
-        Log.d("scanTimestamp", "scanTimestamp = $scanTimestamp")
+        Logger.d("scanTimestamp = $scanTimestamp")
 
 
         for (item in teachLists.value!!) {
-            if (item.title == preScanResult.value?.title) {
-                Log.d("item", "item = $item")
-                if (item.class_size.contains(userName)) {
-                    for (date_item in item.dateList) {
-                        if (date_item.date == scanTimestamp) {
-                            date_item.rollNameList.add(userName!!)
-                            Log.d("date_item", "date_item = ${date_item.rollNameList}")
-                        }
+            if (item.title == preScanResult.value?.title && item.classSize.contains(userName)) {
+                Logger.d("item = $item")
+                for (date_item in item.dateList) {
+                    if (date_item.date.seconds * 1000 == scanTimestamp.toLong()) {
+                        date_item.rollNameList.add(userName!!)
+                        Logger.d("date_item = ${date_item.rollNameList}")
                     }
                 }
             }
         }
-        Log.d("teachLists", "teachLists.value = ${teachLists.value}")
+        Logger.d("teachLists.value = ${teachLists.value}")
     }
 
 
     fun setNewData() {
         for (item in teachLists.value!!) {
             preScanResult.value?.let { scanItem ->
+
                 if (item.title == scanItem.title) {
 
-                    val teachListFilter = teachLists.value!!.filter {
-                        it.title == "飛帆英文"
-                    }
-
-                    val db = FirebaseFirestore.getInstance()
-
-                    val washingtonRef = db.collection("teachList").document(item.id)
-
-                    washingtonRef.set(teachListFilter[0], SetOptions.merge())
+                    teachLists.value?.filter { it.title == scanItem.title }
+                        ?.get(0)?.let {
+                            FirebaseFirestore.getInstance()
+                                .collection("teachList")
+                                .document(item.id)
+                                .set(it, SetOptions.merge())
+                        }
                 }
-
             }
         }
     }
-
 }

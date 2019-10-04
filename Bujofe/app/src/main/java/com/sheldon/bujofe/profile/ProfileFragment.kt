@@ -2,7 +2,6 @@ package com.sheldon.bujofe.profile
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.`object`.ClassList
 import com.sheldon.bujofe.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -48,7 +46,6 @@ class ProfileFragment : Fragment() {
                 .getString("displayName", "")
 
 
-
         viewModel.serviece_userInformation.observe(this, Observer {
             it.let {
                 viewModel.uidfileChecker(viewModel.userid.value.toString())
@@ -61,8 +58,6 @@ class ProfileFragment : Fragment() {
                 (binding.profileDetailRecycler.adapter as ProfileDetailAdapter).notifyDataSetChanged()
             }
         })
-
-
 
         return binding.root
     }

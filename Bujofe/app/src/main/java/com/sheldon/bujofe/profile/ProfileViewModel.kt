@@ -1,15 +1,12 @@
 package com.sheldon.bujofe.profile
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.BujofeApplication
-import com.sheldon.bujofe.`object`.ClassList
-import com.sheldon.bujofe.`object`.TeachList
-import com.sheldon.bujofe.`object`.Users
+import com.sheldon.bujofe.data.ClassList
+import com.sheldon.bujofe.data.Users
 
 class ProfileViewModel : ViewModel() {
     private val TAG: String = "ProfileViewModel"
@@ -28,10 +25,6 @@ class ProfileViewModel : ViewModel() {
     private val _userClassList = MutableLiveData<List<ClassList>>()
     val userClassList: LiveData<List<ClassList>>
         get() = _userClassList
-
-
-
-
 
     init {
         getUserDataFirebase()
@@ -56,7 +49,6 @@ class ProfileViewModel : ViewModel() {
                 }
             }
     }
-
 
     fun uidfileChecker(uid: String) {
         val filedUser = serviece_userInformation.value?.let {

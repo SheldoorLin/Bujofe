@@ -8,7 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/exFiveDayLayout"
+            android:id="@+id/calender_day_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -25,7 +25,7 @@
                 app:layout_constraintVertical_bias="1.0">
 
             <TextView
-                    android:id="@+id/exFiveDayText"
+                    android:id="@+id/calendar_day_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|end"
@@ -37,7 +37,7 @@
                     tools:text="24" />
 
             <View
-                    android:id="@+id/exFiveDayFlightTop"
+                    android:id="@+id/calendar_day_event_top"
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:layout_gravity="bottom"
@@ -46,7 +46,7 @@
                     android:background="@color/blue_grey_700" />
 
             <View
-                    android:id="@+id/exFiveDayFlightBottom"
+                    android:id="@+id/calendar_day_event_bottom"
                     android:layout_width="5dp"
                     android:layout_height="5dp"
                     android:layout_gravity="bottom|center"

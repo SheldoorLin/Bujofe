@@ -1,4 +1,4 @@
-package com.sheldon.bujofe.`object`
+package com.sheldon.bujofe.data
 
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ServerTimestamp
