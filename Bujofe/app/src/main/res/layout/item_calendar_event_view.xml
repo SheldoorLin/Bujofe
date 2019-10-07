@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="classMute"
-                type="com.sheldon.bujofe.object.ClassMute" />
+                name="classEvent"
+                type="com.sheldon.bujofe.data.ClassEvent" />
 
     </data>
 
@@ -28,18 +28,19 @@
                 android:layout_height="wrap_content">
 
             <ImageView
-                    android:id="@+id/imageView7"
+                    android:id="@+id/img_sep"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView6"
-                    app:layout_constraintStart_toEndOf="@+id/itemFlightDateText"
-                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCityText"
+                    app:layout_constraintEnd_toStartOf="@+id/img_sep_2"
+                    app:layout_constraintStart_toEndOf="@+id/date"
+                    app:layout_constraintTop_toBottomOf="@+id/tx_class_name"
                     app:srcCompat="@color/color_orange_reverse_blue" />
 
             <TextView
-                    android:id="@+id/itemFlightDateText"
+                    android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/color_orange_Dark"
@@ -53,51 +54,52 @@
                     android:textAllCaps="true"
                     android:textColor="@color/title_color_white"
                     android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.143"
-                    tools:text="9月 30號 14:00" />
+                    tools:text="14:00\n|\n16:30 " />
 
             <TextView
-                    android:id="@+id/itemDepartureAirportCityText"
+                    android:id="@+id/tx_class_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:paddingStart="3dp"
                     android:paddingEnd="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/itemFlightDateText"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
-                    app:layout_constraintStart_toStartOf="@+id/imageView7"
-                    app:layout_constraintTop_toTopOf="@+id/itemFlightDateText"
-                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="@+id/img_sep"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/img_sep"
+                    app:layout_constraintTop_toTopOf="@+id/img_sep_2"
                     tools:text="課程名稱" />
 
             <TextView
-                    android:id="@+id/itemDepartureAirportCodeText"
+                    android:id="@+id/tx_class_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
 
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView6"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/itemFlightDateText"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_sep_2"
+                    app:layout_constraintEnd_toEndOf="@+id/img_sep"
+                    app:layout_constraintStart_toStartOf="@+id/img_sep"
+                    app:layout_constraintTop_toBottomOf="@+id/img_sep"
                     tools:text="1-1 微積分導論" />
 
             <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/tx_roll_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
@@ -105,24 +107,25 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/itemDepartureAirportCityText"
+                    app:layout_constraintStart_toEndOf="@+id/tx_teach_class_room"
+                    app:layout_constraintTop_toBottomOf="@+id/tx_class_name"
                     tools:text="30/30" />
 
             <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/tx_teach_class_room"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView"
-                    app:layout_constraintStart_toStartOf="@+id/guideline6"
-                    app:layout_constraintTop_toTopOf="@+id/textView"
+                    app:layout_constraintBottom_toBottomOf="@+id/tx_roll_name"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toTopOf="@+id/tx_roll_name"
                     tools:text="五樓三室" />
 
             <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline6"
+                    android:id="@+id/guideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -131,32 +134,32 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
-                    android:id="@+id/ordered_people"
+                    android:id="@+id/img_ordered_people"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView"
-                    app:layout_constraintEnd_toEndOf="@+id/textView"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintBottom_toTopOf="@+id/tx_roll_name"
+                    app:layout_constraintEnd_toEndOf="@+id/tx_roll_name"
+                    app:layout_constraintStart_toStartOf="@+id/tx_roll_name"
                     app:srcCompat="@drawable/calendar_order_people" />
 
             <ImageView
                     android:id="@+id/img_teaching_room"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView2"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
-                    app:layout_constraintStart_toStartOf="@+id/guideline6"
+                    app:layout_constraintBottom_toTopOf="@+id/tx_teach_class_room"
+                    app:layout_constraintEnd_toEndOf="@+id/tx_teach_class_room"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:srcCompat="@drawable/calendar_teaching_room" />
 
             <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/img_sep_2"
                     android:layout_width="1dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@color/color_orange_reverse_blue" />
 

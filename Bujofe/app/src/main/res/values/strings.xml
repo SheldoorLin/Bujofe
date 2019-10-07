@@ -1,5 +1,8 @@
 <resources>
+
     <string name="app_name">Bujofe</string>
+
+    <!--Home page -->
     <string name="title">補就飛</string>
     <string name="title_home">首頁</string>
     <string name="title_calendar">行事曆</string>
@@ -8,14 +11,10 @@
     <string name="title_profile">個人</string>
     <string name="roll_name">點名</string>
     <string name="home_notice_title">獎學金公告 </string>
-    <string name="home_notice_context">以下的同學有福拉:\n
-        XXX\n
-        OOO\n
-        CCC\n
-        EEE\n</string>
+    <string name="home_notice_context">以下的同學有福拉:\n XXX\n OOO\n CCC\n EEE\n</string>
     <string name="home_notice_time">2019/08/09</string>
 
-    <!--seatList-->
+    <!--Profile page-->
     <string name="seat_name">姓名</string>
     <string name="name_text">林柏宇</string>
     <string name="tx_class_remaining">剩餘堂數</string>
@@ -30,9 +29,11 @@
     <string name="class_name">課程名稱</string>
     <string name="start_time">課程開始時間</string>
     <string name="end_time">結束時間</string>
-
-
     <string name="submit_status">申請狀態</string>
+
+
+
+
     <string name="sunday">星期日</string>
     <string name="monday">星期一</string>
     <string name="tuesday">星期二</string>
@@ -42,25 +43,16 @@
     <string name="satuday">星期六</string>
 
 
-    <!--Scan-->
+    <!--Scan page-->
     <string name="log_in_ok">簽到成功</string>
-    <string name="first_time_slot">
-        10:00\n
-        |\n
-        12:00</string>
-    <string name="second_time_slot">
-        14:00\n
-        |\n
-        17:00</string>
-    <string name="third_time_slot">
-        19:30\n
-        |\n
-        21:30</string>
+
+
+    <!--StudyRoom page-->
+    <string name="first_time_slot">10:00\n |\n 12:00</string>
+    <string name="second_time_slot">14:00\n |\n 17:00</string>
+    <string name="third_time_slot">19:30\n |\n  21:30</string>
     <string name="study_room_booked">預約座位</string>
     <string name="studyroom_no_select_a_day">請選擇上方日期</string>
-    <string name="log_in_button">Google 登入</string>
-    <string name="calendar_roll_name">點名人數</string>
-    <string name="calendar_teach_room">授課教室</string>
     <string name="tx_reclass_context">課程內容</string>
     <string name="tx_reclass_time">補課時間</string>
     <string name="tx_reclass_type">補課方式</string>
@@ -69,10 +61,15 @@
     <string name="seat_order_ok">確認</string>
     <string name="seat_order_cancel">取消</string>
     <string name="order_check">確定選取座位?</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="result_text">送出成功</string>
 
+    <!-- Login page -->
+    <string name="log_in_button">Google 登入</string>
+    <string name="google_singin_fail">Google sign in failed:(</string>
+
+
+    <!-- Class Schedule page -->
+    <string name="calendar_roll_name">點名人數</string>
+    <string name="calendar_teach_room">授課教室</string>
 
 </resources>

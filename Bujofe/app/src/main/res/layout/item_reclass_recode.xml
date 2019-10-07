@@ -7,7 +7,7 @@
 
         <variable
                 name="records"
-                type="com.sheldon.bujofe.object.Records" />
+                type="com.sheldon.bujofe.data.Records" />
 
     </data>
 
@@ -154,6 +154,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tx_start_time"
                         app:layout_constraintStart_toEndOf="@+id/tx_start_time"
                         app:layout_constraintTop_toTopOf="@+id/tx_start_time"
+                        app:layout_constraintVertical_bias="1.0"
                         tools:text="2017/05/06" />
 
                 <TextView

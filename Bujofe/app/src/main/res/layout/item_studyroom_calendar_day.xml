@@ -13,7 +13,7 @@
             android:orientation="vertical">
 
         <TextView
-                android:id="@+id/exSevenMonthText"
+                android:id="@+id/study_room_month"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -23,7 +23,7 @@
                 tools:text="Jun" />
 
         <TextView
-                android:id="@+id/exSevenDateText"
+                android:id="@+id/study_room_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -34,7 +34,7 @@
                 tools:text="24" />
 
         <TextView
-                android:id="@+id/exSevenDayText"
+                android:id="@+id/study_room_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -46,7 +46,7 @@
     </LinearLayout>
 
     <View
-            android:id="@+id/exSevenSelectedView"
+            android:id="@+id/study_room_day_selected"
             android:layout_width="match_parent"
             android:layout_height="6dp"
             android:layout_gravity="bottom"

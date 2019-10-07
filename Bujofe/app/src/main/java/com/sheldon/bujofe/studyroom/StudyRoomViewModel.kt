@@ -1,72 +1,80 @@
 package com.sheldon.bujofe.studyroom
 
-import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.util.Log
-import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.BujofeApplication
-import com.sheldon.bujofe.`object`.OrderedTimes
-import com.sheldon.bujofe.`object`.StudyroomSeat
-import com.sheldon.bujofe.`object`.SeatList
-import com.sheldon.bujofe.`object`.SeatOrder
+import com.sheldon.bujofe.login.UserManager
+import com.sheldon.bujofe.data.StudyRoomSeat
+import com.sheldon.bujofe.data.SeatList
+import com.sheldon.bujofe.data.SeatOrder
+import org.threeten.bp.LocalDate
 
 
 class StudyRoomViewModel : ViewModel() {
 
-    private var TAG: String = "StudyroomViewModel"
+    private var TAG: String = "StudyRoomViewModel"
 
     val pageStatus = MutableLiveData<Int>()
 
     init {
         pageStatus.value = 0
-        getStudyRoomfirebase()
+        getStudyRoomFirebase()
     }
 
+    private val _serverStudyRoomListData = MutableLiveData<List<StudyRoomSeat>>()
+    val serverStudyRoomListData: LiveData<List<StudyRoomSeat>>
+        get() = _serverStudyRoomListData
 
-    private val _studyRoomdatas = MutableLiveData<List<StudyroomSeat>>()
-    val studyRoomdatas: LiveData<List<StudyroomSeat>>
-        get() = _studyRoomdatas
-    val studyRoomdataSeats = MutableLiveData<List<SeatList>>()
-
-
-    val userName =  BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
-        .getString("displayName", "")
-
-    val checkSeatStatus = MutableLiveData<SeatOrder>()
-    val checkSeatId = MutableLiveData<String>()
-    val checkedDate = MutableLiveData<String>()
-    val checkedDocumentId = MutableLiveData<String>()
-
-    val originSeatList = MutableLiveData<StudyroomSeat>()
+    val serverStudyRoomSeatsLists = MutableLiveData<StudyRoomSeat>()
 
 
+    val localStudyRoomSeatsList = MutableLiveData<List<SeatList>>()
 
-    fun getStudyRoomfirebase() {
+    val userName = UserManager.userName
+
+    val chosenSeat = MutableLiveData<SeatOrder>()
+
+    val chosenSeatId = MutableLiveData<String>()
+
+    val chosenDate = MutableLiveData<String>()
+
+    val chosenSeatOnServerDocumentId = MutableLiveData<String>()
+
+    val clickedDateOnTopCalendar = MutableLiveData<LocalDate>()
+
+
+    private fun getStudyRoomFirebase() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("StudyroomSeat")
+        db.collection("StudyRoomSeat")
             .get()
             .addOnSuccessListener { result ->
-                val recoderList = mutableListOf<StudyroomSeat>()
+
+                val recodeList = mutableListOf<StudyRoomSeat>()
+
                 for (document in result) {
-                    val data = document.toObject(StudyroomSeat::class.java)
-                    val dateTime = java.sql.Date(data.date!!.time)
+
+                    val data = document.toObject(StudyRoomSeat::class.java)
+
+                    val dateTime = java.sql.Date(data.date.time)
+
                     val format = SimpleDateFormat("yyy/MM/dd")
+
                     Log.d(TAG, "format.format(dateTime) is ${format.format(dateTime)}")
-                    recoderList.add(data)
-                    val index = recoderList.size -1
-                    recoderList[index].documentId = document.id
-                    _studyRoomdatas.value = recoderList
-//                    Log.d(TAG, "server_data is  $recoderList")
-//                    Log.d(TAG, "server_data_doc_id is  ${studyRoomdatas.value.toString()}")
+
+                    recodeList.add(data)
+
+                    val index = recodeList.size - 1
+
+                    recodeList[index].documentId = document.id
+
+                    _serverStudyRoomListData.value = recodeList
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
             }
-
     }
 }

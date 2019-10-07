@@ -1,4 +1,4 @@
-package com.sheldon.bujofe.calendar
+package com.sheldon.bujofe.class_schedule
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -73,3 +73,5 @@ fun GradientDrawable.setCornerRadius(
         bottomLeft, bottomLeft
     ).toFloatArray()
 }
+
+

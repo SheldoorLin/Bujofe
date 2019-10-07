@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,16 +18,14 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.`object`.OrderedTimes
-import com.sheldon.bujofe.`object`.SeatOrder
-import com.sheldon.bujofe.calendar.getColorCompat
+import com.sheldon.bujofe.class_schedule.getColorCompat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
 import kotlinx.android.synthetic.main.item_studyroom_calendar_day.view.*
+import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
-import java.lang.Exception
 
 
 class StudyRoomFragment : Fragment() {
@@ -36,13 +33,16 @@ class StudyRoomFragment : Fragment() {
     private val viewModel: StudyRoomViewModel by lazy {
         ViewModelProviders.of(this).get(StudyRoomViewModel::class.java)
     }
+
     private val TAG = "StudyRoomFragment"
 
     private var selectedDate: LocalDate? = null
-    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
-    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
+
     private val monthFormatter = DateTimeFormatter.ofPattern("MMM")
 
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+
+    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,92 +57,61 @@ class StudyRoomFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-
         val dm = DisplayMetrics()
 
         val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
         wm.defaultDisplay.getMetrics(dm)
 
+        val studyRoomOneLineCalendar = binding.studyRoomOneLineCalendar
 
-        val exSevenCalendar = binding.exSevenCalendar
+        studyRoomOneLineCalendar.dayWidth = dm.widthPixels / 7   //origin is 5
 
-        exSevenCalendar.dayWidth = dm.widthPixels / 7   //origin is 5
-
-        exSevenCalendar.dayHeight = (exSevenCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
-
+        studyRoomOneLineCalendar.dayHeight = (studyRoomOneLineCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
 
         class DayViewContainer(view: View) : ViewContainer(view) {
-            val dayText = view.exSevenDayText
-            val dateText = view.exSevenDateText
-            val monthText = view.exSevenMonthText
-            val selectedView = view.exSevenSelectedView
+            val dayText = view.study_room_day
+            val dateText = view.study_room_date
+            val monthText = view.study_room_month
+            val selectedView = view.study_room_day_selected
             lateinit var day: CalendarDay
 
             init {
                 view.setOnClickListener {
-                    val firstDay = exSevenCalendar.findFirstVisibleDay()
-                    val lastDay = exSevenCalendar.findLastVisibleDay()
+                    val firstDay = studyRoomOneLineCalendar.findFirstVisibleDay()
+                    val lastDay = studyRoomOneLineCalendar.findLastVisibleDay()
 
                     if (firstDay == day) {
                         /** If the first date on screen was clicked, we scroll to the date to ensure
                          * it is fully visible if it was partially off the screen when clicked.
                          */
-                        exSevenCalendar.smoothScrollToDate(day.date)
+                        studyRoomOneLineCalendar.smoothScrollToDate(day.date)
                     } else if (lastDay == day) {
                         /** If the last date was clicked, we scroll to 4 days ago, this forces the
                          * clicked date to be fully visible if it was partially off the screen.
                          * We scroll to 4 days ago because we show max of five days on the screen
                          * so scrolling to 4 days ago brings the clicked date into full visibility at the end of the calendar view.
                          */
-                        exSevenCalendar.smoothScrollToDate(day.date)
+                        studyRoomOneLineCalendar.smoothScrollToDate(day.date)
                     }
-
 
                     /** Example: If you want the clicked date to always be centered on the screen,
                      * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
                      */
                     if (selectedDate != day.date) {
+
                         val oldDate = selectedDate
+
                         selectedDate = day.date
+
                         viewModel.pageStatus.value = 1
 
+                        viewModel.clickedDateOnTopCalendar.value = day.date
 
-                        exSevenCalendar.notifyDateChanged(day.date)
-                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
+                        studyRoomOneLineCalendar.notifyDateChanged(day.date)
 
-
-                        val serverDataFilter = viewModel.studyRoomdatas.value?.let {
-                            it.filter {
-                                it.local_date == day.date.toString()
-                            }
-                        }
-                        Log.d(TAG, "serverDataFilter $serverDataFilter")
-
-                        if (serverDataFilter != null) {
-                            if (serverDataFilter.isNotEmpty()) {
-                                (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
-                                viewModel.pageStatus.value = 1
-                                binding.seatView.visibility = View.VISIBLE
-                                viewModel.checkedDate.value = serverDataFilter[0].local_date
-                                viewModel.checkedDocumentId.value = serverDataFilter[0].documentId
-                                viewModel.originSeatList.value = serverDataFilter[0]
-                                val filtedSeatList = serverDataFilter[0].seatList
-                                Log.d(TAG, "test_3 $filtedSeatList")
-                                viewModel.studyRoomdataSeats.value = filtedSeatList
-                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-                            } else {
-                                (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
-                                viewModel.pageStatus.value = 0
-                                binding.seatView.visibility = View.INVISIBLE
-                                (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
-                                    null
-                                )
-                            }
-                        }
-
+                        oldDate?.let { studyRoomOneLineCalendar.notifyDateChanged(it) }
                     }
-
                 }
             }
 
@@ -157,29 +126,71 @@ class StudyRoomFragment : Fragment() {
             }
         }
 
-        exSevenCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+        studyRoomOneLineCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) = container.bind(day)
         }
 
         val currentMonth = YearMonth.now()
-        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
-        exSevenCalendar.setup(currentMonth, currentMonth, DayOfWeek.values().random())
-        exSevenCalendar.scrollToDate(LocalDate.now())
 
+        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
+        studyRoomOneLineCalendar.setup(currentMonth, currentMonth, DayOfWeek.values().random())
+
+        studyRoomOneLineCalendar.scrollToDate(LocalDate.now())
 
         binding.orderedTimeRecycler.adapter = OrderedAdapter(viewModel)
 
+        viewModel.clickedDateOnTopCalendar.observe(this, Observer {
+            it.let {localDate ->
+                val serverDataFilter =
+                    viewModel.serverStudyRoomListData.value?.let { listItem ->
+                        listItem.filter { studyRoomSeat ->
+                            DateTimeUtils.toLocalDate(java.sql.Date(studyRoomSeat.localDate.time)) == localDate
+                        }
+                    }
 
 
-        viewModel.studyRoomdataSeats.observe(this, Observer { seatListOnline ->
+                if (serverDataFilter != null && serverDataFilter.isNotEmpty() ) {
+
+                        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
+                        viewModel.pageStatus.value = 1
+
+                        binding.seatView.visibility = View.VISIBLE
+
+                        viewModel.chosenDate.value = serverDataFilter[0].localDate.toString()
+
+                        viewModel.chosenSeatOnServerDocumentId.value = serverDataFilter[0].documentId
+
+                        viewModel.serverStudyRoomSeatsLists.value = serverDataFilter[0]
+
+                        val filteredSeatList = serverDataFilter[0].seatList
+
+
+                        viewModel.localStudyRoomSeatsList.value = filteredSeatList
+
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
+
+                } else {
+                        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
+
+                        viewModel.pageStatus.value = 0
+
+                        binding.seatView.visibility = View.INVISIBLE
+
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
+                    }
+                }
+        })
+
+        viewModel.localStudyRoomSeatsList.observe(this, Observer { seatListOnline ->
             seatListOnline.let { it ->
+
                 /**
                  * 繪製座位圖  seatTable
                  */
                 val seatTable = binding.seatView
                 seatTable.setBackgroundResource(R.color.Color_White_ffffff)
-                seatTable.isDrawOverviewBitmap = true
+                //seatTable.isDrawOverviewBitmap = true
                 seatTable.autoScale()
                 seatTable.setData(4, 4)
                 seatTable.setScreenName("黑板")
@@ -187,9 +198,6 @@ class StudyRoomFragment : Fragment() {
                 seatTable.setSeatChecker(object : SeatTable.SeatChecker {
 
                     override fun isValidSeat(row: Int, column: Int): Boolean {
-                        //                    while (column ==1) {
-                        //                        return false
-                        //                    }
                         return true
                     }
 
@@ -212,17 +220,10 @@ class StudyRoomFragment : Fragment() {
                         val seatTableFilter = it.filter {
                             it.column == column && it.row == row
                         }
-                        viewModel.checkSeatId.value = seatTableFilter[0].id
+                        viewModel.chosenSeatId.value = seatTableFilter[0].id
                         val orderedSeatTime = listOf(seatTableFilter[0].orderedTimes)
-                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
-                            orderedSeatTime
-                        )
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(orderedSeatTime)
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "$row $column i was checked",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
                     }
 
                     override fun unCheck(row: Int, column: Int) {
@@ -232,22 +233,17 @@ class StudyRoomFragment : Fragment() {
                     override fun checkedSeatTxt(row: Int, column: Int): Array<String>? {
                         return null
                     }
-
                 })
             }
         })
 
-
-
-
-        viewModel.checkSeatStatus.observe(this, Observer {
+        viewModel.chosenSeat.observe(this, Observer {
             it.let {
                 this.findNavController().navigate(
                     StudyRoomFragmentDirections.actionStudyRoomFragmentToOrderSeatFragment(it)
                 )
             }
         })
-
 
         return binding.root
     }

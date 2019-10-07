@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.navigation.fragment.findNavController
 import com.sheldon.bujofe.databinding.FragmentOrderResultBinding
-import com.sheldon.bujofe.scan.ScanResultFragmentDirections
+
 
 
 class OrderResultFragment : AppCompatDialogFragment() {
@@ -20,19 +20,15 @@ class OrderResultFragment : AppCompatDialogFragment() {
         // Inflate the layout for this fragment
         val binding = FragmentOrderResultBinding.inflate(inflater, container, false)
 
-
-
-        val timer = object: CountDownTimer(2000, 1000) {
+        val timer = object : CountDownTimer(2000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
             }
+
             override fun onFinish() {
                 findNavController().navigate(OrderResultFragmentDirections.actionGlobalStudyRoomFragment())
             }
         }
         timer.start()
-
-
-
 
         return binding.root
     }

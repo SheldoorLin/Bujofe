@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="classList"
-                type="com.sheldon.bujofe.object.ClassList" />
+                type="com.sheldon.bujofe.data.ClassList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
         <TextView
-                android:id="@+id/class_name"
+                android:id="@+id/tx_class_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans"

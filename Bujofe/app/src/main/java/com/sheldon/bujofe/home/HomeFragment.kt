@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
 
         binding.homeRecyclerViewNotice.adapter = NoticeItemAdapter()
 
-        viewModel.getNoticeFirebase()
+        viewModel.getNoticeFromFirebase()
 
         viewModel.notices.observe(this, Observer {
             it.let {

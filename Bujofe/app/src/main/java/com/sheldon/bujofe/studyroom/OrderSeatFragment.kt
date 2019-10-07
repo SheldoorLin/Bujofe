@@ -1,21 +1,14 @@
 package com.sheldon.bujofe.studyroom
 
-import android.app.Activity
-import android.app.Dialog
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.sheldon.bujofe.databinding.FragmentOrderSeatBinding
-import com.sheldon.bujofe.scan.ScanFactory
-import com.sheldon.bujofe.scan.ScanResultFragmentArgs
-import com.sheldon.bujofe.scan.ScanResultViewModel
 
 
 class OrderSeatFragment : AppCompatDialogFragment() {
@@ -47,8 +40,6 @@ class OrderSeatFragment : AppCompatDialogFragment() {
         ).get(OrderSeatViewModel::class.java)
 
 
-
-
         viewModel.seatOrders.observe(this, Observer {
             it.let {
                 binding.txSeatRderId.text = it.id
@@ -67,7 +58,5 @@ class OrderSeatFragment : AppCompatDialogFragment() {
 
         return binding.root
     }
-
-
 }
 

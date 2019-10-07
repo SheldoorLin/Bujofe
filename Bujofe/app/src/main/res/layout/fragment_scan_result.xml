@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="com.sheldon.bujofe.scan.ScanResultViewModel" />
+                type="com.sheldon.bujofe.scan.result.ScanResultViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,14 +16,14 @@
 
         <ImageView
                 android:id="@+id/img_log_in_result"
-                android:layout_width="230dp"
-                android:layout_height="336dp"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
                 android:background="@color/color_orange_lite_Login_page"
                 android:scaleType="fitStart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/guideline2"
                 app:srcCompat="@drawable/logo_out" />
 
         <TextView
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="@+id/img_log_in_result" />
 
         <TextView
-                android:id="@+id/tx_class_name"
+                android:id="@+id/tx_scan_class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textLoginOk" />
 
         <TextView
-                android:id="@+id/class_name"
+                android:id="@+id/tx_class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -66,24 +66,23 @@
                 android:text="@{viewModel.rollName.title}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tx_class_name"
+                app:layout_constraintBottom_toBottomOf="@+id/tx_scan_class_name"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/tx_class_name" />
+                app:layout_constraintTop_toTopOf="@+id/tx_scan_class_name" />
 
         <TextView
                 android:id="@+id/tx_class_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
                 android:text="@string/start_time"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/tx_class_name"
-                app:layout_constraintStart_toStartOf="@+id/tx_class_name"
-                app:layout_constraintTop_toBottomOf="@+id/tx_class_name" />
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tx_scan_class_name" />
 
         <TextView
                 android:id="@+id/class_start_time"
@@ -104,7 +103,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tx_time_stemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -113,9 +112,16 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tx_class_start_time"
-                app:layout_constraintEnd_toEndOf="@+id/class_name"
-                app:layout_constraintStart_toStartOf="@+id/class_name"
-                app:layout_constraintTop_toBottomOf="@+id/class_name" />
+                app:layout_constraintEnd_toEndOf="@+id/tx_class_name"
+                app:layout_constraintStart_toStartOf="@+id/tx_class_name"
+                app:layout_constraintTop_toBottomOf="@+id/tx_class_name" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
