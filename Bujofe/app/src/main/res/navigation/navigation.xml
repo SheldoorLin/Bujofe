@@ -13,8 +13,7 @@
     <fragment
             android:id="@+id/calendarFragment"
             android:name="com.sheldon.bujofe.class_schedule.ClassScheduleFragment"
-            android:label="fragment_calendar"
-            tools:layout="@layout/fragment_calendar" />
+            android:label="fragment_calendar" />
 
     <fragment
             android:id="@+id/studyRoomFragment"
@@ -39,7 +38,7 @@
             android:id="@+id/action_global_homeFragment"
             app:destination="@id/homeFragment" />
     <action
-            android:id="@+id/action_global_calendarFragment"
+            android:id="@+id/action_global_classScheduleFragment"
             app:destination="@id/calendarFragment" />
 
     <action
@@ -51,28 +50,29 @@
             app:destination="@id/profileFragment" />
 
     <action
-            android:id="@+id/action_global_reclassFragment"
+            android:id="@+id/action_global_reClassFragment"
             app:destination="@id/reclassFragment" />
     <fragment
             android:id="@+id/scanFragment"
             android:name="com.sheldon.bujofe.scan.ScanFragment"
-            android:label="ScanFragment" >
+            android:label="ScanFragment">
         <action
                 android:id="@+id/action_scanFragment_to_scanResultFragment"
-                app:destination="@id/scanResultFragment" />
+                app:destination="@+id/scanResultFragment" />
     </fragment><action android:id="@+id/action_global_scanFragment" app:destination="@id/scanFragment"/>
 
 
     <dialog
             android:id="@+id/scanResultFragment"
-            android:name="com.sheldon.bujofe.scan.ScanResultFragment"
+            android:name="com.sheldon.bujofe.scan.result.ScanResultFragment"
             android:label="ScanResultFragment">
-
-
         <argument
                 android:name="roll_name"
-                app:argType="com.sheldon.bujofe.data.QRcode"/>
+                app:argType="com.sheldon.bujofe.data.QRcode" />
     </dialog>
+
+
+
     <dialog
             android:id="@+id/orderSeatFragment"
             android:name="com.sheldon.bujofe.studyroom.OrderSeatFragment"
@@ -84,6 +84,9 @@
                 android:id="@+id/action_orderSeatFragment_to_orderResultFragment"
                 app:destination="@id/orderResultFragment" />
     </dialog>
+
+
+
     <dialog
             android:id="@+id/orderResultFragment"
             android:name="com.sheldon.bujofe.studyroom.result.OrderResultFragment"

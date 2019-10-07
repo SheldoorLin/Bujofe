@@ -35,11 +35,14 @@ class StudyRoomFragment : Fragment() {
     }
 
     private val TAG = "StudyRoomFragment"
+
     private var selectedDate: LocalDate? = null
-    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
-    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
+
     private val monthFormatter = DateTimeFormatter.ofPattern("MMM")
 
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+
+    private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,45 +57,42 @@ class StudyRoomFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-
         val dm = DisplayMetrics()
 
         val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
         wm.defaultDisplay.getMetrics(dm)
 
+        val studyRoomOneLineCalendar = binding.studyRoomOneLineCalendar
 
-        val exSevenCalendar = binding.exSevenCalendar
+        studyRoomOneLineCalendar.dayWidth = dm.widthPixels / 7   //origin is 5
 
-        exSevenCalendar.dayWidth = dm.widthPixels / 7   //origin is 5
-
-        exSevenCalendar.dayHeight = (exSevenCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
-
+        studyRoomOneLineCalendar.dayHeight = (studyRoomOneLineCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
 
         class DayViewContainer(view: View) : ViewContainer(view) {
-            val dayText = view.exSevenDayText
-            val dateText = view.exSevenDateText
-            val monthText = view.exSevenMonthText
-            val selectedView = view.exSevenSelectedView
+            val dayText = view.study_room_day
+            val dateText = view.study_room_date
+            val monthText = view.study_room_month
+            val selectedView = view.study_room_day_selected
             lateinit var day: CalendarDay
 
             init {
                 view.setOnClickListener {
-                    val firstDay = exSevenCalendar.findFirstVisibleDay()
-                    val lastDay = exSevenCalendar.findLastVisibleDay()
+                    val firstDay = studyRoomOneLineCalendar.findFirstVisibleDay()
+                    val lastDay = studyRoomOneLineCalendar.findLastVisibleDay()
 
                     if (firstDay == day) {
                         /** If the first date on screen was clicked, we scroll to the date to ensure
                          * it is fully visible if it was partially off the screen when clicked.
                          */
-                        exSevenCalendar.smoothScrollToDate(day.date)
+                        studyRoomOneLineCalendar.smoothScrollToDate(day.date)
                     } else if (lastDay == day) {
                         /** If the last date was clicked, we scroll to 4 days ago, this forces the
                          * clicked date to be fully visible if it was partially off the screen.
                          * We scroll to 4 days ago because we show max of five days on the screen
                          * so scrolling to 4 days ago brings the clicked date into full visibility at the end of the calendar view.
                          */
-                        exSevenCalendar.smoothScrollToDate(day.date)
+                        studyRoomOneLineCalendar.smoothScrollToDate(day.date)
                     }
 
                     /** Example: If you want the clicked date to always be centered on the screen,
@@ -106,11 +106,11 @@ class StudyRoomFragment : Fragment() {
 
                         viewModel.pageStatus.value = 1
 
-                        viewModel.checkdate.value = day.date
+                        viewModel.clickedDateOnTopCalendar.value = day.date
 
-                        exSevenCalendar.notifyDateChanged(day.date)
+                        studyRoomOneLineCalendar.notifyDateChanged(day.date)
 
-                        oldDate?.let { exSevenCalendar.notifyDateChanged(it) }
+                        oldDate?.let { studyRoomOneLineCalendar.notifyDateChanged(it) }
                     }
                 }
             }
@@ -126,32 +126,29 @@ class StudyRoomFragment : Fragment() {
             }
         }
 
-        exSevenCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+        studyRoomOneLineCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) = container.bind(day)
         }
 
         val currentMonth = YearMonth.now()
-        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
-        exSevenCalendar.setup(currentMonth, currentMonth, DayOfWeek.values().random())
-        exSevenCalendar.scrollToDate(LocalDate.now())
 
+        // Value for firstDayOfWeek does not matter since inDates and outDates are not generated.
+        studyRoomOneLineCalendar.setup(currentMonth, currentMonth, DayOfWeek.values().random())
+
+        studyRoomOneLineCalendar.scrollToDate(LocalDate.now())
 
         binding.orderedTimeRecycler.adapter = OrderedAdapter(viewModel)
 
-
-
-        viewModel.checkdate.observe(this, Observer {
-            it.let {localdate ->
-
+        viewModel.clickedDateOnTopCalendar.observe(this, Observer {
+            it.let {localDate ->
                 val serverDataFilter =
-                    viewModel.studyRoomdatas.value?.let { listItem ->
-                        listItem.filter {
-                            DateTimeUtils.toLocalDate(java.sql.Date(it.localDate.time)) == localdate
+                    viewModel.serverStudyRoomListData.value?.let { listItem ->
+                        listItem.filter { studyRoomSeat ->
+                            DateTimeUtils.toLocalDate(java.sql.Date(studyRoomSeat.localDate.time)) == localDate
                         }
                     }
 
-                Log.d(TAG, "serverDataFilter $serverDataFilter")
 
                 if (serverDataFilter != null && serverDataFilter.isNotEmpty() ) {
 
@@ -160,17 +157,16 @@ class StudyRoomFragment : Fragment() {
 
                         binding.seatView.visibility = View.VISIBLE
 
-                        viewModel.checkedDate.value = serverDataFilter[0].localDate.toString()
+                        viewModel.chosenDate.value = serverDataFilter[0].localDate.toString()
 
-                        viewModel.checkedDocumentId.value = serverDataFilter[0].documentId
+                        viewModel.chosenSeatOnServerDocumentId.value = serverDataFilter[0].documentId
 
-                        viewModel.originSeatList.value = serverDataFilter[0]
+                        viewModel.serverStudyRoomSeatsLists.value = serverDataFilter[0]
 
-                        val filtedSeatList = serverDataFilter[0].seatList
+                        val filteredSeatList = serverDataFilter[0].seatList
 
-                        Log.d(TAG, "test_3 $filtedSeatList")
 
-                        viewModel.studyRoomDataSeats.value = filtedSeatList
+                        viewModel.localStudyRoomSeatsList.value = filteredSeatList
 
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
 
@@ -186,19 +182,15 @@ class StudyRoomFragment : Fragment() {
                 }
         })
 
-
-
-
-
-
-        viewModel.studyRoomDataSeats.observe(this, Observer { seatListOnline ->
+        viewModel.localStudyRoomSeatsList.observe(this, Observer { seatListOnline ->
             seatListOnline.let { it ->
+
                 /**
                  * 繪製座位圖  seatTable
                  */
                 val seatTable = binding.seatView
                 seatTable.setBackgroundResource(R.color.Color_White_ffffff)
-                seatTable.isDrawOverviewBitmap = true
+                //seatTable.isDrawOverviewBitmap = true
                 seatTable.autoScale()
                 seatTable.setData(4, 4)
                 seatTable.setScreenName("黑板")
@@ -228,11 +220,9 @@ class StudyRoomFragment : Fragment() {
                         val seatTableFilter = it.filter {
                             it.column == column && it.row == row
                         }
-                        viewModel.checkSeatId.value = seatTableFilter[0].id
+                        viewModel.chosenSeatId.value = seatTableFilter[0].id
                         val orderedSeatTime = listOf(seatTableFilter[0].orderedTimes)
-                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
-                            orderedSeatTime
-                        )
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(orderedSeatTime)
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
                     }
 
@@ -247,7 +237,7 @@ class StudyRoomFragment : Fragment() {
             }
         })
 
-        viewModel.checkSeatStatus.observe(this, Observer {
+        viewModel.chosenSeat.observe(this, Observer {
             it.let {
                 this.findNavController().navigate(
                     StudyRoomFragmentDirections.actionStudyRoomFragmentToOrderSeatFragment(it)

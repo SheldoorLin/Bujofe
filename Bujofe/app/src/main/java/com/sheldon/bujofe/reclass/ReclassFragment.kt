@@ -13,6 +13,7 @@ import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentReclassBinding
+import com.sheldon.bujofe.login.UserManager
 
 class ReclassFragment : Fragment() {
 
@@ -32,20 +33,14 @@ class ReclassFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.reclassRecorderRecycler.adapter = ReclassAdapter()
-
-
-        viewModel.userid.value =
-            BujofeApplication.instance.getSharedPreferences("userProfile", Context.MODE_PRIVATE)
-                .getString("uid", "")
-
+        
+        viewModel.userid.value = UserManager.userId
 
         viewModel.servieceUserinformation.observe(this, Observer {
             it.let {
                 viewModel.uidfileChecker(viewModel.userid.value.toString())
             }
         })
-
-
 
         viewModel.userRecordsList.observe(this, Observer {
             it.let {

@@ -1,15 +1,12 @@
 package com.sheldon.bujofe.scan
 
-import android.content.Context
 import android.icu.text.SimpleDateFormat
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.sheldon.bujofe.BujofeApplication
-import com.sheldon.bujofe.UserManager
+import com.sheldon.bujofe.login.UserManager
 import com.sheldon.bujofe.data.QRcode
 import com.sheldon.bujofe.data.TeachList
 import com.sheldon.bujofe.util.Logger
@@ -20,9 +17,9 @@ class ScanViewModel : ViewModel() {
 
     private val TAG: String = "ScanViewModel"
 
-    val preScanResult = MutableLiveData<QRcode>()
+    val scanResultFromQRcode = MutableLiveData<QRcode>()
 
-    val scanResults = MutableLiveData<QRcode>()
+    val transmitScanedDatasToResultPage = MutableLiveData<QRcode>()
 
     val flag = MutableLiveData<Boolean>()
 
@@ -40,7 +37,7 @@ class ScanViewModel : ViewModel() {
 
 
     fun displayScanComplete() {
-        scanResults.value = null
+        transmitScanedDatasToResultPage.value = null
     }
 
 
@@ -64,7 +61,7 @@ class ScanViewModel : ViewModel() {
 
     fun getTeacherList() {
         var scanTimestamp: String = ""
-        preScanResult.value?.let {
+        scanResultFromQRcode.value?.let {
             val date = Date(it.timestamp)
             val format = SimpleDateFormat("yyyy-MM-dd")
             scanTimestamp = format.format(date)
@@ -73,7 +70,7 @@ class ScanViewModel : ViewModel() {
 
 
         for (item in teachLists.value!!) {
-            if (item.title == preScanResult.value?.title && item.classSize.contains(userName)) {
+            if (item.title == scanResultFromQRcode.value?.title && item.classSize.contains(userName)) {
                 Logger.d("item = $item")
                 for (date_item in item.dateList) {
                     if (date_item.date.seconds * 1000 == scanTimestamp.toLong()) {
@@ -89,7 +86,7 @@ class ScanViewModel : ViewModel() {
 
     fun setNewData() {
         for (item in teachLists.value!!) {
-            preScanResult.value?.let { scanItem ->
+            scanResultFromQRcode.value?.let { scanItem ->
 
                 if (item.title == scanItem.title) {
 

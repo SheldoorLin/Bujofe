@@ -1,6 +1,5 @@
 package com.sheldon.bujofe.class_schedule
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,8 +11,6 @@ import com.sheldon.bujofe.util.Logger
 import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -52,24 +49,31 @@ class ClassScheduleViewModel : ViewModel() {
 
     fun getTeacherList(): List<ClassEvent> {
         val classEventList = mutableListOf<ClassEvent>()
-        for (item in teachLists.value!!) {
-            for (date_item in item.dateList) {
+        for (teachList in teachLists.value!!) {
+            for (dateList in teachList.dateList) {
 
-                val date = Timestamp(date_item.date.seconds * 1000)
+                val date = Timestamp(dateList.date.seconds * 1000)
 
-                val time = DateTimeUtils.toLocalDateTime(date)
+                val classStartTime = DateTimeUtils.toLocalDateTime(date)
 
-                val time2 = DateTimeUtils.toLocalDateTime(date).plusHours(item.lessonTime)
+                val classFinishTime = DateTimeUtils.toLocalDateTime(date).plusHours(teachList.lessonTime)
 
-                Log.d(TAG, "time2 = $time2")
 
                 classEventList.add(
                     ClassEvent(
-                        time, ClassName(
-                            date_item.lesson,
-                            item.teachingRoom,
-                            "${date_item.rollNameList.size}/${item.classSize.size}",
-                            item.title
+                        classStartTime,
+
+                        classFinishTime,
+
+                        ClassName(
+
+                            dateList.lesson,
+
+                            teachList.teachingRoom,
+
+                            "${dateList.rollNameList.size}/${teachList.classSize.size}",
+
+                            teachList.title
                         )
                     )
                 )

@@ -1,6 +1,5 @@
 package com.sheldon.bujofe
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.sheldon.bujofe.databinding.ActivityMainBinding
-import com.sheldon.bujofe.login.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,23 +34,23 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_global_homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_calendar -> {
+                R.id.navigation_class_schedule -> {
 
                     textMessage.setText(R.string.title)
-                    navController.navigate(R.id.action_global_calendarFragment)
+                    navController.navigate(R.id.action_global_classScheduleFragment)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_shelf_read_room_status -> {
+                R.id.navigation_study_room_status -> {
 
                     textMessage.setText(R.string.title)
                     navController.navigate(R.id.action_global_studyRoomFragment)
 
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_replacement_lesson_list -> {
+                R.id.navigation_replacement_class -> {
 
                     textMessage.setText(R.string.title)
-                    navController.navigate(R.id.action_global_reclassFragment)
+                    navController.navigate(R.id.action_global_reClassFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {

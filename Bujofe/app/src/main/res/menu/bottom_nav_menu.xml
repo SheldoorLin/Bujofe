@@ -7,17 +7,17 @@
             android:title="@string/title_home" />
 
     <item
-            android:id="@+id/navigation_calendar"
+            android:id="@+id/navigation_class_schedule"
             android:icon="@drawable/ic_nav_class_schdule_black_300"
             android:title="@string/title_calendar" />
 
     <item
-            android:id="@+id/navigation_shelf_read_room_status"
+            android:id="@+id/navigation_study_room_status"
             android:icon="@drawable/ic_nav_study_room_black_300"
             android:title="@string/title_shelf_read_room_status" />
 
     <item
-            android:id="@+id/navigation_replacement_lesson_list"
+            android:id="@+id/navigation_replacement_class"
             android:icon="@drawable/ic_nav_reclass_black_300"
             android:title="@string/title_replacement_lesson_list" />
 

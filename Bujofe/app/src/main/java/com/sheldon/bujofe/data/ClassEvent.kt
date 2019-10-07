@@ -4,13 +4,15 @@ import org.threeten.bp.LocalDateTime
 
 
 data class ClassEvent(
-    val time: LocalDateTime,
+
+    val classStartTime: LocalDateTime,
+    val classFinishTime:LocalDateTime,
     val className: ClassName
 )
 
 data class ClassName(
-    val class_context : String,
-    val teach_class: String,
-    val order_people:String,
+    val courseContent : String,
+    val teachClass: String,
+    val rollCallSituation:String,
     val type: String
 )

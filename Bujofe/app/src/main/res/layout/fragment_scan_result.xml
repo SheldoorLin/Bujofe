@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="com.sheldon.bujofe.scan.ScanResultViewModel" />
+                type="com.sheldon.bujofe.scan.result.ScanResultViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

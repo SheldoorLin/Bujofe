@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.UserManager
 import com.sheldon.bujofe.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

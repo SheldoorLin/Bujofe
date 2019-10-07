@@ -23,9 +23,9 @@ import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
-import com.sheldon.bujofe.databinding.FragmentCalendarBinding
+import com.sheldon.bujofe.databinding.FragmentClassScheduleBinding
 import kotlinx.android.synthetic.main.item_calendar_day_legend.view.*
-import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.fragment_class_schedule.*
 import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
@@ -49,7 +49,7 @@ class ClassScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        val binding = FragmentClassScheduleBinding.inflate(inflater, container, false)
 
         (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
 
@@ -59,6 +59,7 @@ class ClassScheduleFragment : Fragment() {
 
         binding.eventRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
         binding.eventRecycler.adapter = calendarAdapter
 
 
@@ -68,7 +69,7 @@ class ClassScheduleFragment : Fragment() {
                 viewModel.getTeacherList()
 
                 viewModel.classEvents = viewModel.getTeacherList().groupBy { classEvents ->
-                    classEvents.time.toLocalDate()
+                    classEvents.classStartTime.toLocalDate()
                 }
 
                 binding.eventCalendar.notifyCalendarChanged()
@@ -107,17 +108,15 @@ class ClassScheduleFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         if (selectedDate != day.date) {
+
                             val oldDate = selectedDate
+
                             selectedDate = day.date
 
-//                            val test = DateTimeUtils.toSqlDate(selectedDate)
-//                            Logger.d(TAG + "test = ${test.time}")
-//                            val test_2 = DateTimeUtils.toLocalDate()
-
                             eventCalendar.notifyDateChanged(day.date)
-                            oldDate?.let {
-                                eventCalendar.notifyDateChanged(it)
-                            }
+
+                            oldDate?.let { eventCalendar.notifyDateChanged(it) }
+
                             updateAdapterForDate(day.date)
                         }
                     }
@@ -127,6 +126,7 @@ class ClassScheduleFragment : Fragment() {
 
         eventCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
+
             override fun bind(container: DayViewContainer, day: CalendarDay) {
 
                 container.day = day
@@ -146,11 +146,16 @@ class ClassScheduleFragment : Fragment() {
                 dayBottomView.background = null
 
                 if (day.owner == DayOwner.THIS_MONTH) {
+
                     textView.setTextColorRes(R.color.black)
+
                     layout.setBackgroundResource(
+
                         if (selectedDate == day.date) {
+
                             R.drawable.calendar_selected_bg
                         } else {
+
                             R.drawable.calendar_unselected_bg
                         }
                     )

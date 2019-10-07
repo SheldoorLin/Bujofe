@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             <com.kizitonwose.calendarview.CalendarView
-                    android:id="@+id/exSevenCalendar"
+                    android:id="@+id/study_room_one_line_calendar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cv_dayViewResource="@layout/item_studyroom_calendar_day"

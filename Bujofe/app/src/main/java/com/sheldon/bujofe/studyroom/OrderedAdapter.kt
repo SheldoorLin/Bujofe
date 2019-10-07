@@ -2,7 +2,6 @@ package com.sheldon.bujofe.studyroom
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -36,27 +35,37 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
             binding.viewModel = viewModel
 
             if (orderedTimes.firstTimeSlot != "") {
+
                 binding.btnFirstSlot.text = "已預定"
+
                 binding.btnFirstSlot.setTextColorRes(R.color.Color_White_ffffff)
+
                 binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
+
                 binding.btnFirstSlot.setOnClickListener {
-                    for (item in viewModel.originSeatList.value!!.seatList) {
-                        if (item.id == viewModel.checkSeatId.value!!) {
+
+                    for (item in viewModel.serverStudyRoomSeatsLists.value!!.seatList) {
+                        if (item.id == viewModel.chosenSeatId.value!!) {
                             item.orderedTimes?.firstTimeSlot = viewModel.userName!!
                         }
                     }
-                    viewModel.checkSeatStatus.value = SeatOrder(
-                        viewModel.checkSeatId.value!!,
-                        viewModel.checkedDate.value!!,
-                        viewModel.checkedDocumentId.value!!,
+
+                    viewModel.chosenSeat.value = SeatOrder(
+                        viewModel.chosenSeatId.value!!,
+                        viewModel.chosenDate.value!!,
+                        viewModel.chosenSeatOnServerDocumentId.value!!,
                         OrderedTimes(firstTimeSlot = viewModel.userName!!),
-                        viewModel.originSeatList.value!!
+                        viewModel.serverStudyRoomSeatsLists.value!!
                     )
                 }
             } else {
+
                 binding.btnFirstSlot.text = "可預訂"
+
                 binding.btnFirstSlot.isEnabled
+
                 binding.btnFirstSlot.setTextColorRes(R.color.black)
+                
                 binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
 
@@ -65,18 +74,18 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
                 binding.btnSecSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
                 binding.btnSecSlot.setOnClickListener {
-                    for (item in viewModel.originSeatList.value!!.seatList) {
-                        if (item.id == viewModel.checkSeatId.value!!) {
+                    for (item in viewModel.serverStudyRoomSeatsLists.value!!.seatList) {
+                        if (item.id == viewModel.chosenSeatId.value!!) {
                             item.orderedTimes?.secTimeSlot = viewModel.userName!!
                         }
                     }
 
-                    viewModel.checkSeatStatus.value = SeatOrder(
-                        viewModel.checkSeatId.value!!,
-                        viewModel.checkedDate.value!!,
-                        viewModel.checkedDocumentId.value!!,
+                    viewModel.chosenSeat.value = SeatOrder(
+                        viewModel.chosenSeatId.value!!,
+                        viewModel.chosenDate.value!!,
+                        viewModel.chosenSeatOnServerDocumentId.value!!,
                         OrderedTimes(secTimeSlot = viewModel.userName!!),
-                        viewModel.originSeatList.value!!
+                        viewModel.serverStudyRoomSeatsLists.value!!
                     )
                 }
             } else {
@@ -91,17 +100,17 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
                 binding.btnThirdSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
                 binding.btnThirdSlot.setOnClickListener {
-                    for (item in viewModel.originSeatList.value!!.seatList) {
-                        if (item.id == viewModel.checkSeatId.value!!) {
+                    for (item in viewModel.serverStudyRoomSeatsLists.value!!.seatList) {
+                        if (item.id == viewModel.chosenSeatId.value!!) {
                             item.orderedTimes?.thirdTimeSlot = viewModel.userName!!
                         }
                     }
-                    viewModel.checkSeatStatus.value = SeatOrder(
-                        viewModel.checkSeatId.value!!,
-                        viewModel.checkedDate.value!!,
-                        viewModel.checkedDocumentId.value!!,
+                    viewModel.chosenSeat.value = SeatOrder(
+                        viewModel.chosenSeatId.value!!,
+                        viewModel.chosenDate.value!!,
+                        viewModel.chosenSeatOnServerDocumentId.value!!,
                         OrderedTimes(thirdTimeSlot = viewModel.userName!!),
-                        viewModel.originSeatList.value!!
+                        viewModel.serverStudyRoomSeatsLists.value!!
                     )
                 }
             } else {

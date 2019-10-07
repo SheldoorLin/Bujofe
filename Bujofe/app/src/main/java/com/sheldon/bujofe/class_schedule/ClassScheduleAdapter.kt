@@ -17,7 +17,7 @@ class ClassScheduleAdapter :
 
     val classEvents = mutableListOf<ClassEvent>()
 
-    private val formatter = DateTimeFormatter.ofPattern("MM'月' dd'號' HH:mm")
+    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
     companion object DiffCallback : DiffUtil.ItemCallback<ClassEvent>() {
         override fun areItemsTheSame(oldItem: ClassEvent, newItem: ClassEvent): Boolean {
@@ -43,11 +43,19 @@ class ClassScheduleAdapter :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(classEvent: ClassEvent) {
-            date.text = formatter.format(classEvent.time)
+            val classTimeStartToFinish =
+                timeFormatter.format(classEvent.classStartTime) +
+                    "\n|\n" + timeFormatter.format(classEvent.classFinishTime)
+
+            date.text = classTimeStartToFinish
+
             tx_class_name.text = classEvent.className.type
-            class_room.text = classEvent.className.teach_class
-            order_people.text = classEvent.className.order_people
-            class_context.text = classEvent.className.class_context
+
+            tx_teach_class_room.text = classEvent.className.teachClass
+
+            tx_roll_name.text = classEvent.className.rollCallSituation
+
+            tx_class_content.text = classEvent.className.courseContent
         }
     }
 }

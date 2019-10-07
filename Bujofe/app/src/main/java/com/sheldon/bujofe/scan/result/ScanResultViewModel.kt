@@ -1,4 +1,4 @@
-package com.sheldon.bujofe.scan
+package com.sheldon.bujofe.scan.result
 
 import android.app.Application
 import android.icu.text.SimpleDateFormat
@@ -21,7 +21,7 @@ class ScanResultViewModel(qrCode: QRcode, app: Application) : AndroidViewModel(a
         _rollName.value = qrCode
     }
 
-    fun TimeToString() {
+    fun timestampToString() {
         rollName.value?.let {
             val date = Date(it.timestamp)
             val format = SimpleDateFormat("yyyy-MM-dd")

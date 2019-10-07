@@ -32,6 +32,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
                     app:layout_constraintEnd_toStartOf="@+id/img_sep_2"
                     app:layout_constraintStart_toEndOf="@+id/date"
@@ -53,51 +54,52 @@
                     android:textAllCaps="true"
                     android:textColor="@color/title_color_white"
                     android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.143"
-                    tools:text="9月 30號 14:00" />
+                    tools:text="14:00\n|\n16:30 " />
 
             <TextView
                     android:id="@+id/tx_class_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:paddingStart="3dp"
                     android:paddingEnd="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/date"
                     app:layout_constraintEnd_toEndOf="@+id/img_sep"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/img_sep"
-                    app:layout_constraintTop_toTopOf="@+id/date"
-                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintTop_toTopOf="@+id/img_sep_2"
                     tools:text="課程名稱" />
 
             <TextView
-                    android:id="@+id/class_context"
+                    android:id="@+id/tx_class_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
 
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/img_sep_2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_sep_2"
+                    app:layout_constraintEnd_toEndOf="@+id/img_sep"
+                    app:layout_constraintStart_toStartOf="@+id/img_sep"
+                    app:layout_constraintTop_toBottomOf="@+id/img_sep"
                     tools:text="1-1 微積分導論" />
 
             <TextView
-                    android:id="@+id/order_people"
+                    android:id="@+id/tx_roll_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
@@ -105,20 +107,21 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tx_teach_class_room"
                     app:layout_constraintTop_toBottomOf="@+id/tx_class_name"
                     tools:text="30/30" />
 
             <TextView
-                    android:id="@+id/class_room"
+                    android:id="@+id/tx_teach_class_room"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/noto_sans"
                     android:padding="3dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/order_people"
+                    app:layout_constraintBottom_toBottomOf="@+id/tx_roll_name"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="@+id/order_people"
+                    app:layout_constraintTop_toTopOf="@+id/tx_roll_name"
                     tools:text="五樓三室" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -134,17 +137,17 @@
                     android:id="@+id/img_ordered_people"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toTopOf="@+id/order_people"
-                    app:layout_constraintEnd_toEndOf="@+id/order_people"
-                    app:layout_constraintStart_toStartOf="@+id/order_people"
+                    app:layout_constraintBottom_toTopOf="@+id/tx_roll_name"
+                    app:layout_constraintEnd_toEndOf="@+id/tx_roll_name"
+                    app:layout_constraintStart_toStartOf="@+id/tx_roll_name"
                     app:srcCompat="@drawable/calendar_order_people" />
 
             <ImageView
                     android:id="@+id/img_teaching_room"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toTopOf="@+id/class_room"
-                    app:layout_constraintEnd_toEndOf="@+id/class_room"
+                    app:layout_constraintBottom_toTopOf="@+id/tx_teach_class_room"
+                    app:layout_constraintEnd_toEndOf="@+id/tx_teach_class_room"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:srcCompat="@drawable/calendar_teaching_room" />
 

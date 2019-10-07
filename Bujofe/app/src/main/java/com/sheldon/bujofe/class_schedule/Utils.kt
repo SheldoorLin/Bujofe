@@ -27,10 +27,10 @@ import org.threeten.bp.LocalDate
 //        for (date_item in item.dateList) {
 
 
-//            val time = LocalDate.of(year, month, day).atTime(3,3)
+//            val classStartTime = LocalDate.of(year, month, day).atTime(3,3)
 //
 //            val classMute = ClassEvent(
-//                time,
+//                classStartTime,
 //                ClassName(
 //                    date_item.lesson,
 //                    item.teachingRoom,

@@ -3,7 +3,6 @@ package com.sheldon.bujofe.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.UserManager
 import com.sheldon.bujofe.data.Users
 import com.sheldon.bujofe.util.Logger
 

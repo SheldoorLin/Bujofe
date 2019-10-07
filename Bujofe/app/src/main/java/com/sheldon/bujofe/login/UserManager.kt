@@ -1,6 +1,7 @@
-package com.sheldon.bujofe
+package com.sheldon.bujofe.login
 
 import android.content.Context
+import com.sheldon.bujofe.BujofeApplication
 
 object UserManager {
 

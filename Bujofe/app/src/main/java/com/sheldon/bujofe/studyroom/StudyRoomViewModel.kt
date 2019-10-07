@@ -1,15 +1,12 @@
 package com.sheldon.bujofe.studyroom
 
-import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sheldon.bujofe.BujofeApplication
-import com.sheldon.bujofe.UserManager
+import com.sheldon.bujofe.login.UserManager
 import com.sheldon.bujofe.data.StudyRoomSeat
 import com.sheldon.bujofe.data.SeatList
 import com.sheldon.bujofe.data.SeatOrder
@@ -27,26 +24,26 @@ class StudyRoomViewModel : ViewModel() {
         getStudyRoomFirebase()
     }
 
-    private val _studyRoomdatas = MutableLiveData<List<StudyRoomSeat>>()
-    val studyRoomdatas: LiveData<List<StudyRoomSeat>>
-        get() = _studyRoomdatas
+    private val _serverStudyRoomListData = MutableLiveData<List<StudyRoomSeat>>()
+    val serverStudyRoomListData: LiveData<List<StudyRoomSeat>>
+        get() = _serverStudyRoomListData
 
-    val studyRoomDataSeats = MutableLiveData<List<SeatList>>()
+    val serverStudyRoomSeatsLists = MutableLiveData<StudyRoomSeat>()
+
+
+    val localStudyRoomSeatsList = MutableLiveData<List<SeatList>>()
 
     val userName = UserManager.userName
 
-    val checkSeatStatus = MutableLiveData<SeatOrder>()
+    val chosenSeat = MutableLiveData<SeatOrder>()
 
-    val checkSeatId = MutableLiveData<String>()
+    val chosenSeatId = MutableLiveData<String>()
 
-    val checkedDate = MutableLiveData<String>()
+    val chosenDate = MutableLiveData<String>()
 
-    val checkedDocumentId = MutableLiveData<String>()
+    val chosenSeatOnServerDocumentId = MutableLiveData<String>()
 
-    val originSeatList = MutableLiveData<StudyRoomSeat>()
-
-
-    val checkdate = MutableLiveData<LocalDate>()
+    val clickedDateOnTopCalendar = MutableLiveData<LocalDate>()
 
 
     private fun getStudyRoomFirebase() {
@@ -73,7 +70,7 @@ class StudyRoomViewModel : ViewModel() {
 
                     recodeList[index].documentId = document.id
 
-                    _studyRoomdatas.value = recodeList
+                    _serverStudyRoomListData.value = recodeList
                 }
             }
             .addOnFailureListener { exception ->

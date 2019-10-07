@@ -32,16 +32,21 @@ class ScanFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         (activity as MainActivity).binding.toolbar.visibility = View.VISIBLE
+
         binding = FragmentScanBinding.inflate(inflater, container, false)
+
         binding.lifecycleOwner = this
 
         methodWithPermissions()
 
-        viewModel.scanResults.observe(this, Observer {
+        viewModel.transmitScanedDatasToResultPage.observe(this, Observer {
             it?.let {
+
                 this.findNavController()
                     .navigate(ScanFragmentDirections.actionScanFragmentToScanResultFragment(it))
+
                 viewModel.displayScanComplete()
             }
         })
@@ -55,7 +60,7 @@ class ScanFragment : Fragment() {
         codeScanner?.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
 
-                viewModel.preScanResult.value = QRcode("飛帆英文", it.timestamp)
+                viewModel.scanResultFromQRcode.value = QRcode("飛帆英文", it.timestamp)
 
                 Logger.d("ScanFragment" + "scan result = ${it.text}+${it.timestamp}")
 
@@ -63,7 +68,7 @@ class ScanFragment : Fragment() {
 
                 viewModel.setNewData()
 
-                viewModel.scanResults.value = viewModel.preScanResult.value
+                viewModel.transmitScanedDatasToResultPage.value = viewModel.scanResultFromQRcode.value
             }
         }
         binding.scannerView.setOnClickListener {
