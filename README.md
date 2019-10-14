@@ -1,6 +1,6 @@
 # Bujofe
 
-[<img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/logo_512_512.jpg" width="180">]
+<img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/logo_512_512.jpg" width="180">
 
 補就飛是一款讓補習班學生可以與補習班更為緊密的平台
 可以讓學生即時知道自己課程日期、上課資訊、補課時間，並且加入 QR code 點名功能，
