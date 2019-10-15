@@ -107,17 +107,11 @@ class StudyRoomFragment : Fragment() {
                      * you would use: exSevenCalendar.smoothScrollToDate(day.date.minusDays(2))
                      */
                     if (selectedDate != day.date) {
-
                         val oldDate = selectedDate
-
                         selectedDate = day.date
-
                         viewModel.pageStatus.value = 1
-
                         viewModel.clickedDateOnTopCalendar.value = day.date
-
                         studyRoomOneLineCalendar.notifyDateChanged(day.date)
-
                         oldDate?.let { studyRoomOneLineCalendar.notifyDateChanged(it) }
                     }
                 }
