@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -119,11 +120,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { it ->
             if (it.isSuccessful) {
 
-
-                viewModel.serverUserIdChecker(firebaseAuth.uid.toString())
+                viewModel.serverUserInformation.observe(this, Observer {uerList ->
+                    uerList.let {
+                        viewModel.serverUserIdChecker(firebaseAuth.uid.toString())
+                    }
+                })
 
                 UserManager.userId = firebaseAuth.uid.toString()/*SharedPreferences*/
 

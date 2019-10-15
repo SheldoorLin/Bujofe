@@ -10,7 +10,7 @@ class LoginViewModel : ViewModel() {
 
     private val TAG: String = "LoginViewModel"
 
-    private val serverUserInformation = MutableLiveData<List<Users>>()
+    val serverUserInformation = MutableLiveData<List<Users>>()
 
     private val userData = mutableListOf<Users>()
 
@@ -20,6 +20,9 @@ class LoginViewModel : ViewModel() {
 
     fun serverUserIdChecker(uid: String) {
 
+        Logger.d(TAG + "uid = $uid")
+
+        Logger.d(TAG+"    serverUserInformation.value == ${serverUserInformation.value}")
         val filedUser = serverUserInformation.value?.let {
             it.filter { users ->
                 users.uid == uid
@@ -27,7 +30,7 @@ class LoginViewModel : ViewModel() {
         }
         if (filedUser.isNullOrEmpty()) {
 
-            addNewUser()
+            addNewUser(uid)
 
             Logger.d(TAG + "filedUser = ${filedUser.toString()}")
 
@@ -61,10 +64,10 @@ class LoginViewModel : ViewModel() {
             }
     }
 
-    private fun addNewUser() {
+    private fun addNewUser(uid: String) {
 
         val newUser = Users(
-            uid = UserManager.userId.toString(),
+            uid = uid,
             name = UserManager.userName.toString(),
             email = UserManager.userEmail.toString()
         )
