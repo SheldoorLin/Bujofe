@@ -25,7 +25,7 @@
   - 可以對自己有補習的科目、剩餘進度堂數與需補課堂數，使學生能夠更明瞭自己目前的學習狀況
 
 # Screenshot
-<img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_login.png" width="200" >   <img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_Home_page.png" width="200" >   <img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_schedule.png" width="200" >   <img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_reclassInformation.png" width="200" ><img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_QRcode.png" width="200" >
+<img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_login.png" width="200" >   <img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_Home_page.png" width="200" >   <img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_schedule.png" width="200" >   <img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_reclassInformation.png" width="200" ><img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_profile.png" width="200" ><img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/Bujofe_QRcode.png" width="200" >
 
 #	Language
 - Kotlin
