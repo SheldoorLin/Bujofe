@@ -54,8 +54,8 @@
 
 # Requirement
 - Android 8.0+
-- Android Studio 3.4
-- Gradle 3.4.1
+- Android Studio 3.4+
+- Gradle 3.4.1+
 
 # Version
 1.0.5
