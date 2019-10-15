@@ -1,5 +1,6 @@
 package com.sheldon.bujofe.studyroom
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -35,21 +36,21 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
             binding.viewModel = viewModel
 
             if (orderedTimes.firstTimeSlot != "") {
-
-                binding.btnFirstSlot.text = "已預定"
-
+                binding.btnFirstSlot.text = "已預訂"
                 binding.btnFirstSlot.setTextColorRes(R.color.Color_White_ffffff)
-
                 binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
 
+            } else {
+                binding.btnFirstSlot.text = "可預訂"
+                binding.btnFirstSlot.isEnabled
+                binding.btnFirstSlot.setTextColorRes(R.color.black)
+                binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
                 binding.btnFirstSlot.setOnClickListener {
-
                     for (item in viewModel.serverStudyRoomSeatsLists.value!!.seatList) {
                         if (item.id == viewModel.chosenSeatId.value!!) {
                             item.orderedTimes?.firstTimeSlot = viewModel.userName!!
                         }
                     }
-
                     viewModel.chosenSeat.value = SeatOrder(
                         viewModel.chosenSeatId.value!!,
                         viewModel.chosenDate.value!!,
@@ -58,28 +59,24 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
                         viewModel.serverStudyRoomSeatsLists.value!!
                     )
                 }
-            } else {
-
-                binding.btnFirstSlot.text = "可預訂"
-
-                binding.btnFirstSlot.isEnabled
-
-                binding.btnFirstSlot.setTextColorRes(R.color.black)
-                
-                binding.btnFirstSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
 
             if (orderedTimes.secTimeSlot != "") {
                 binding.btnSecSlot.text = "已預定"
                 binding.btnSecSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
+
+            } else {
+                binding.btnSecSlot.text = "可預訂"
+                binding.btnSecSlot.isEnabled
+                binding.btnSecSlot.setTextColorRes(R.color.black)
+                binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
                 binding.btnSecSlot.setOnClickListener {
                     for (item in viewModel.serverStudyRoomSeatsLists.value!!.seatList) {
                         if (item.id == viewModel.chosenSeatId.value!!) {
                             item.orderedTimes?.secTimeSlot = viewModel.userName!!
                         }
                     }
-
                     viewModel.chosenSeat.value = SeatOrder(
                         viewModel.chosenSeatId.value!!,
                         viewModel.chosenDate.value!!,
@@ -88,17 +85,18 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
                         viewModel.serverStudyRoomSeatsLists.value!!
                     )
                 }
-            } else {
-                binding.btnSecSlot.text = "可預訂"
-                binding.btnSecSlot.isEnabled
-                binding.btnSecSlot.setTextColorRes(R.color.black)
-                binding.btnSecSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
 
             if (orderedTimes.thirdTimeSlot != "") {
                 binding.btnThirdSlot.text = "已預定"
                 binding.btnThirdSlot.setTextColorRes(R.color.Color_White_ffffff)
                 binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_calendar_button_clicked)
+
+            } else {
+                binding.btnThirdSlot.text = "可預訂"
+                binding.btnThirdSlot.isEnabled
+                binding.btnThirdSlot.setTextColorRes(R.color.black)
+                binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
                 binding.btnThirdSlot.setOnClickListener {
                     for (item in viewModel.serverStudyRoomSeatsLists.value!!.seatList) {
                         if (item.id == viewModel.chosenSeatId.value!!) {
@@ -113,11 +111,6 @@ class OrderedAdapter(val viewModel: StudyRoomViewModel) :
                         viewModel.serverStudyRoomSeatsLists.value!!
                     )
                 }
-            } else {
-                binding.btnThirdSlot.text = "可預訂"
-                binding.btnThirdSlot.isEnabled
-                binding.btnThirdSlot.setTextColorRes(R.color.black)
-                binding.btnThirdSlot.setBackgroundResource(R.drawable.rounded_reclass_item)
             }
 
             binding.executePendingBindings()
