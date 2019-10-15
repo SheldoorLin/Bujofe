@@ -6,7 +6,7 @@
 可以讓學生即時知道自己課程日期、上課資訊、補課時間，並且加入 QR code 點名功能，
 讓學生可以使用更簡便的方式點名，補習班也能在管理學生方面更加輕鬆
 
-[<img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/google-play-badge.png" width="180">](https://play.google.com/store/apps/details?id=com.sheldon.bujofe)
+[<img src="https://github.com/SheldoorLin/Bujofe/blob/master/screenshot/google-play-badge(TW).png" width="180">](https://play.google.com/store/apps/details?id=com.sheldon.bujofe)
 
 # Featuers
 - 首頁
