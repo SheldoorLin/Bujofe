@@ -66,9 +66,9 @@ class ClassScheduleFragment : Fragment() {
         viewModel.teachLists.observe(this, Observer {
             it.let {
 
-                viewModel.getTeacherList()
+                viewModel.getTeacherList(it)
 
-                viewModel.classEvents = viewModel.getTeacherList().groupBy { classEvents ->
+                viewModel.classEvents = viewModel.getTeacherList(it).groupBy { classEvents ->
                     classEvents.classStartTime.toLocalDate()
                 }
 

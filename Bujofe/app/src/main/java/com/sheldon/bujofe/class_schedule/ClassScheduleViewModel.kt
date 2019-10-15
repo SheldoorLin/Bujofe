@@ -47,32 +47,21 @@ class ClassScheduleViewModel : ViewModel() {
     }
 
 
-    fun getTeacherList(): List<ClassEvent> {
+    fun getTeacherList(teachListVelue: List<TeachList>): List<ClassEvent> {
         val classEventList = mutableListOf<ClassEvent>()
-        for (teachList in teachLists.value!!) {
+        for (teachList in teachListVelue) {
             for (dateList in teachList.dateList) {
-
                 val date = Timestamp(dateList.date.seconds * 1000)
-
                 val classStartTime = DateTimeUtils.toLocalDateTime(date)
-
                 val classFinishTime = DateTimeUtils.toLocalDateTime(date).plusHours(teachList.lessonTime)
-
-
                 classEventList.add(
                     ClassEvent(
                         classStartTime,
-
                         classFinishTime,
-
                         ClassName(
-
                             dateList.lesson,
-
                             teachList.teachingRoom,
-
                             "${dateList.rollNameList.size}/${teachList.classSize.size}",
-
                             teachList.title
                         )
                     )

@@ -1,6 +1,5 @@
 package com.sheldon.bujofe.reclass
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.sheldon.bujofe.BujofeApplication
 import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.databinding.FragmentReclassBinding
@@ -49,7 +47,6 @@ class ReclassFragment : Fragment() {
                 (binding.reclassRecorderRecycler.adapter as ReclassAdapter).notifyDataSetChanged()
             }
         })
-
 
         return binding.root
     }

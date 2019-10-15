@@ -59,7 +59,6 @@ class ProfileViewModel : ViewModel() {
             Logger.d("filedUser.toString() = ${filedUser.toString()}")
         } else {
             _userClassList.value = filedUser[0].classList
-
         }
     }
 }

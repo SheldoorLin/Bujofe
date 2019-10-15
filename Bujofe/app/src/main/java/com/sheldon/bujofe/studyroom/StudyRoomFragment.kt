@@ -50,7 +50,9 @@ class StudyRoomFragment : Fragment() {
     ): View? {
         val binding =
             FragmentStudyRoomBinding.inflate(inflater, container, false)
+
         (activity as MainActivity).binding.toolbar.visibility = View.GONE
+
         (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
 
         binding.viewModel = viewModel
@@ -67,13 +69,19 @@ class StudyRoomFragment : Fragment() {
 
         studyRoomOneLineCalendar.dayWidth = dm.widthPixels / 7   //origin is 5
 
-        studyRoomOneLineCalendar.dayHeight = (studyRoomOneLineCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
+        studyRoomOneLineCalendar.dayHeight =
+            (studyRoomOneLineCalendar.dayWidth * 1.6).toInt()  //origin is 1.25
 
         class DayViewContainer(view: View) : ViewContainer(view) {
+
             val dayText = view.study_room_day
+
             val dateText = view.study_room_date
+
             val monthText = view.study_room_month
+
             val selectedView = view.study_room_day_selected
+
             lateinit var day: CalendarDay
 
             init {
@@ -141,45 +149,41 @@ class StudyRoomFragment : Fragment() {
         binding.orderedTimeRecycler.adapter = OrderedAdapter(viewModel)
 
         viewModel.clickedDateOnTopCalendar.observe(this, Observer {
-            it.let {localDate ->
+            it.let { localDate ->
+
                 val serverDataFilter =
+
                     viewModel.serverStudyRoomListData.value?.let { listItem ->
+
                         listItem.filter { studyRoomSeat ->
+
                             DateTimeUtils.toLocalDate(java.sql.Date(studyRoomSeat.localDate.time)) == localDate
+
                         }
+
                     }
 
+                if (serverDataFilter != null && serverDataFilter.isNotEmpty()) {
 
-                if (serverDataFilter != null && serverDataFilter.isNotEmpty() ) {
-
-                        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
-                        viewModel.pageStatus.value = 1
-
-                        binding.seatView.visibility = View.VISIBLE
-
-                        viewModel.chosenDate.value = serverDataFilter[0].localDate.toString()
-
-                        viewModel.chosenSeatOnServerDocumentId.value = serverDataFilter[0].documentId
-
-                        viewModel.serverStudyRoomSeatsLists.value = serverDataFilter[0]
-
-                        val filteredSeatList = serverDataFilter[0].seatList
-
-
-                        viewModel.localStudyRoomSeatsList.value = filteredSeatList
-
-                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
+                    viewModel.pageStatus.value = 1
+                    binding.seatView.visibility = View.VISIBLE
+                    viewModel.chosenDate.value = serverDataFilter[0].localDate.toString()
+                    viewModel.chosenSeatOnServerDocumentId.value = serverDataFilter[0].documentId
+                    viewModel.serverStudyRoomSeatsLists.value = serverDataFilter[0]
+                    val filteredSeatList = serverDataFilter[0].seatList
+                    viewModel.localStudyRoomSeatsList.value = filteredSeatList
+                    (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.Color_White_ffffff)
+                    (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
 
                 } else {
-                        (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
 
-                        viewModel.pageStatus.value = 0
+                    viewModel.pageStatus.value = 0
+                    binding.seatView.visibility = View.INVISIBLE
+                    (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
+                    (activity as MainActivity).binding.imgLogInResult.setImageResource(R.color.color_orange_text_gray)
 
-                        binding.seatView.visibility = View.INVISIBLE
-
-                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(null)
-                    }
                 }
+            }
         })
 
         viewModel.localStudyRoomSeatsList.observe(this, Observer { seatListOnline ->
@@ -221,8 +225,13 @@ class StudyRoomFragment : Fragment() {
                             it.column == column && it.row == row
                         }
                         viewModel.chosenSeatId.value = seatTableFilter[0].id
+
                         val orderedSeatTime = listOf(seatTableFilter[0].orderedTimes)
-                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(orderedSeatTime)
+
+                        (binding.orderedTimeRecycler.adapter as OrderedAdapter).submitList(
+                            orderedSeatTime
+                        )
+
                         (binding.orderedTimeRecycler.adapter as OrderedAdapter).notifyDataSetChanged()
                     }
 

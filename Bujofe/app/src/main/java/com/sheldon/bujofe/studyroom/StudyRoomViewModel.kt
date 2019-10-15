@@ -30,7 +30,6 @@ class StudyRoomViewModel : ViewModel() {
 
     val serverStudyRoomSeatsLists = MutableLiveData<StudyRoomSeat>()
 
-
     val localStudyRoomSeatsList = MutableLiveData<List<SeatList>>()
 
     val userName = UserManager.userName
