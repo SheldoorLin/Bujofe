@@ -1,14 +1,11 @@
 package com.sheldon.bujofe.class_schedule
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import org.threeten.bp.DayOfWeek
@@ -16,32 +13,10 @@ import org.threeten.bp.temporal.WeekFields
 import java.util.*
 
 
-fun View.makeVisible() {
-    visibility = View.VISIBLE
-}
-
-fun View.makeInVisible() {
-    visibility = View.INVISIBLE
-}
-
-fun View.makeGone() {
-    visibility = View.GONE
-}
-
-fun dpToPx(dp: Int, context: Context): Int =
-    TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(),
-        context.resources.displayMetrics
-    ).toInt()
-
 internal fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
-internal fun Boolean?.orFalse(): Boolean = this ?: false
-
-internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) =
-    ContextCompat.getDrawable(this, drawable)
 
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
@@ -60,18 +35,5 @@ fun daysOfWeekFromLocale(): Array<DayOfWeek> {
     return daysOfWeek
 }
 
-fun GradientDrawable.setCornerRadius(
-    topLeft: Float = 10F,
-    topRight: Float = 10F,
-    bottomRight: Float = 10F,
-    bottomLeft: Float = 10F
-) {
-    cornerRadii = arrayOf(
-        topLeft, topLeft,
-        topRight, topRight,
-        bottomRight, bottomRight,
-        bottomLeft, bottomLeft
-    ).toFloatArray()
-}
 
 

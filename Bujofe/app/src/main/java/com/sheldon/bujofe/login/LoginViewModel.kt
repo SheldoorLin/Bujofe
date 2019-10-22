@@ -8,7 +8,7 @@ import com.sheldon.bujofe.util.Logger
 
 class LoginViewModel : ViewModel() {
 
-    private val TAG: String = "LoginViewModel"
+    private val tagString: String = "LoginViewModel"
 
     val serverUserInformation = MutableLiveData<List<Users>>()
 
@@ -32,11 +32,11 @@ class LoginViewModel : ViewModel() {
 
             addNewUser(uid)
 
-            Logger.d(TAG + "filedUser = ${filedUser.toString()}")
+            Logger.d(tagString + "filedUser = ${filedUser.toString()}")
 
         } else {
 
-            Logger.d(TAG + "filedUsers = $filedUser")
+            Logger.d(tagString + "filedUsers = $filedUser")
         }
     }
 
@@ -59,7 +59,7 @@ class LoginViewModel : ViewModel() {
                     }
                 } else {
 
-                    Logger.w(TAG + "Error getting documents." + task.exception)
+                    Logger.w(tagString + "Error getting documents." + task.exception)
                 }
             }
     }
@@ -75,10 +75,10 @@ class LoginViewModel : ViewModel() {
         FirebaseFirestore.getInstance().collection("users")
             .add(newUser)
             .addOnSuccessListener { documentReference ->
-                Logger.d(TAG + "DocumentSnapshot added with ID: " + documentReference.id)
+                Logger.d(tagString + "DocumentSnapshot added with ID: " + documentReference.id)
             }
             .addOnFailureListener { e ->
-                Logger.w(TAG + "Error adding document" + e)
+                Logger.w(tagString + "Error adding document" + e)
             }
     }
 }

@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 
 class HomeViewModel : ViewModel() {
 
-    private val TAG = "HomeViewModel"
+    private val tagString = "HomeViewModel"
 
     private val _notices = MutableLiveData<List<Notice>>()
     val notices: LiveData<List<Notice>>
@@ -46,7 +46,7 @@ class HomeViewModel : ViewModel() {
                 }
             }
             .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
+                Log.d(tagString, "Error getting documents: ", exception)
             }
     }
 

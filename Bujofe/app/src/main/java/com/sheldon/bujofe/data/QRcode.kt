@@ -5,6 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class QRcode(
+
     val title : String ,
+
     val timestamp : Long
 ):Parcelable

@@ -9,7 +9,7 @@ import org.threeten.bp.LocalDate
 
 
 //fun generateCalendarDaliyEven(): List<ClassEvent> {
-//    val TAG = "generate"
+//    val tagString = "generate"
 //    val teachListsOnline: ArrayList<TeachList> = ArrayList()
 //
 //        FirebaseFirestore.getInstance().collection("teachList")
@@ -19,7 +19,7 @@ import org.threeten.bp.LocalDate
 //                val data = document.toObject(TeachList::class.java)
 //                teachListsOnline.add(data)
 //                }
-//        }.addOnFailureListener { exception -> Log.d(TAG, "Error getting documents: ", exception) }
+//        }.addOnFailureListener { exception -> Log.d(tagString, "Error getting documents: ", exception) }
 //
 //
 //    val list = mutableListOf<ClassEvent>()

@@ -9,7 +9,7 @@ object UserManager {
     private const val USER_ID = "uid"
     private const val USER_NAME = "userName"
     private const val USER_EMAIL = "userEmail"
-    private const val USER_PHOTOURL = "userPhotoUrl"
+    private const val USER_PHOTO_URL = "userPhotoUrl"
 
     var userId: String? = null
         get() = BujofeApplication.instance
@@ -83,32 +83,23 @@ object UserManager {
     var userPhotoUrl: String? = null
         get() = BujofeApplication.instance
             .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
-            ?.getString(USER_PHOTOURL, null)
+            ?.getString(USER_PHOTO_URL, null)
         set(value) {
             field = when (value) {
                 null -> {
                     BujofeApplication.instance
                         .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE).edit()
-                        .remove(USER_PHOTOURL)
+                        .remove(USER_PHOTO_URL)
                         .apply()
                     null
                 }
                 else -> {
                     BujofeApplication.instance
                         .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE).edit()
-                        .putString(USER_PHOTOURL, value)
+                        .putString(USER_PHOTO_URL, value)
                         .apply()
                     value
                 }
             }
         }
-
-    val isLoggedIn: Boolean
-        get() = !(userId == null || userName == null)
-
-    fun clear() {
-        userId = null
-        userName = null
-        userEmail = null
-    }
 }

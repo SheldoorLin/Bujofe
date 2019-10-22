@@ -29,8 +29,7 @@ class NoticeItemAdapter : ListAdapter<Notice, NoticeItemAdapter.ItemViewHolder>(
         private const val CLASS_NOTE_CODE = 0X02
         private const val CLASS_SCHOLARSHIP_CODE = 0X03
 
-        private const val PERSON_LATE_CODE = 0X11
-        private const val PERSON_MISSING_CLASS_CODE = 0X12
+
     }
 
 

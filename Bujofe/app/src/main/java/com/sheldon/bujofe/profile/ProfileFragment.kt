@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
         /**
          * SharedPreferences
          * */
-        viewModel.userid.value = UserManager.userId
+        viewModel.userId.value = UserManager.userId
 
 
 
@@ -49,7 +49,7 @@ class ProfileFragment : Fragment() {
 
         viewModel.serverUserDataList.observe(this, Observer {
             it.let {
-                viewModel.checkerServerUserData(viewModel.userid.value.toString())
+                viewModel.checkerServerUserData(viewModel.userId.value.toString())
             }
         })
 

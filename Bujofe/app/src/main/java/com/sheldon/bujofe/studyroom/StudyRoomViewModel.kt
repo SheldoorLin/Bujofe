@@ -15,7 +15,7 @@ import org.threeten.bp.LocalDate
 
 class StudyRoomViewModel : ViewModel() {
 
-    private var TAG: String = "StudyRoomViewModel"
+    private val tagString: String = "StudyRoomViewModel"
 
     val pageStatus = MutableLiveData<Int>()
 
@@ -61,7 +61,7 @@ class StudyRoomViewModel : ViewModel() {
 
                     val format = SimpleDateFormat("yyy/MM/dd")
 
-                    Log.d(TAG, "format.format(dateTime) is ${format.format(dateTime)}")
+                    Log.d(tagString, "format.format(dateTime) is ${format.format(dateTime)}")
 
                     recodeList.add(data)
 
@@ -73,7 +73,7 @@ class StudyRoomViewModel : ViewModel() {
                 }
             }
             .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
+                Log.d(tagString, "Error getting documents: ", exception)
             }
     }
 }

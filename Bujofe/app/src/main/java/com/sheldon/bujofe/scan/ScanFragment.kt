@@ -41,7 +41,7 @@ class ScanFragment : Fragment() {
 
         methodWithPermissions()
 
-        viewModel.transmitScanedDatasToResultPage.observe(this, Observer {
+        viewModel.scannedDataToResultPage.observe(this, Observer {
             it?.let {
 
                 this.findNavController()
@@ -64,11 +64,15 @@ class ScanFragment : Fragment() {
 
                 Logger.d("ScanFragment" + "scan result = ${it.text}+${it.timestamp}")
 
-                viewModel.getTeacherList()
+                viewModel.userName.observe(this, Observer {
 
-                viewModel.setNewData()
+                    viewModel.getTeacherList()
 
-                viewModel.transmitScanedDatasToResultPage.value = viewModel.scanResultFromQRcode.value
+                    viewModel.setNewData()
+
+                })
+
+                viewModel.scannedDataToResultPage.value = viewModel.scanResultFromQRcode.value
             }
         }
         binding.scannerView.setOnClickListener {
