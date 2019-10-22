@@ -3,7 +3,6 @@ package com.sheldon.bujofe.studyroom
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ import com.sheldon.bujofe.MainActivity
 import com.sheldon.bujofe.R
 import com.sheldon.bujofe.class_schedule.getColorCompat
 import com.sheldon.bujofe.databinding.FragmentStudyRoomBinding
+import com.sheldon.bujofe.util.Logger
 import kotlinx.android.synthetic.main.item_studyroom_calendar_day.view.*
 import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.DayOfWeek
@@ -34,7 +34,7 @@ class StudyRoomFragment : Fragment() {
         ViewModelProviders.of(this).get(StudyRoomViewModel::class.java)
     }
 
-    private val TAG = "StudyRoomFragment"
+    val tagString = "StudyRoomFragment"
 
     private var selectedDate: LocalDate? = null
 
@@ -124,7 +124,7 @@ class StudyRoomFragment : Fragment() {
                 monthText.text = monthFormatter.format(day.date)
                 dateText.setTextColor(view.context.getColorCompat(if (day.date == selectedDate) R.color.color_orange_reverse_blue else R.color.Color_White_ffffff))
                 selectedView.isVisible = day.date == selectedDate
-                Log.d(TAG, "selected day is ${day.date}")
+                Logger.d(tagString + "selected day is ${day.date}")
             }
         }
 

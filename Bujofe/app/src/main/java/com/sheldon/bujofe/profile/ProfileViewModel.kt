@@ -1,6 +1,5 @@
 package com.sheldon.bujofe.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +10,9 @@ import com.sheldon.bujofe.util.Logger
 
 class ProfileViewModel : ViewModel() {
 
-    private val TAG: String = "ProfileViewModel"
+    private val tagString: String = "ProfileViewModel"
 
-    val userid = MutableLiveData<String>()
+    val userId = MutableLiveData<String>()
     val userName = MutableLiveData<String>()
     val userPhotoUrl = MutableLiveData<String>()
     val userEmail = MutableLiveData<String>()
@@ -44,7 +43,7 @@ class ProfileViewModel : ViewModel() {
                         _serverUserDataList.value = userDataList
                     }
                 } else {
-                    Logger.w(TAG + "Error getting documents." + task.exception)
+                    Logger.w(tagString + "Error getting documents." + task.exception)
                 }
             }
     }

@@ -38,4 +38,5 @@ class HelloWorldEspressoTest {
     @Test fun listGoesOverTheFold() {
         onView(withText("補就飛")).check(matches(isDisplayed()))
     }
+
 }

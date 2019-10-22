@@ -5,7 +5,7 @@ import com.sheldon.bujofe.BuildConfig
 
 object Logger {
 
-    private const val TAG = "Wayne-Stylish"
+    private const val TAG = "Sheldon_Bujofe"
 
     fun v(content: String) { if (BuildConfig.LOGGER_VISIABLE) Log.v(TAG, content) }
     fun d(content: String) { if (BuildConfig.LOGGER_VISIABLE) Log.d(TAG, content) }

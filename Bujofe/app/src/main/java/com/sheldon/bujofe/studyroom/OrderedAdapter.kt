@@ -1,15 +1,14 @@
 package com.sheldon.bujofe.studyroom
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sheldon.bujofe.R
+import com.sheldon.bujofe.class_schedule.setTextColorRes
 import com.sheldon.bujofe.data.OrderedTimes
 import com.sheldon.bujofe.data.SeatOrder
-import com.sheldon.bujofe.class_schedule.setTextColorRes
 import com.sheldon.bujofe.databinding.ItemStudyroomSeatOrderedBinding
 
 class OrderedAdapter(val viewModel: StudyRoomViewModel) :

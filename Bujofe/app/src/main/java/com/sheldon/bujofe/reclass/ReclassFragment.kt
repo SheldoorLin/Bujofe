@@ -15,7 +15,7 @@ import com.sheldon.bujofe.login.UserManager
 
 class ReclassFragment : Fragment() {
 
-    private val TAG: String = "ReclassFragment"
+    private val tagString: String = "ReclassFragment"
 
     private val viewModel: ReclassViewModel by lazy {
         ViewModelProviders.of(this).get(ReclassViewModel::class.java)
@@ -32,17 +32,17 @@ class ReclassFragment : Fragment() {
 
         binding.reclassRecorderRecycler.adapter = ReclassAdapter()
         
-        viewModel.userid.value = UserManager.userId
+        viewModel.userId.value = UserManager.userId
 
-        viewModel.servieceUserinformation.observe(this, Observer {
+        viewModel.serverUserInformation.observe(this, Observer {
             it.let {
-                viewModel.uidfileChecker(viewModel.userid.value.toString())
+                viewModel.uidFileChecker(viewModel.userId.value.toString())
             }
         })
 
         viewModel.userRecordsList.observe(this, Observer {
             it.let {
-                Log.d(TAG, "userRecordsList $it")
+                Log.d(tagString, "userRecordsList $it")
                 (binding.reclassRecorderRecycler.adapter as ReclassAdapter).submitList(it)
                 (binding.reclassRecorderRecycler.adapter as ReclassAdapter).notifyDataSetChanged()
             }

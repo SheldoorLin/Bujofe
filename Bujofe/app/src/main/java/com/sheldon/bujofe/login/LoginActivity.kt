@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -27,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-    private val RC_SIGN_IN: Int = 1
+    private val rcSignIn: Int = 1
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
-    companion object{
+    companion object {
         const val GOOGLE_LOGIN_FAIL = "Google sign in failed:("
     }
 
@@ -79,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn() {
 
         val signInIntent: Intent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent, rcSignIn)
     }
 
     private fun configureGoogleSignIn() {
@@ -95,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == rcSignIn) {
 
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
 
@@ -122,8 +123,11 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
 
-
-                viewModel.serverUserIdChecker(firebaseAuth.uid.toString())
+                viewModel.serverUserInformation.observe(this, Observer { userList ->
+                    userList.let {
+                        viewModel.serverUserIdChecker(firebaseAuth.uid.toString())
+                    }
+                })
 
                 UserManager.userId = firebaseAuth.uid.toString()/*SharedPreferences*/
 

@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class ClassScheduleViewModel : ViewModel() {
 
-    private val TAG: String = "ClassScheduleViewModel"
+    private val tagString: String = "ClassScheduleViewModel"
 
     var classEvents: Map<LocalDate, List<ClassEvent>> = mapOf()
 
@@ -30,7 +30,7 @@ class ClassScheduleViewModel : ViewModel() {
         getTeachListFirebase()
     }
 
-    fun getTeachListFirebase() {
+    private fun getTeachListFirebase() {
 
         FirebaseFirestore.getInstance().collection("teachList")
             .get()
@@ -42,7 +42,7 @@ class ClassScheduleViewModel : ViewModel() {
                     _teachLists.value = serverTeachList
                 }
             }.addOnFailureListener { exception ->
-                Logger.d(TAG + "Error getting documents: " + exception)
+                Logger.d(tagString + "Error getting documents: " + exception)
             }
     }
 

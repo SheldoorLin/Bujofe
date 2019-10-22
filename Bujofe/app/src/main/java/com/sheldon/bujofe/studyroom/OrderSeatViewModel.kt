@@ -11,7 +11,7 @@ import com.sheldon.bujofe.data.SeatOrder
 import com.sheldon.bujofe.data.StudyRoomSeat
 
 class OrderSeatViewModel(seatOrder: SeatOrder, app: Application) : AndroidViewModel(app) {
-    private var TAG: String = "OrderSeatViewModel"
+    private val tagString: String = "OrderSeatViewModel"
 
     private val _seatOrders = MutableLiveData<SeatOrder>()
     val seatOrders: LiveData<SeatOrder>
@@ -22,7 +22,7 @@ class OrderSeatViewModel(seatOrder: SeatOrder, app: Application) : AndroidViewMo
     val studyRoomdatas: LiveData<List<StudyRoomSeat>>
         get() = _studyRoomdatas
 
-    val recoderList = mutableListOf<StudyRoomSeat>()
+    private val recodedList = mutableListOf<StudyRoomSeat>()
 
 
     init {
@@ -45,15 +45,14 @@ class OrderSeatViewModel(seatOrder: SeatOrder, app: Application) : AndroidViewMo
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val data = document.toObject(StudyRoomSeat::class.java)
-                    recoderList.add(data)
-                    val index = recoderList.size -1
-                    recoderList[index].documentId = document.id
-                    _studyRoomdatas.value = recoderList
+                    recodedList.add(data)
+                    val index = recodedList.size - 1
+                    recodedList[index].documentId = document.id
+                    _studyRoomdatas.value = recodedList
                 }
             }
             .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
+                Log.d(tagString, "Error getting documents: ", exception)
             }
     }
-
 }

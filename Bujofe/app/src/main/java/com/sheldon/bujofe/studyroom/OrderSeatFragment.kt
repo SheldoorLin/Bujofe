@@ -18,7 +18,6 @@ class OrderSeatFragment : AppCompatDialogFragment() {
         ViewModelProviders.of(this).get(OrderSeatViewModel::class.java)
     }
 
-    private val TAG = "OrderSeatFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
