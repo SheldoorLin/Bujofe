@@ -20,9 +20,9 @@ class LoginViewModel : ViewModel() {
 
     fun serverUserIdChecker(uid: String) {
 
-        Logger.d(TAG + "uid = $uid")
+        Logger.d(tagString + "uid = $uid")
 
-        Logger.d(TAG+"    serverUserInformation.value == ${serverUserInformation.value}")
+        Logger.d(tagString+"    serverUserInformation.value == ${serverUserInformation.value}")
         val filedUser = serverUserInformation.value?.let {
             it.filter { users ->
                 users.uid == uid
