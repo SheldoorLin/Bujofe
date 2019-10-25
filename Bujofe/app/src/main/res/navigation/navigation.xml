@@ -36,22 +36,27 @@
 
     <action
             android:id="@+id/action_global_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@+id/navigation" />
     <action
             android:id="@+id/action_global_classScheduleFragment"
-            app:destination="@id/calendarFragment" />
+            app:destination="@id/calendarFragment"
+            app:popUpTo="@+id/navigation" />
 
     <action
             android:id="@+id/action_global_studyRoomFragment"
-            app:destination="@id/studyRoomFragment" />
+            app:destination="@id/studyRoomFragment"
+            app:popUpTo="@+id/navigation" />
 
     <action
             android:id="@+id/action_global_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:popUpTo="@+id/navigation" />
 
     <action
             android:id="@+id/action_global_reClassFragment"
-            app:destination="@id/reclassFragment" />
+            app:destination="@id/reclassFragment"
+            app:popUpTo="@+id/navigation" />
     <fragment
             android:id="@+id/scanFragment"
             android:name="com.sheldon.bujofe.scan.ScanFragment"
@@ -59,7 +64,11 @@
         <action
                 android:id="@+id/action_scanFragment_to_scanResultFragment"
                 app:destination="@+id/scanResultFragment" />
-    </fragment><action android:id="@+id/action_global_scanFragment" app:destination="@id/scanFragment"/>
+    </fragment>
+    <action
+            android:id="@+id/action_global_scanFragment"
+            app:destination="@id/scanFragment"
+            app:popUpTo="@+id/navigation" />
 
 
     <dialog
